@@ -179,18 +179,24 @@ export default function HeroSection({
       style={style}
       aria-labelledby="hero-heading"
     >
-      {/* Background Image */}
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/7672d653-a252-41ab-b1dd-956072cf2f23/generated_images/cinematic-still-photograph-of-halkidiki--74ec8098-20251008131056.jpg"
-          alt="Halkidiki coastal view"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        {/* Gradient overlay for readability and depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background/90" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectFit: 'cover' }}
+        >
+          <source
+            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/7672d653-a252-41ab-b1dd-956072cf2f23/generated_videos/cinematic-slow-aerial-drone-footage-of-h-60b08bb3-20251008131617.mp4"
+            type="video/mp4"
+          />
+        </video>
+        {/* Elegant gradient overlay for readability and depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background/85" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-primary/10" />
       </div>
 
       {/* Content */}
