@@ -1,0 +1,207 @@
+/* Updated: 2025-10-08T12:02:27.359Z */
+/* Updated: 2025-09-26T14:23:45.827Z */
+/* Updated: 2025-09-26T13:55:38.747Z */
+/* Updated: 2025-09-22T12:50:35.893Z */
+/* Updated: 2025-09-19T08:27:16.008Z */
+/* Updated: 2025-09-19T06:04:03.778Z */
+/* Updated: 2025-09-19T06:03:58.830Z */
+/* Updated: 2025-09-18T16:17:42.137Z */
+/* Updated: 2025-09-18T12:55:38.004Z */
+/* Updated: 2025-09-18T09:29:23.178Z */
+/* Updated: 2025-09-18T08:44:20.014Z */
+/* Updated: 2025-09-18T08:44:08.717Z */
+/* Updated: 2025-09-17T14:24:24.849Z */
+/* Updated: 2025-09-17T06:58:24.844Z */
+/* Updated: 2025-09-17T06:42:19.492Z */
+/* Updated: 2025-09-16T09:15:44.100809 */
+@import url('https://fonts.googleapis.com/css2?family=Craftwork+Grotesk&display=swap');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #f8f9fa;
+  --color-foreground: #171717;
+
+  --color-card: #f8f9fa;
+  --color-card-foreground: #171717;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #171717;
+
+  /* Brand primary updated to Spasic gold */
+  --color-primary: #c9a46a;
+  --color-primary-foreground: #171717;
+
+  --color-secondary: #f8f9fa;
+  --color-secondary-foreground: #171717;
+
+  --color-muted: #f8f9fa;
+  --color-muted-foreground: #6b7280;
+
+  --color-accent: #f8f9fa;
+  --color-accent-foreground: #171717;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e5e7eb;
+  --color-input: #e5e7eb;
+  /* Focus ring matches brand gold */
+  --color-ring: #c9a46a;
+
+  --color-chart-1: #e67e22;
+  --color-chart-2: #2d8659;
+  --color-chart-3: #1e3a5f;
+  --color-chart-4: #f1c40f;
+  --color-chart-5: #e74c3c;
+
+  --color-red: #ff291b;
+  --color-dark-gray: #171717;
+  --color-medium-gray: #333333; /* Derived from text on dark backgrounds */
+  --color-light-gray: #e5e7eb; /* From borders and input */
+  --color-off-white: #f8f9fa;
+  --color-white: #ffffff;
+
+  --font-heading: "Craftwork Grotesk", sans-serif;
+  --font-body: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: #e5e7eb;
+  }
+}
+
+@layer base {
+  :root {
+    --background: var(--color-background);
+    --foreground: var(--color-foreground);
+    --card: var(--color-card);
+    --card-foreground: var(--color-card-foreground);
+    --popover: var(--color-popover);
+    --popover-foreground: var(--color-popover-foreground);
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-primary-foreground);
+    --secondary: var(--color-secondary);
+    --secondary-foreground: var(--color-secondary-foreground);
+    --muted: var(--color-muted);
+    --muted-foreground: var(--color-muted-foreground);
+    --accent: var(--color-accent);
+    --accent-foreground: var(--color-accent-foreground);
+    --destructive: var(--color-destructive);
+    --destructive-foreground: var(--color-destructive-foreground);
+    --border: var(--color-border);
+    --input: var(--color-input);
+    --ring: var(--color-ring);
+    --chart-1: var(--color-chart-1);
+    --chart-2: var(--color-chart-2);
+    --chart-3: var(--color-chart-3);
+    --chart-4: var(--color-chart-4);
+    --chart-5: var(--color-chart-5);
+    --radius: var(--radius-lg);
+  }
+
+  .dark {
+    --background: #1e1e1e; /* Darker background from image */
+    --foreground: var(--color-white);
+    --card: var(--color-dark-gray);
+    --card-foreground: var(--color-white);
+    --popover: var(--color-dark-gray);
+    --popover-foreground: var(--color-white);
+    /* Dark theme primary updated to Spasic gold */
+    --primary: #c9a46a;
+    --primary-foreground: #171717;
+    --secondary: var(--color-medium-gray);
+    --secondary-foreground: var(--color-white);
+    --muted: var(--color-medium-gray);
+    --muted-foreground: #a3a3a3;
+    --accent: var(--color-medium-gray);
+    --accent-foreground: var(--color-white);
+    --destructive: #7f1d1d;
+    --destructive-foreground: var(--color-white);
+    --border: #262626;
+    --input: #262626;
+    --ring: #c9a46a; /* Gold focus ring in dark */
+    --chart-1: #3b82f6;
+    --chart-2: #10b981;
+    --chart-3: #f59e0b;
+    --chart-4: #8b5cf6;
+    --chart-5: #ef4444;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  .container {
+    margin-inline: auto;
+    padding-inline: 2rem;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+/* Hide Next.js error overlay portal */
+nextjs-portal {
+  display: none !important;
+}
