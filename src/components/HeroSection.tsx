@@ -172,14 +172,29 @@ export default function HeroSection({
   return (
     <section
       className={cn(
-        "w-full bg-background text-foreground",
+        "relative w-full text-foreground overflow-hidden",
         "rounded-none",
         className
       )}
       style={style}
       aria-labelledby="hero-heading"
     >
-      <div className="w-full max-w-full">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/7672d653-a252-41ab-b1dd-956072cf2f23/generated_images/cinematic-still-photograph-of-halkidiki--74ec8098-20251008131056.jpg"
+          alt="Halkidiki coastal view"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        {/* Gradient overlay for readability and depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background/90" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-full">
         <div className="w-full max-w-full space-y-6 sm:space-y-8">
           <header className="w-full max-w-full">
             <h1
@@ -187,12 +202,12 @@ export default function HeroSection({
               className={cn(
                 "font-heading tracking-tight",
                 "text-3xl sm:text-4xl md:text-5xl lg:text-6xl",
-                "text-foreground"
+                "text-foreground drop-shadow-sm"
               )}
             >
               {t("hero.title", "Real estate for living and investments")}
             </h1>
-            <p className="mt-3 text-muted-foreground text-sm sm:text-base max-w-prose">
+            <p className="mt-3 text-muted-foreground text-sm sm:text-base max-w-prose drop-shadow-sm">
               {t(
                 "hero.subtitle",
                 "Discover properties across Greece. Buy, sell, or rent with trusted local expertise."
@@ -203,7 +218,7 @@ export default function HeroSection({
           <div className="grid gap-6 md:gap-8 md:grid-cols-2 w-full max-w-full">
             {/* Left: Search Panel */}
             <div className="w-full max-w-full min-w-0">
-              <Card className="bg-popover border-border shadow-sm">
+              <Card className="bg-popover/95 backdrop-blur-md border-border/50 shadow-xl">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg sm:text-xl">{t("hero.search.title", "Find your next home")}</CardTitle>
                   <CardDescription>{t("hero.search.subtitle", "Search by location, price, and more")}</CardDescription>
@@ -223,7 +238,7 @@ export default function HeroSection({
                         </div>
                         <Select onValueChange={setLocation} value={location}>
                           <SelectTrigger
-                            className="bg-popover"
+                            className="bg-popover/80 backdrop-blur-sm rounded-xl"
                             aria-label={t("aria.selectLocation", "Select location")}
                           >
                             <SelectValue placeholder={t("placeholders.chooseLocation", "Choose a city or area")} />
@@ -245,7 +260,7 @@ export default function HeroSection({
                           <span>{t("labels.propertyType", "Property type")}</span>
                         </div>
                         <Select onValueChange={setType} value={type}>
-                          <SelectTrigger className="bg-popover" aria-label={t("aria.selectType", "Select property type")}>
+                          <SelectTrigger className="bg-popover/80 backdrop-blur-sm rounded-xl" aria-label={t("aria.selectType", "Select property type")}>
                             <SelectValue placeholder={t("placeholders.selectType", "Select type")} />
                           </SelectTrigger>
                           <SelectContent>
@@ -280,7 +295,7 @@ export default function HeroSection({
                             }
                             placeholder={t("placeholders.minPrice", "e.g. 100,000")}
                             aria-label={t("aria.minPrice", "Minimum price")}
-                            className="pl-7 bg-popover"
+                            className="pl-7 bg-popover/80 backdrop-blur-sm rounded-xl"
                           />
                         </div>
                       </FieldCard>
@@ -304,7 +319,7 @@ export default function HeroSection({
                             }
                             placeholder={t("placeholders.maxPrice", "e.g. 350,000")}
                             aria-label={t("aria.maxPrice", "Maximum price")}
-                            className="pl-7 bg-popover"
+                            className="pl-7 bg-popover/80 backdrop-blur-sm rounded-xl"
                           />
                         </div>
                       </FieldCard>
@@ -319,7 +334,7 @@ export default function HeroSection({
                             <span>{t("labels.bedrooms", "Bedrooms")}</span>
                           </div>
                           <Select onValueChange={setBeds} value={beds}>
-                            <SelectTrigger className="bg-popover" aria-label={t("aria.selectBedrooms", "Select bedrooms")}>
+                            <SelectTrigger className="bg-popover/80 backdrop-blur-sm rounded-xl" aria-label={t("aria.selectBedrooms", "Select bedrooms")}>
                               <SelectValue placeholder={t("placeholders.any", "Any")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -336,7 +351,7 @@ export default function HeroSection({
                           type="button"
                           variant="outline"
                           onClick={handleMoreFilters}
-                          className="h-auto py-3 justify-center bg-popover"
+                          className="h-auto py-3 justify-center bg-popover/80 backdrop-blur-sm rounded-xl"
                           aria-label={t("aria.moreFilters", "Open more filters")}
                         >
                           <SlidersHorizontal className="mr-2 h-4 w-4" aria-hidden="true" />
@@ -347,7 +362,7 @@ export default function HeroSection({
                           type="button"
                           variant="ghost"
                           onClick={handleClear}
-                          className="h-auto py-3 justify-center"
+                          className="h-auto py-3 justify-center rounded-xl"
                           aria-label={t("actions.clearFilters", "Clear filters")}
                         >
                           {t("actions.clearFilters", "Clear filters")}
@@ -356,8 +371,8 @@ export default function HeroSection({
                         <Button
                           type="submit"
                           className={cn(
-                            "h-auto py-3 justify-center",
-                            "bg-primary text-primary-foreground hover:opacity-90"
+                            "h-auto py-3 justify-center rounded-xl",
+                            "bg-primary text-primary-foreground hover:opacity-90 shadow-lg"
                           )}
                           disabled={loading}
                           aria-label={t("aria.searchProperties", "Search properties")}
@@ -374,7 +389,7 @@ export default function HeroSection({
 
             {/* Right: Featured Property */}
             <div className="w-full max-w-full min-w-0">
-              <Card className="overflow-hidden bg-popover border-border shadow-sm">
+              <Card className="overflow-hidden bg-popover/95 backdrop-blur-md border-border/50 shadow-xl">
                 <div className="relative w-full aspect-[16/10] overflow-hidden">
                   <Image
                     src={featured.imageUrl}
@@ -387,7 +402,7 @@ export default function HeroSection({
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                   <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between gap-4">
                     <div className="min-w-0">
-                      <div className="inline-block rounded-full bg-background/80 backdrop-blur px-3 py-1 text-sm font-medium text-foreground">
+                      <div className="inline-block rounded-full bg-background/90 backdrop-blur-sm px-3 py-1 text-sm font-medium text-foreground shadow-md">
                         {featured.price}
                       </div>
                       <h3 className="mt-2 text-lg sm:text-xl font-heading text-foreground drop-shadow">
@@ -398,7 +413,7 @@ export default function HeroSection({
                         <span className="truncate">{featured.address}</span>
                       </p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 rounded-full bg-background/80 backdrop-blur px-3 py-2">
+                    <div className="hidden sm:flex items-center gap-4 rounded-full bg-background/90 backdrop-blur-sm px-3 py-2 shadow-md">
                       <span className="text-sm text-foreground/90 flex items-center gap-1">
                         <Bed className="h-4 w-4" aria-hidden="true" />
                         {featured.beds} {t("labels.bed", "bd")}
@@ -415,7 +430,7 @@ export default function HeroSection({
                 <CardContent className="pt-4">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3 min-w-0">
-                      <Avatar className="h-10 w-10 ring-1 ring-border">
+                      <Avatar className="h-10 w-10 ring-2 ring-primary/20">
                         <AvatarImage src={featured.agent.avatarUrl} alt={featured.agent.name} />
                         <AvatarFallback>
                           {featured.agent.name
@@ -436,7 +451,7 @@ export default function HeroSection({
                     <div className="flex items-center gap-2 w-full sm:w-auto">
                       <Button
                         onClick={handleTourRequest}
-                        className="w-full sm:w-auto bg-primary text-primary-foreground hover:opacity-90"
+                        className="w-full sm:w-auto bg-primary text-primary-foreground hover:opacity-90 rounded-xl shadow-lg"
                       >
                         {t("actions.requestTour", "Request a tour")}
                       </Button>
@@ -464,7 +479,7 @@ export default function HeroSection({
 
 function FieldCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border bg-popover px-3 py-2.5 transition-colors focus-within:ring-2 focus-within:ring-ring/80">
+    <div className="rounded-xl border bg-popover/70 backdrop-blur-sm px-3 py-2.5 transition-colors focus-within:ring-2 focus-within:ring-ring/80">
       {children}
     </div>
   )
