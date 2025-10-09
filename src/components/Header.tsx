@@ -111,7 +111,7 @@ export default function Header({
         className
       )}
       role="banner">
-      <div className="mx-auto flex h-16 items-center justify-between gap-3 px-10">
+      <div className="mx-auto flex h-16 items-center justify-between gap-3 px-5 md:px-10">
         {/* Left: Logo */}
         <div className="flex items-center gap-3">
           <Link
@@ -122,7 +122,7 @@ export default function Header({
             <img
               src="/logo.svg"
               alt="Spasic Real Estate logo"
-              className="h-9 w-9 sm:h-10 sm:w-10 md:size-20 object-contain shrink-0"
+              className="size-10 object-cover shrink-0"
             />
           </Link>
         </div>
@@ -256,7 +256,7 @@ export default function Header({
                     </div>
                   </div>
 
-                  <div className="mt-4 grid grid-cols-2 gap-3">
+                  {/* <div className="mt-4 grid grid-cols-2 gap-3">
                     <Button variant="ghost" onClick={toggleTheme} className="h-10">
                       {theme === "dark" ? "Light Mode" : "Dark Mode"}
                     </Button>
@@ -265,7 +265,7 @@ export default function Header({
                         Close
                       </Button>
                     </SheetClose>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="p-4 pt-2 text-xs text-muted-foreground">
