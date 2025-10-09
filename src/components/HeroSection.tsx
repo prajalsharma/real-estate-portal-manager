@@ -215,12 +215,14 @@ export default function HeroSection({
             >
               {t("hero.title", "Real estate for living and investments")}
             </h1>
-            <p className="text-white/95 text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] leading-relaxed font-medium">
-              {t(
-                "hero.subtitle",
-                "Discover properties across Greece. Buy, sell, or rent with trusted local expertise."
-              )}
-            </p>
+            <div className="inline-block px-6 py-3 rounded-2xl bg-black/40 backdrop-blur-sm">
+              <p className="text-white text-lg sm:text-xl md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-semibold">
+                {t(
+                  "hero.subtitle",
+                  "Discover properties across Greece. Buy, sell, or rent with trusted local expertise."
+                )}
+              </p>
+            </div>
           </header>
 
           <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:gap-10 max-w-7xl mx-auto">
