@@ -14,13 +14,13 @@
 /* Updated: 2025-09-17T06:58:24.844Z */
 /* Updated: 2025-09-17T06:42:19.492Z */
 /* Updated: 2025-09-16T09:15:44.100809 */
-@import url('https://fonts.googleapis.com/css2?family=Craftwork+Grotesk&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --color-gold: #caac6b;
   --color-background: #f8f9fa;
   --color-foreground: #171717;
 
@@ -64,8 +64,10 @@
   --color-off-white: #f8f9fa;
   --color-white: #ffffff;
 
-  --font-heading: "Craftwork Grotesk", sans-serif;
-  --font-body: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: "Montserrat", sans-serif;
+  --font-body:
+    "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   --radius-lg: 0.75rem;
   --radius-md: calc(0.75rem - 2px);
@@ -178,7 +180,12 @@
     font-family: var(--font-body);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
   }
 

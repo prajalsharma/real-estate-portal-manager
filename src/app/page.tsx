@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <AppPreferencesProvider initialCurrency="eur" initialLanguage="el">
-        <Header initialCurrency="eur" initialLanguage="el" />
+        <Header initialCurrency="eur" initialLanguage="en" />
 
         <main className="w-full">
           {/* Hero Section - Full width edge-to-edge with smooth fade-in */}
@@ -38,11 +38,11 @@ export default function Page() {
             </div>
           </section>
 
-          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-600 ease-out">
+          {/* <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-600 ease-out">
             <div className="max-w-7xl">
               <BlogSection />
             </div>
-          </section>
+          </section> */}
         </main>
 
         <Footer className="border-t bg-background mt-0" />
