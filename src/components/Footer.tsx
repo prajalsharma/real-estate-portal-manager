@@ -80,16 +80,16 @@ function Logo() {
 export default function Footer({ className }: FooterProps) {
   return (
     <footer className={cn("w-full bg-white text-foreground", className)}>
-      <div className="container w-full max-w-7xl py-8 sm:py-10">
-        <div className="flex flex-col gap-6 sm:gap-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div className="container w-full max-w-7xl py-6 sm:py-8">
+        <div className="flex flex-col gap-5 sm:gap-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0 flex-1">
               <Logo />
-              <p className={cn(mutedText, "mt-3 max-w-prose break-words")}>
+              <p className={cn(mutedText, "mt-2.5 max-w-prose break-words")}>
                 Trusted real estate partner in Greece. Discover condos, houses, and
                 commercial properties to buy or rent, with expert guidance at every step.
               </p>
-              <div className="mt-3 flex items-center gap-2 text-[--muted-foreground]">
+              <div className="mt-2.5 flex items-center gap-2 text-[--muted-foreground]">
                 <Building2 className="h-4 w-4" aria-hidden="true" />
                 <span className="text-xs sm:text-sm">
                   Licensed • Since 2012
@@ -97,7 +97,7 @@ export default function Footer({ className }: FooterProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6 w-full">
               <Column title="Menu">
                 <li className="min-w-0">
                   <Link href="/about" className={linkBase}>
@@ -222,7 +222,7 @@ export default function Footer({ className }: FooterProps) {
 
           <div className="h-px w-full bg-[--border]" aria-hidden="true" />
 
-          <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-[--muted-foreground]">
               © {new Date().getFullYear()} RealEstate. All rights reserved.
             </p>

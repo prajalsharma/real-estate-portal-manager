@@ -165,7 +165,10 @@ export function PropertyDetailsModal({
               ) : null}
 
               <div className="pt-2 flex gap-2">
-                <Button className="bg-foreground text-primary-foreground hover:opacity-90" onClick={() => setContactOpen(true)}>
+                <Button 
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300" 
+                  onClick={() => setContactOpen(true)}
+                >
                   {t("actions.requestTour")}
                 </Button>
                 <Button variant="outline" onClick={() => onOpenChange(false)}>{t("actions.close")}</Button>
