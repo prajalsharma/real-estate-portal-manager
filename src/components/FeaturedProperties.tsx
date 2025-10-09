@@ -234,7 +234,7 @@ export default function FeaturedProperties({
                 <span className="truncate">{p.address}</span>
               </div>
 
-              <div className="mt-3 flex items-center gap-4 text-[13px] sm:text-sm text-foreground/90">
+              <div className="mt-3 flex items-center gap-4 text-[13px] sm:text-sm text-foreground/90 font-semibold">
                 <div className="flex items-center gap-1.5">
                   <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
                   <span className="font-medium">{p.beds}</span>

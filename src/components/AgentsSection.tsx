@@ -187,7 +187,7 @@ export default function AgentsSection({
       <div className="w-full max-w-full">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-xl">
-            <h2 className="font-semibold  leading-snug text-foreground text-3xl">
+            <h2 className="font-semibold leading-snug text-foreground text-3xl">
               Sell with top agents
             </h2>
             <p className="mt-2 max-w-prose text-sm text-muted-foreground sm:text-base">{title}</p>
