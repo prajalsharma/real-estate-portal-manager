@@ -80,16 +80,16 @@ function Logo() {
 export default function Footer({ className }: FooterProps) {
   return (
     <footer className={cn("w-full bg-white text-foreground", className)}>
-      <div className="container w-full max-w-7xl py-10 sm:py-12">
-        <div className="flex flex-col gap-8 sm:gap-10">
+      <div className="container w-full max-w-7xl py-8 sm:py-10">
+        <div className="flex flex-col gap-6 sm:gap-8">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0 flex-1">
               <Logo />
-              <p className={cn(mutedText, "mt-4 max-w-prose break-words")}>
+              <p className={cn(mutedText, "mt-3 max-w-prose break-words")}>
                 Trusted real estate partner in Greece. Discover condos, houses, and
                 commercial properties to buy or rent, with expert guidance at every step.
               </p>
-              <div className="mt-4 flex items-center gap-2 text-[--muted-foreground]">
+              <div className="mt-3 flex items-center gap-2 text-[--muted-foreground]">
                 <Building2 className="h-4 w-4" aria-hidden="true" />
                 <span className="text-xs sm:text-sm">
                   Licensed • Since 2012
@@ -97,7 +97,7 @@ export default function Footer({ className }: FooterProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 w-full">
               <Column title="Menu">
                 <li className="min-w-0">
                   <Link href="/about" className={linkBase}>

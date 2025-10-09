@@ -15,35 +15,37 @@ export default function Page() {
         <Header initialCurrency="eur" initialLanguage="el" />
 
         <main className="w-full">
-          {/* Hero Section - Full width edge-to-edge */}
-          <HeroSection className="max-w-full" />
+          {/* Hero Section - Full width edge-to-edge with smooth fade-in */}
+          <div className="animate-in fade-in duration-700">
+            <HeroSection className="max-w-full" />
+          </div>
 
-          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
             <div className="max-w-7xl">
               <PropertyExplorer />
             </div>
           </section>
 
-          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
             <div className="max-w-7xl">
               <AgentsSection />
             </div>
           </section>
 
-          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
             <div className="max-w-7xl">
               <RecommendedProperties />
             </div>
           </section>
 
-          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+          <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
             <div className="max-w-7xl">
               <BlogSection />
             </div>
           </section>
         </main>
 
-        <Footer className="border-t bg-background" />
+        <Footer className="border-t bg-background mt-0" />
       </AppPreferencesProvider>
     </div>
   );

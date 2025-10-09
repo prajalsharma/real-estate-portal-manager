@@ -191,7 +191,7 @@ export default function HeroSection({
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         >
           <source
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/7672d653-a252-41ab-b1dd-956072cf2f23/generated_videos/ultra-premium-4k-hdr-cinematic-aerial-dr-2a5a6d1e-20251009090139.mp4"
+            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/7672d653-a252-41ab-b1dd-956072cf2f23/generated_videos/ultra-premium-4k-hdr-cinematic-aerial-dr-64394d5b-20251009120305.mp4"
             type="video/mp4"
           />
         </video>
