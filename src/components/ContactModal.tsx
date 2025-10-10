@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -107,7 +114,8 @@ const translations: Record<
       name: "John Papadopoulos",
       email: "you@example.com",
       phone: "+30 69XXXXXXXX",
-      message: "I'm interested in this property. Could you share more details and available viewing times?",
+      message:
+        "I'm interested in this property. Could you share more details and available viewing times?",
       property: "Select a property",
       location: "Athens, Glyfada, etc.",
     },
@@ -142,7 +150,8 @@ const translations: Record<
       name: "Γιάννης Παπαδόπουλος",
       email: "you@example.com",
       phone: "+30 69XXXXXXXX",
-      message: "Ενδιαφέρομαι για το ακίνητο. Μπορείτε να μου στείλετε λεπτομέρειες και ώρες προβολής;",
+      message:
+        "Ενδιαφέρομαι για το ακίνητο. Μπορείτε να μου στείλετε λεπτομέρειες και ώρες προβολής;",
       property: "Επιλέξτε ακίνητο",
       location: "Αθήνα, Γλυφάδα, κ.λπ.",
     },
@@ -177,7 +186,8 @@ const translations: Record<
       name: "Juan Pérez",
       email: "usted@ejemplo.com",
       phone: "+34 6XXXXXXXX",
-      message: "Estoy interesado en esta propiedad. ¿Podría compartir más detalles y horarios de visita?",
+      message:
+        "Estoy interesado en esta propiedad. ¿Podría compartir más detalles y horarios de visita?",
       property: "Seleccione una propiedad",
       location: "Madrid, Barcelona, etc.",
     },
@@ -212,7 +222,8 @@ const translations: Record<
       name: "Jean Dupont",
       email: "vous@exemple.com",
       phone: "+33 6XXXXXXXX",
-      message: "Je suis intéressé par ce bien. Pourriez-vous partager plus de détails et les créneaux de visite ?",
+      message:
+        "Je suis intéressé par ce bien. Pourriez-vous partager plus de détails et les créneaux de visite ?",
       property: "Sélectionnez un bien",
       location: "Paris, Lyon, etc.",
     },
@@ -247,7 +258,8 @@ const translations: Record<
       name: "Max Mustermann",
       email: "sie@beispiel.de",
       phone: "+49 15XXXXXXXX",
-      message: "Ich interessiere mich für diese Immobilie. Bitte senden Sie mir Details und Besichtigungstermine.",
+      message:
+        "Ich interessiere mich für diese Immobilie. Bitte senden Sie mir Details und Besichtigungstermine.",
       property: "Objekt auswählen",
       location: "Berlin, München, etc.",
     },
@@ -282,7 +294,8 @@ const translations: Record<
       name: "Петар Петровић",
       email: "ви@пример.ком",
       phone: "+381 6XXXXXXX",
-      message: "Занима ме ова некретнина. Можете ли поделити више детаља и слободне термине за разгледање?",
+      message:
+        "Занима ме ова некретнина. Можете ли поделити више детаља и слободне термине за разгледање?",
       property: "Одаберите некретнину",
       location: "Београд, Нови Сад, итд.",
     },
@@ -317,7 +330,8 @@ const translations: Record<
       name: "Иван Иванов",
       email: "you@example.com",
       phone: "+7 9XXXXXXXX",
-      message: "Меня интересует этот объект. Можете прислать подробности и доступное время для просмотра?",
+      message:
+        "Меня интересует этот объект. Можете прислать подробности и доступное время для просмотра?",
       property: "Выберите объект",
       location: "Афины, Глифада и т. п.",
     },
@@ -418,7 +432,9 @@ export default function ContactModal({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [property, setProperty] = useState<string | undefined>(defaultPropertyValid ? defaultProperty : undefined);
+  const [property, setProperty] = useState<string | undefined>(
+    defaultPropertyValid ? defaultProperty : undefined
+  );
   const [location, setLocation] = useState<string>(defaultLocationQuery ?? "");
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
@@ -444,7 +460,9 @@ export default function ContactModal({
     if (!validate()) return;
     setSubmitting(true);
     try {
-      await Promise.resolve(onSubmit?.({ name, email, phone, message, property: property ?? null, location }));
+      await Promise.resolve(
+        onSubmit?.({ name, email, phone, message, property: property ?? null, location })
+      );
       toast.success(t.success);
       setOpen(false);
       // reset form
@@ -492,8 +510,7 @@ export default function ContactModal({
           "sm:max-w-lg w-full bg-popover text-popover-foreground shadow-lg rounded-lg",
           "p-0 overflow-hidden",
           className
-        )}
-      >
+        )}>
         <div className="bg-white">
           <DialogHeader className="px-6 pt-6 pb-3 space-y-2">
             <div className="flex items-center gap-3">
@@ -518,8 +535,7 @@ export default function ContactModal({
                 handleSend();
               }}
               className="space-y-4"
-              noValidate
-            >
+              noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="name">{t.labels.name}</Label>
@@ -534,7 +550,9 @@ export default function ContactModal({
                     autoComplete="name"
                   />
                   {errors.name && (
-                    <p id="name-error" className="text-destructive text-xs">{errors.name}</p>
+                    <p id="name-error" className="text-destructive text-xs">
+                      {errors.name}
+                    </p>
                   )}
                 </div>
 
@@ -552,7 +570,9 @@ export default function ContactModal({
                     autoComplete="email"
                   />
                   {errors.email && (
-                    <p id="email-error" className="text-destructive text-xs">{errors.email}</p>
+                    <p id="email-error" className="text-destructive text-xs">
+                      {errors.email}
+                    </p>
                   )}
                 </div>
               </div>
@@ -572,19 +592,21 @@ export default function ContactModal({
                       className="bg-white pr-10"
                       autoComplete="tel"
                     />
-                    <Phone className="size-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2" aria-hidden="true" />
+                    <Phone
+                      className="size-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
                   </div>
                   {errors.phone && (
-                    <p id="phone-error" className="text-destructive text-xs">{errors.phone}</p>
+                    <p id="phone-error" className="text-destructive text-xs">
+                      {errors.phone}
+                    </p>
                   )}
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="property">{t.labels.property}</Label>
-                  <Select
-                    value={property}
-                    onValueChange={(v) => setProperty(v)}
-                  >
+                  <Select value={property} onValueChange={(v) => setProperty(v)}>
                     <SelectTrigger id="property" className="bg-white">
                       <SelectValue placeholder={t.placeholders.property} />
                     </SelectTrigger>
@@ -610,15 +632,17 @@ export default function ContactModal({
                       placeholder={t.placeholders.location}
                       className="bg-white pr-10"
                     />
-                    <MapPin className="size-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2" aria-hidden="true" />
+                    <MapPin
+                      className="size-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
                   </div>
                   <Button
                     type="button"
                     variant="secondary"
                     onClick={openMaps}
                     className="shrink-0"
-                    aria-label={t.ctas.openMaps}
-                  >
+                    aria-label={t.ctas.openMaps}>
                     <Map className="size-4 mr-2" aria-hidden="true" />
                     {t.ctas.openMaps}
                   </Button>
@@ -644,7 +668,9 @@ export default function ContactModal({
                   className="bg-white resize-y"
                 />
                 {errors.message && (
-                  <p id="message-error" className="text-destructive text-xs">{errors.message}</p>
+                  <p id="message-error" className="text-destructive text-xs">
+                    {errors.message}
+                  </p>
                 )}
               </div>
 
@@ -654,24 +680,18 @@ export default function ContactModal({
                   variant="secondary"
                   onClick={openWhatsApp}
                   className="transition-colors"
-                  aria-label={t.ctas.whatsapp}
-                >
+                  aria-label={t.ctas.whatsapp}>
                   <Phone className="size-4 mr-2" aria-hidden="true" />
                   {t.ctas.whatsapp}
                 </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setOpen(false)}
-                >
+                <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                   {t.ctas.cancel}
                 </Button>
                 <div className="ml-auto flex gap-2">
                   <Button
                     type="submit"
                     disabled={submitting}
-                    className="bg-primary text-primary-foreground hover:opacity-95"
-                  >
+                    className="bg-primary text-white hover:opacity-95">
                     {submitting ? (
                       <>
                         <Mailbox className="size-4 mr-2 animate-pulse" aria-hidden="true" />
@@ -679,7 +699,7 @@ export default function ContactModal({
                       </>
                     ) : (
                       <>
-                        <HousePlus className="size-4 mr-2" aria-hidden="true" />
+                        <HousePlus className="size-4 mr-2 " aria-hidden="true" />
                         {t.ctas.send}
                       </>
                     )}

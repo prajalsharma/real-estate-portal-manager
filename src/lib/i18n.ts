@@ -5,7 +5,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
   en: {
     // Navigation
     "nav.condos": "Condos",
-    "nav.houses": "Houses", 
+    "nav.houses": "Houses",
     "nav.commercial": "Commercial",
     "nav.rent": "For rent",
     "nav.about": "About",
@@ -54,7 +54,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
 
     // Hero & sections
     "hero.title": "Real estate for living and investments",
-    "hero.subtitle": "Discover properties across Greece. Buy, sell, or rent with trusted local expertise.",
+    "hero.subtitle":
+      "Discover properties across Greece. Buy, sell, or rent with trusted local expertise.",
     "hero.search.title": "Find your next home",
     "hero.search.subtitle": "Search by location, price, and more",
 
@@ -123,7 +124,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
 
     // Hero & sections
     "hero.title": "Ακίνητα για κατοικία και επένδυση",
-    "hero.subtitle": "Ανακαλύψτε ακίνητα σε όλη την Ελλάδα. Αγορά, πώληση ή ενοικίαση με αξιόπιστους τοπικούς συνεργάτες.",
+    "hero.subtitle":
+      "Ανακαλύψτε ακίνητα σε όλη την Ελλάδα. Αγορά, πώληση ή ενοικίαση με αξιόπιστους τοπικούς συνεργάτες.",
     "hero.search.title": "Βρείτε το επόμενό σας σπίτι",
     "hero.search.subtitle": "Αναζήτηση ανά περιοχή, τιμή και άλλα",
 
@@ -192,7 +194,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
 
     // Hero & sections
     "hero.title": "Непокретности за живот и инвестиције",
-    "hero.subtitle": "Откријте некретнине широм Грчке. Купите, продајте или изнајмите уз поуздане локалне стручњаке.",
+    "hero.subtitle":
+      "Откријте некретнине широм Грчке. Купите, продајте или изнајмите уз поуздане локалне стручњаке.",
     "hero.search.title": "Пронађите свој следећи дом",
     "hero.search.subtitle": "Претрага по локацији, цени и још много тога",
 
@@ -261,7 +264,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
 
     // Hero & sections
     "hero.title": "Недвижимость для жизни и инвестиций",
-    "hero.subtitle": "Откройте для себя объекты по всей Греции. Покупка, продажа или аренда с поддержкой местных экспертов.",
+    "hero.subtitle":
+      "Откройте для себя объекты по всей Греции. Покупка, продажа или аренда с поддержкой местных экспертов.",
     "hero.search.title": "Найдите свой следующий дом",
     "hero.search.subtitle": "Поиск по локации, цене и другим параметрам",
 
@@ -330,7 +334,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
 
     // Hero & sections
     "hero.title": "Недвижими имоти за живот и инвестиции",
-    "hero.subtitle": "Открийте имоти в цяла Гърция. Купете, продайте или наемете с доверени местни експерти.",
+    "hero.subtitle":
+      "Открийте имоти в цяла Гърция. Купете, продайте или наемете с доверени местни експерти.",
     "hero.search.title": "Намерете своя следващ дом",
     "hero.search.subtitle": "Търсене по локация, цена и други",
 
@@ -355,5 +360,7 @@ export function t(lang: SupportedLanguage, key: string, fallback?: string) {
 
 export function useT() {
   const { language } = useAppPrefs();
-  return (key: string, fallback?: string) => t(language, key, fallback);
+  // Always use 'en' on the server to prevent SSR/CSR mismatch
+  const effectiveLanguage = typeof window === "undefined" ? "en" : language;
+  return (key: string, fallback?: string) => t(effectiveLanguage, key, fallback);
 }

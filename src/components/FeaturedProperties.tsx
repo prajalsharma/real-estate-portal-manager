@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Bed, MapPin, Proportions } from "lucide-react"
-import clsx from "clsx"
-import { useAppPrefs } from "@/lib/prefs-context"
-import { useT } from "@/lib/i18n"
-import { useRates } from "@/lib/hooks/use-rates"
+import * as React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Bed, MapPin, Proportions, ShowerHead } from "lucide-react";
+import clsx from "clsx";
+import { useAppPrefs } from "@/lib/prefs-context";
+import { useT } from "@/lib/i18n";
+import { useRates } from "@/lib/hooks/use-rates";
 
 type Property = {
-  id: string
-  title: string
-  address: string
-  price: number
-  beds: number
-  baths: number
-  sqft: number
-  type: "House" | "Apartment" | "Condo" | string
-  imageUrl: string
-  images?: string[]
-}
+  id: string;
+  title: string;
+  address: string;
+  price: number;
+  beds: number;
+  baths: number;
+  sqft: number;
+  type: "House" | "Apartment" | "Condo" | string;
+  imageUrl: string;
+  images?: string[];
+};
 
 export type FeaturedPropertiesProps = {
-  className?: string
-  title?: string
-  subtitle?: string
-  properties?: Property[]
-  viewAllHref?: string
-  onSelectProperty?: (property: Property) => void
-}
+  className?: string;
+  title?: string;
+  subtitle?: string;
+  properties?: Property[];
+  viewAllHref?: string;
+  onSelectProperty?: (property: Property) => void;
+};
 
 const defaultProperties: Property[] = [
   {
@@ -84,23 +84,6 @@ const defaultProperties: Property[] = [
     ],
   },
   {
-    id: "p4",
-    title: "Beachfront Retreat with Terrace",
-    address: "Pefkochori, Halkidiki",
-    price: 489000,
-    beds: 4,
-    baths: 3,
-    sqft: 178,
-    type: "House",
-    imageUrl:
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3b2a59?auto=format&fit=crop&w=1600&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3b2a59?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1465572084947-7fcbf7d48f4a?auto=format&fit=crop&w=1600&q=80",
-    ],
-  },
-  {
     id: "p5",
     title: "Bright Top-Floor Apartment",
     address: "Polygyros, Halkidiki",
@@ -117,26 +100,9 @@ const defaultProperties: Property[] = [
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=80",
     ],
   },
-  {
-    id: "p6",
-    title: "Hillside Condo with Panorama",
-    address: "Nikiti, Halkidiki",
-    price: 312000,
-    beds: 3,
-    baths: 2,
-    sqft: 132,
-    type: "Condo",
-    imageUrl:
-      "https://images.unsplash.com/photo-1465572084947-7fcbf7d48f4a?auto=format&fit=crop&w=1600&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1465572084947-7fcbf7d48f4a?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3b2a59?auto=format&fit=crop&w=1600&q=80",
-    ],
-  },
-]
+];
 
-export const FEATURED_DEFAULTS = defaultProperties
+export const FEATURED_DEFAULTS = defaultProperties;
 
 export default function FeaturedProperties({
   className,
@@ -158,13 +124,13 @@ export default function FeaturedProperties({
           style: "currency",
           currency: currency.toUpperCase(),
           maximumFractionDigits: 0,
-        }).format(amount)
+        }).format(amount);
       } catch {
-        return `${currency.toUpperCase()} ${Math.round(amount).toLocaleString(language)}`
+        return `${currency.toUpperCase()} ${Math.round(amount).toLocaleString(language)}`;
       }
     },
     [convert, currency, language]
-  )
+  );
 
   const translateType = React.useCallback(
     (type: string) => {
@@ -180,19 +146,13 @@ export default function FeaturedProperties({
       return map[key] ?? type;
     },
     [t]
-  )
+  );
 
   return (
-    <section
-      className={clsx(
-        "w-full max-w-full",
-        className,
-      )}
-      aria-label="Featured properties"
-    >
+    <section className={clsx("w-full max-w-full", className)} aria-label="Featured properties">
       <div className="flex w-full items-end justify-between gap-4">
         <div className="min-w-0">
-          <h2 className="font-heading text-xl sm:text-2xl md:text-3xl tracking-tight text-foreground">
+          <h2 className="font-semibold text-3xl tracking-tight text-foreground">
             {t("sections.featured.title", title)}
           </h2>
           {subtitle ? (
@@ -205,8 +165,7 @@ export default function FeaturedProperties({
           <Link
             href={viewAllHref}
             className="shrink-0 inline-flex items-center gap-2 rounded-full bg-popover px-3.5 py-2 text-sm font-medium text-foreground border hover:shadow-sm transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            aria-label="View all properties"
-          >
+            aria-label="View all properties">
             <span>{t("actions.viewAll")}</span>
             <MapPin className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -223,8 +182,7 @@ export default function FeaturedProperties({
                 window.dispatchEvent(new CustomEvent("app:search", { detail: {} }));
               }
             }}
-            className="mt-4 inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm font-medium text-foreground hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
+            className="mt-4 inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm font-medium text-foreground hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             {t("actions.clearFilters", "Clear filters")}
           </button>
         </div>
@@ -234,15 +192,14 @@ export default function FeaturedProperties({
         {properties.map((p) => (
           <article
             key={p.id}
-            className="group relative overflow-hidden rounded-xl bg-popover border shadow-sm transition-all hover:shadow-md focus-within:shadow-md"
-          >
+            className="group relative overflow-hidden rounded-xl bg-white border shadow-sm transition-all hover:shadow-md focus-within:shadow-md">
             <button
               type="button"
               onClick={() => onSelectProperty?.(p)}
               className="absolute inset-0 z-10 cursor-pointer"
               aria-label={`View details for ${p.title} in ${p.address}`}
             />
-            <div className="relative w-full overflow-hidden">
+            <div className="relative w-full overflow-hidden ">
               <div className="relative h-44 sm:h-48 md:h-52 w-full">
                 <Image
                   src={(p.images && p.images[0]) || p.imageUrl}
@@ -254,7 +211,7 @@ export default function FeaturedProperties({
                 />
               </div>
 
-              <div className="absolute left-3 top-3 z-10 rounded-full bg-popover/90 backdrop-blur px-2.5 py-1 text-xs font-medium text-foreground border">
+              <div className="absolute left-3 top-3 z-10 rounded-full bg-gold text-white backdrop-blur px-2.5 py-1 text-xs font-medium">
                 {translateType(p.type)}
               </div>
 
@@ -268,7 +225,7 @@ export default function FeaturedProperties({
                 </p>
               </div>
 
-              <h3 className="mt-1 text-sm sm:text-base font-medium text-foreground min-w-0 truncate">
+              <h3 className="mt-1 text-lg font-medium text-foreground min-w-0 truncate">
                 {p.title}
               </h3>
 
@@ -277,21 +234,21 @@ export default function FeaturedProperties({
                 <span className="truncate">{p.address}</span>
               </div>
 
-              <div className="mt-3 flex items-center gap-4 text-[13px] sm:text-sm text-foreground/90">
+              <div className="mt-3 flex items-center gap-4 text-[13px] sm:text-sm text-foreground/90 font-semibold">
                 <div className="flex items-center gap-1.5">
-                  <Bed className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
                   <span className="font-medium">{p.beds}</span>
                   <span className="text-muted-foreground">{t("labels.bed")}</span>
                 </div>
                 <div className="h-4 w-px bg-border" aria-hidden="true" />
                 <div className="flex items-center gap-1.5">
-                  {/* Using plain text for baths to keep iconography balanced */}
+                  <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
                   <span className="font-medium">{p.baths}</span>
                   <span className="text-muted-foreground">{t("labels.bath")}</span>
                 </div>
                 <div className="h-4 w-px bg-border" aria-hidden="true" />
                 <div className="flex items-center gap-1.5">
-                  <Proportions className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
                   <span className="font-medium">{p.sqft}</span>
                   <span className="text-muted-foreground">{t("labels.area")}</span>
                 </div>
@@ -303,5 +260,5 @@ export default function FeaturedProperties({
         ))}
       </div>
     </section>
-  )
+  );
 }
