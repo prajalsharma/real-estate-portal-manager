@@ -91,7 +91,7 @@ const defaultProperties: Property[] = [
     sqft: 140,
     address: "Kifisias Ave 122, Kifisia",
     imageUrl:
-      "https://images.unsplash.com/photo-1600573472591-ee6c8e695c1d?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
     tag: "Open House",
   },
   {
@@ -103,7 +103,7 @@ const defaultProperties: Property[] = [
     sqft: 96,
     address: "Dekeleias 45, Marousi",
     imageUrl:
-      "https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
     tag: "Price Drop",
     interior: true,
   },
@@ -182,7 +182,7 @@ export default function RecommendedProperties({
                 key={p.id}
                 className="min-w-0 bg-card min-h-94 shadow-sm transition-shadow hover:shadow-md rounded-lg">
                 <Card className="group relative overflow-hidden rounded-lg bg-card shadow-none border-none py-0 min-h-94 flex flex-col">
-                  <div className="relative w-full h-80">
+                  <div className="relative w-full h-80 overflow-hidden">
                     <img
                       src={p.imageUrl}
                       alt={p.imageAlt || p.title}
