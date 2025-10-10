@@ -133,7 +133,7 @@ export default function Header({
             <Button
               key={item.key}
               variant="ghost"
-              className="text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md">
+              className="text-sm font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold">
               <span className="truncate">{t(item.key)}</span>
             </Button>
           ))}
