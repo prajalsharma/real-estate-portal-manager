@@ -41,32 +41,47 @@ export function AppPreferencesProvider({
   initialCurrency?: SupportedCurrency;
   initialLanguage?: SupportedLanguage;
 }) {
-  const [currency, setCurrency] = useState<SupportedCurrency>(initialCurrency);
-  const [language, setLanguage] = useState<SupportedLanguage>(initialLanguage);
+  const [currency, setCurrency] = useState<SupportedCurrency>(() => {
+    if (typeof window === "undefined") return initialCurrency;
+    const saved = localStorage.getItem("app_prefs");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.currency) return parsed.currency;
+      } catch {}
+    }
+    return detectCurrency();
+  });
+  const [language, setLanguage] = useState<SupportedLanguage>(() => {
+    if (typeof window === "undefined") return initialLanguage;
+    const saved = localStorage.getItem("app_prefs");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.language) return parsed.language;
+      } catch {}
+    }
+    return detectLanguage();
+  });
 
-  // hydrate from localStorage or auto-detect based on user locale/timezone
+  // hydrate from localStorage only on client; SSR always uses initialLanguage/initialCurrency
   useEffect(() => {
+    if (typeof window === "undefined") return;
     try {
       const saved = localStorage.getItem("app_prefs");
       if (saved) {
         const parsed = JSON.parse(saved) as Partial<AppPrefs>;
         if (parsed.currency) setCurrency(parsed.currency);
         if (parsed.language) setLanguage(parsed.language);
-        return;
       }
     } catch {}
-    // auto detect if nothing saved
-    setLanguage(detectLanguage());
-    setCurrency(detectCurrency());
+    // No fallback to auto-detect on client; initial value is already set synchronously
   }, []);
 
   // persist
   useEffect(() => {
     try {
-      localStorage.setItem(
-        "app_prefs",
-        JSON.stringify({ currency, language })
-      );
+      localStorage.setItem("app_prefs", JSON.stringify({ currency, language }));
     } catch {}
   }, [currency, language]);
 

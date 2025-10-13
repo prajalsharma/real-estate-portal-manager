@@ -74,7 +74,8 @@ export default function BlogSection({
 }: BlogSectionProps) {
   const formatter = React.useMemo(() => {
     try {
-      return new Intl.DateTimeFormat(undefined, {
+      // Use fixed locale for SSR/client consistency
+      return new Intl.DateTimeFormat("en-GB", {
         year: "numeric",
         month: "short",
         day: "2-digit",

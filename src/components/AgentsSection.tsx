@@ -59,7 +59,11 @@ function AgentCard({
 }) {
   const initials = React.useMemo(() => {
     const parts = agent.name.split(" ");
-    return parts.slice(0, 2).map((p) => p[0]).join("").toUpperCase();
+    return parts
+      .slice(0, 2)
+      .map((p) => p[0])
+      .join("")
+      .toUpperCase();
   }, [agent.name]);
 
   const handleContact = () => {
@@ -79,12 +83,20 @@ function AgentCard({
       <CardContent className="p-4">
         <div className="flex items-center gap-3">
           <Avatar className="h-14 w-14 ring-1 ring-border">
-            <AvatarImage src={agent.imageUrl} alt={`${agent.name} headshot`} />
+            <AvatarImage
+              src={agent.imageUrl}
+              alt={`${agent.name} headshot`}
+              className="object-cover rounded-full h-full w-full"
+            />
             <AvatarFallback className="bg-muted text-foreground/70">{initials}</AvatarFallback>
           </Avatar>
           <div className="min-w-0">
-            <p className="truncate font-heading text-sm font-semibold text-foreground">{agent.name}</p>
-            <p className="truncate text-xs text-muted-foreground">{agent.role ?? "Real Estate Agent"}</p>
+            <p className="truncate font-heading text-sm font-semibold text-foreground">
+              {agent.name}
+            </p>
+            <p className="truncate text-xs text-muted-foreground">
+              {agent.role ?? "Real Estate Agent"}
+            </p>
             <div className="mt-1">
               <StarRating value={agent.rating} />
             </div>
@@ -101,17 +113,15 @@ function AgentCard({
               variant="secondary"
               className="h-9 w-9 rounded-lg border bg-white hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
               aria-label={`Contact ${agent.name}`}
-              onClick={handleContact}
-            >
+              onClick={handleContact}>
               <Phone className="h-4 w-4" />
             </Button>
             <Button
               size="icon"
               variant="default"
-              className="h-9 w-9 rounded-lg bg-foreground text-white hover:bg-foreground/90 focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-9 w-9 rounded-lg bg-gold text-white hover:bg-gold/50 focus-visible:ring-2 focus-visible:ring-ring"
               aria-label={`View ${agent.name}'s profile`}
-              onClick={handleViewProfile}
-            >
+              onClick={handleViewProfile}>
               <IdCard className="h-4 w-4" />
             </Button>
           </div>
@@ -177,20 +187,17 @@ export default function AgentsSection({
       <div className="w-full max-w-full">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-xl">
-            <h2 className="font-heading text-xl leading-snug text-foreground sm:text-2xl md:text-3xl">
+            <h2 className="font-semibold leading-snug text-foreground text-3xl">
               Sell with top agents
             </h2>
-            <p className="mt-2 max-w-prose text-sm text-muted-foreground sm:text-base">
-              {title}
-            </p>
+            <p className="mt-2 max-w-prose text-sm text-muted-foreground sm:text-base">{title}</p>
           </div>
           <div className="shrink-0">
             <Button
               asChild
               variant="outline"
               className="rounded-lg border border-input bg-white text-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label="Browse top agents"
-            >
+              aria-label="Browse top agents">
               <Link href="/agents" prefetch>
                 <PanelRight className="mr-2 h-4 w-4" />
                 {ctaLabel}
@@ -200,10 +207,10 @@ export default function AgentsSection({
         </div>
 
         <div className="mt-6">
-          <div className="flex gap-4 overflow-x-auto pb-2 pt-1 [scrollbar-width:none] [-ms-overflow-style:none]">
+          <div className="flex gap-4 overflow-x-auto pb-2 pt-1 [scrollbar-width:none] [-ms-overflow-style:none] justify-center">
             {/* Hide scrollbar in WebKit */}
             <style>{`.scrollbar-hide::-webkit-scrollbar{display:none}`}</style>
-            <div className="scrollbar-hide -m-1 flex min-w-0 gap-4">
+            <div className="scrollbar-hide -m-1 flex min-w-0 gap-4 ">
               {agents.map((agent) => (
                 <AgentCard
                   key={agent.id}
