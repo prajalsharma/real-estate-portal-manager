@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, Moon, Sun } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -82,7 +82,6 @@ export default function Header({
         : "light");
     setTheme(preferred);
     document.documentElement.classList.toggle("dark", preferred === "dark");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleTheme = () => {
