@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Bed, LampFloor, Proportions, MapPin } from "lucide-react";
+import { Bed, LampFloor, Proportions, MapPin, ShowerHead } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ const defaultProperties: Property[] = [
     sqft: 280,
     address: "Leof. Posidonos 214, Glyfada",
     imageUrl:
-      "https://images.unsplash.com/photo-1505692794403-34d4982ae318?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
     tag: "Featured",
   },
   {
@@ -91,7 +91,7 @@ const defaultProperties: Property[] = [
     sqft: 140,
     address: "Kifisias Ave 122, Kifisia",
     imageUrl:
-      "https://images.unsplash.com/photo-1600573472591-ee6c8e695c1d?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
     tag: "Open House",
   },
   {
@@ -103,7 +103,7 @@ const defaultProperties: Property[] = [
     sqft: 96,
     address: "Dekeleias 45, Marousi",
     imageUrl:
-      "https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
     tag: "Price Drop",
     interior: true,
   },
@@ -147,22 +147,16 @@ export default function RecommendedProperties({
   return (
     <section
       aria-labelledby="recommended-heading"
-      className={[
-        "w-full bg-background",
-        "py-6 sm:py-8",
-        className ?? "",
-      ].join(" ").trim()}
-    >
+      className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
       <div className="w-full max-w-full">
         <div className="mb-5 sm:mb-6 flex items-end justify-between gap-3">
           <div className="min-w-0">
             <h2
               id="recommended-heading"
-              className="font-heading text-lg sm:text-xl md:text-2xl text-foreground tracking-tight"
-            >
+              className="font-semibold text-3xl text-foreground tracking-tight">
               {title}
             </h2>
-            <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
+            <p className="mt-1 text-sm sm:text-base text-muted-foreground">
               Curated homes and apartments picked for you
             </p>
           </div>
@@ -175,37 +169,32 @@ export default function RecommendedProperties({
           ) : null}
         </div>
 
-        <div
-          className={[
-            // Grid with tasteful masonry-like rhythm via varied aspect ratios
-            "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3",
-            "gap-3 sm:gap-4",
-          ].join(" ")}
-        >
-          {properties.map((p, idx) => {
-            const a = getCardAspect(idx);
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+          {properties.map((p) => {
             // Derive EUR numeric price from provided string (fallback to original if parsing fails)
             const eur = Number(p.price?.replace(/[^\d]/g, "")) || 0;
-            const priceDisplay = !ratesLoading && eur > 0
-              ? formatter.format(convert(eur as number, currency as any))
-              : p.price;
+            const priceDisplay =
+              !ratesLoading && eur > 0
+                ? formatter.format(convert(eur as number, currency as any))
+                : p.price;
             return (
-              <article key={p.id} className="min-w-0">
-                <Card className="group relative overflow-hidden rounded-lg bg-card shadow-sm transition-shadow hover:shadow-md">
-                  <div className={["relative w-full", a.aspect, "md:" + a.md].join(" ")}>
+              <article
+                key={p.id}
+                className="min-w-0 bg-card min-h-94 shadow-sm transition-shadow hover:shadow-md rounded-lg">
+                <Card className="group relative overflow-hidden rounded-lg bg-card shadow-none border-none py-0 min-h-94 flex flex-col">
+                  <div className="relative w-full h-80 overflow-hidden">
                     <img
                       src={p.imageUrl}
                       alt={p.imageAlt || p.title}
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] rounded-t-lg"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent group-hover:bg-none transition-all" />
                     {p.tag ? (
                       <div className="absolute left-3 top-3">
                         <Badge
-                          className="rounded-md bg-foreground/90 text-primary-foreground backdrop-blur-sm"
-                          variant="secondary"
-                        >
+                          className="rounded-md bg-gold/90 text-white backdrop-blur-sm"
+                          variant="secondary">
                           {p.tag}
                         </Badge>
                       </div>
@@ -213,8 +202,8 @@ export default function RecommendedProperties({
                   </div>
 
                   <div className="p-3 sm:p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="min-w-0 truncate font-heading text-base sm:text-lg text-foreground">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="min-w-0 truncate font-semibold text-base sm:text-lg text-foreground">
                         {p.title}
                       </h3>
                       <span className="shrink-0 rounded-md bg-secondary px-2 py-1 text-xs font-medium text-foreground">
@@ -222,18 +211,24 @@ export default function RecommendedProperties({
                       </span>
                     </div>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground font-semibold">
                       <div className="flex items-center gap-1.5">
-                        <Bed className="h-4 w-4 text-foreground/80" aria-hidden="true" />
-                        <span className="min-w-0">{t("labels.bed")} {p.beds}</span>
+                        <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
+                        <span className="min-w-0">
+                          {t("labels.bed")} {p.beds}
+                        </span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <LampFloor className="h-4 w-4 text-foreground/80" aria-hidden="true" />
-                        <span className="min-w-0">{t("labels.bath")} {p.baths}</span>
+                        <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
+                        <span className="min-w-0">
+                          {t("labels.bath")} {p.baths}
+                        </span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Proportions className="h-4 w-4 text-foreground/80" aria-hidden="true" />
-                        <span className="min-w-0">{p.sqft} {t("labels.area")}</span>
+                        <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
+                        <span className="min-w-0">
+                          {p.sqft} {t("labels.area")}
+                        </span>
                       </div>
                     </div>
 
@@ -244,14 +239,15 @@ export default function RecommendedProperties({
                       </p>
                     </div>
 
-                    <div className="mt-3 flex items-center justify-end">
+                    <div className="mt-3 flex items-center justify-center py-2">
                       <Button
                         asChild
                         size="sm"
                         variant="outline"
-                        className="h-8 rounded-md border-border text-foreground hover:bg-secondary"
-                      >
-                        <Link href={`/properties/${encodeURIComponent(p.id)}`} aria-label={`View ${p.title}`}>
+                        className="h-8 rounded-md border-border text-foreground hover:bg-secondary">
+                        <Link
+                          href={`/properties/${encodeURIComponent(p.id)}`}
+                          aria-label={`View ${p.title}`}>
                           View details
                         </Link>
                       </Button>
