@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { toast } from "sonner";
 import {
@@ -139,6 +140,13 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
   const [loading, setLoading] = React.useState(false);
   const t = useT();
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentIdx((idx) => (idx === featuredProperties.length - 1 ? 0 : idx + 1));
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [currentIdx, featuredProperties.length]);
+
   function handleSearch(e?: React.FormEvent) {
     e?.preventDefault();
     const payload = {
@@ -267,111 +275,124 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
               {/* Right: Featured Property*/}
               <div className="w-full">
-                <Card className="overflow-hidden bg-white/95 backdrop-blur-2xl border-white/80 shadow-sm ring-1 ring-black/10 py-0 border-none gap-2">
-                  <div className="relative w-full overflow-hidden group px-5 pb-5 pt-20 h-70 flex flex-col justify-end">
-                    <Image
-                      src={featured.imageUrl}
-                      alt={featured.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={currentIdx}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="w-full">
+                    <Card className="overflow-hidden bg-white/95 backdrop-blur-2xl border-white/80 shadow-sm ring-1 ring-black/10 py-0 border-none gap-2">
+                      <div className="relative w-full overflow-hidden group px-5 pb-5 pt-20 h-70 flex flex-col justify-end">
+                        <Image
+                          src={featured.imageUrl}
+                          alt={featured.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                    <div className="flex flex-col items-start justify-between gap-2">
-                      <div className="inline-block rounded-full bg-gold px-5 py-2.5 text-base sm:text-lg font-bold shadow-xl ring-2 ring-white/30 text-white z-10">
-                        {featured.price}
-                      </div>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-white drop-shadow-2xl leading-tight">
-                        {featured.title}
-                      </h3>
+                        <div className="flex flex-col items-start justify-between gap-2">
+                          <div className="inline-block rounded-full bg-gold px-5 py-2.5 text-base sm:text-lg font-bold shadow-xl ring-2 ring-white/30 text-white z-10">
+                            {featured.price}
+                          </div>
+                          <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-white drop-shadow-2xl leading-tight">
+                            {featured.title}
+                          </h3>
 
-                      <div className="flex items-center justify-between w-full">
-                        <p className="text-sm sm:text-base text-white/95 flex items-center gap-2 mt-2 drop-shadow-lg font-medium">
-                          <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
-                          <span className="truncate">{featured.address}</span>
-                        </p>
-                        <div className="hidden md:flex items-center gap-4 rounded-full bg-white/95 backdrop-blur-sm px-5 py-3 shadow-xl shrink-0">
-                          <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                            <Bed className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
-                            {featured.beds} {t("labels.bed", "bd")}
-                          </span>
-                          <span className="text-sm text-foreground/60">•</span>
-                          <span className="text-sm font-bold text-foreground">
-                            {featured.baths} {t("labels.bath", "ba")}
-                          </span>
-                          <span className="text-sm text-foreground/60">•</span>
-                          <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                            <LandPlot className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
-                            {featured.sqft.toLocaleString()} {t("labels.area", "m²")}
-                          </span>
+                          <div className="flex items-center justify-between w-full">
+                            <p className="text-sm sm:text-base text-white/95 flex items-center gap-2 mt-2 drop-shadow-lg font-medium">
+                              <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
+                              <span className="truncate">{featured.address}</span>
+                            </p>
+                            <div className="hidden md:flex items-center gap-4 rounded-full bg-white/95 backdrop-blur-sm px-5 py-3 shadow-xl shrink-0">
+                              <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                                <Bed className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
+                                {featured.beds} {t("labels.bed", "bd")}
+                              </span>
+                              <span className="text-sm text-foreground/60">•</span>
+                              <span className="text-sm font-bold text-foreground">
+                                {featured.baths} {t("labels.bath", "ba")}
+                              </span>
+                              <span className="text-sm text-foreground/60">•</span>
+                              <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                                <LandPlot className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
+                                {featured.sqft.toLocaleString()} {t("labels.area", "m²")}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <CardContent className="py-5 px-5 sm:px-6">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <Avatar className="h-12 w-12 ring-2 ring-gold/40 shadow-lg shrink-0">
-                          <AvatarImage src={featured.agent.avatarUrl} alt={featured.agent.name} />
-                          <AvatarFallback className="text-sm bg-gold/20 text-gold font-bold">
-                            {featured.agent.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")
-                              .slice(0, 2)
-                              .toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="min-w-0">
-                          <p className="font-bold leading-none text-base truncate text-foreground">
-                            {featured.agent.name}
-                          </p>
-                          <p className="text-sm text-foreground/70 mt-1.5 truncate font-medium">
-                            {featured.agent.title ?? t("labels.agent", "Listing Agent")}
-                          </p>
+                      <CardContent className="py-5 px-5 sm:px-6">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <Avatar className="h-12 w-12 ring-2 ring-gold/40 shadow-lg shrink-0">
+                              <AvatarImage
+                                src={featured.agent.avatarUrl}
+                                alt={featured.agent.name}
+                              />
+                              <AvatarFallback className="text-sm bg-gold/20 text-gold font-bold">
+                                {featured.agent.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")
+                                  .slice(0, 2)
+                                  .toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="min-w-0">
+                              <p className="font-bold leading-none text-base truncate text-foreground">
+                                {featured.agent.name}
+                              </p>
+                              <p className="text-sm text-foreground/70 mt-1.5 truncate font-medium">
+                                {featured.agent.title ?? t("labels.agent", "Listing Agent")}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="w-full sm:w-auto">
+                            <Button
+                              onClick={handleTourRequest}
+                              className={cn(
+                                "w-full sm:w-auto bg-gold text-white hover:bg-gold/90",
+                                "rounded-xl shadow-lg hover:shadow-xl text-base h-12 px-6 font-bold",
+                                "transition-all duration-300 hover:scale-105",
+                                "ring-2 ring-gold/30 hover:ring-gold/50"
+                              )}>
+                              {t("actions.requestTour", "Request a tour")}
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="w-full sm:w-auto">
-                        <Button
-                          onClick={handleTourRequest}
-                          className={cn(
-                            "w-full sm:w-auto bg-gold text-white hover:bg-gold/90",
-                            "rounded-xl shadow-lg hover:shadow-xl text-base h-12 px-6 font-bold",
-                            "transition-all duration-300 hover:scale-105",
-                            "ring-2 ring-gold/30 hover:ring-gold/50"
-                          )}>
-                          {t("actions.requestTour", "Request a tour")}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
+                      </CardContent>
 
-                  <CardFooter className="pt-0 px-5 sm:px-6 pb-5 md:hidden">
-                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm  font-semibold">
-                      <div className="flex items-center gap-1.5">
-                        <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="min-w-0">
-                          {t("labels.bed")} {featured.beds}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="min-w-0">
-                          {t("labels.bath")} {featured.baths}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="min-w-0">
-                          {featured.sqft} {t("labels.area")}
-                        </span>
-                      </div>
-                    </div>
-                  </CardFooter>
-                </Card>
+                      <CardFooter className="pt-0 px-5 sm:px-6 pb-5 md:hidden">
+                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm  font-semibold">
+                          <div className="flex items-center gap-1.5">
+                            <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
+                            <span className="min-w-0">
+                              {t("labels.bed")} {featured.beds}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
+                            <span className="min-w-0">
+                              {t("labels.bath")} {featured.baths}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
+                            <span className="min-w-0">
+                              {featured.sqft} {t("labels.area")}
+                            </span>
+                          </div>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  </motion.div>
+                </AnimatePresence>
                 <div className="flex items-center justify-center gap-2 mt-6">
                   <button
                     type="button"
