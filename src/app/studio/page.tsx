@@ -1,6 +1,8 @@
 /**
- * Embedded Sanity Studio route (non-catch-all)
+ * Embedded Sanity Studio route with Client Component
  */
+'use client'
+
 import { NextStudio } from 'next-sanity/studio'
 import config from '@/../sanity/sanity.config'
 
