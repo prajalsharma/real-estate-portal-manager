@@ -1,11 +1,11 @@
-/**
- * Embedded Sanity Studio route with Client Component
- */
 'use client'
 
-import { NextStudio } from 'next-sanity/studio'
+import dynamic from 'next/dynamic'
 import config from '@/../sanity/sanity.config'
 
+// Load Studio on the client only to avoid SSR tool resolution issues
+const Studio = dynamic(() => import('next-sanity/studio').then(m => m.NextStudio), { ssr: false })
+
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return <Studio config={config} />
 }
