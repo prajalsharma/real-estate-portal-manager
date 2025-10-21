@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import {
   PropertyQueryResult,
   SanityAgent,
@@ -25,23 +25,23 @@ export function useFeaturedProperties(limit: number = 4) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function fetchProperties() {
-      try {
-        setLoading(true)
-        const data = await getFeaturedProperties(limit)
-        setProperties(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch properties')
-      } finally {
-        setLoading(false)
-      }
+  const refetch = useCallback(async () => {
+    try {
+      setLoading(true)
+      const data = await getFeaturedProperties(limit)
+      setProperties(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch properties')
+    } finally {
+      setLoading(false)
     }
-
-    fetchProperties()
   }, [limit])
 
-  return { properties, loading, error, refetch: () => fetchProperties() }
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
+  return { properties, loading, error, refetch }
 }
 
 export function useProperties(filters?: PropertyFilters, page: number = 1, limit: number = 12) {
@@ -246,7 +246,7 @@ export function useSanityData<T>(fetcher: () => Promise<T>, deps: any[] = []) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const refetch = async () => {
+  const refetch = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -257,7 +257,7 @@ export function useSanityData<T>(fetcher: () => Promise<T>, deps: any[] = []) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [fetcher])
 
   useEffect(() => {
     refetch()
