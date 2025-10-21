@@ -48,8 +48,8 @@ function Logo() {
 
 export default function Footer({ className }: FooterProps) {
   return (
-    <footer className={cn("w-full bg-white text-foreground", className)}>
-      <div className="container w-full max-w-7xl py-6 sm:py-4">
+    <footer className={cn("w-full bg-white text-foreground container", className)}>
+      <div className="w-full py-6 sm:py-4">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-x-10 sm:justify-between">
             <div className="w-full flex-shrink-0 sm:max-w-70">
@@ -67,7 +67,7 @@ export default function Footer({ className }: FooterProps) {
             <div className="flex-1 pt-1 sm:pt-3 md:pt-5">
               <div className="flex flex-col md:flex-row gap-5 sm:gap-7 justify-around">
                 <Column title="Menu">
-                  <ul className="flex gap-2 md:flex-col">
+                  <ul className="flex gap-2 flex-col">
                     <li className="min-w-0">
                       <Link href="/about" className={linkBase}>
                         About
@@ -97,7 +97,7 @@ export default function Footer({ className }: FooterProps) {
                 </Column>
 
                 <Column title="Help">
-                  <ul className="flex gap-x-4 md:flex-col flex-wrap md:gap-2">
+                  <ul className="flex gap-2 flex-col">
                     <li className="min-w-0">
                       <span className={linkBase} role="link" tabIndex={0}>
                         Support
@@ -122,7 +122,7 @@ export default function Footer({ className }: FooterProps) {
                 </Column>
 
                 <Column title="Contacts">
-                  <ul className="grid grid-cols-2 md:grid-cols-1 gap-2">
+                  <ul className="grid grid-cols-1 gap-2">
                     <li className="flex items-start gap-2">
                       <ContactRound
                         className="mt-0.5 h-4 w-4 text-[--color-red]"
