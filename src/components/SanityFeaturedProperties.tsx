@@ -10,7 +10,7 @@ import { useT } from "@/lib/i18n";
 import { useRates } from "@/lib/hooks/use-rates";
 import { useFeaturedProperties } from "@/lib/sanity/hooks";
 import { PropertyQueryResult } from "@/lib/sanity/types";
-import { getPropertyCardImageUrl } from "@/lib/sanity/image";
+import { getPropertyCardImageUrl, safeImageUrl } from "@/lib/sanity/image";
 
 export type SanityFeaturedPropertiesProps = {
   className?: string;
@@ -137,12 +137,21 @@ export default function SanityFeaturedProperties({
   );
 
   const getImageUrl = (property: PropertyQueryResult) => {
-    // If it's a Sanity property with proper image structure
-    if (property.mainImage && property.mainImage.asset) {
-      return getPropertyCardImageUrl(property.mainImage);
+    const placeholder = "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80"
+    
+    // Check if property has main image with valid asset reference
+    if (property.mainImage && (property.mainImage as any).asset?._ref) {
+      return safeImageUrl(property.mainImage, placeholder)
     }
-    // Fallback to static image URL pattern
-    return "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80";
+    
+    // Try first gallery image if available
+    const firstGalleryImage = property.images?.find((img: any) => img?.asset?._ref)
+    if (firstGalleryImage) {
+      return safeImageUrl(firstGalleryImage, placeholder)
+    }
+    
+    // Return placeholder
+    return placeholder
   };
 
   const getAddressString = (property: PropertyQueryResult) => {
