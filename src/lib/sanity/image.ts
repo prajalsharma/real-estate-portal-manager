@@ -74,7 +74,7 @@ export function getThumbnailUrl(image: SanityImage | string, size: number = 200)
       .width(size)
       .height(size)
       .fit('crop')
-      .crop('center')
+      // .crop('center') // removed explicit crop mode for compatibility
       .quality(80)
       .url()
   } catch {
@@ -96,7 +96,7 @@ export function getPropertyCardImageUrl(image: SanityImage | string) {
       .width(400)
       .height(300)
       .fit('crop')
-      .crop('center')
+      // .crop('center') // removed explicit crop mode for compatibility
       .quality(85)
       .url()
       
@@ -113,7 +113,7 @@ export function getHeroImageUrl(image: SanityImage | string) {
       .width(1600)
       .height(900)
       .fit('crop')
-      .crop('center')
+      // .crop('center')
       .quality(90)
       .url()
   } catch {
@@ -128,7 +128,7 @@ export function getAgentAvatarUrl(image: SanityImage | string, size: number = 10
       .width(size)
       .height(size)
       .fit('crop')
-      .crop('face')
+      // .crop('face') // not in official types; rely on auto face detection via focal point if present
       .quality(85)
       .url()
   } catch {
@@ -143,7 +143,7 @@ export function getBlogImageUrl(image: SanityImage | string, width: number = 800
       .width(width)
       .height(height)
       .fit('crop')
-      .crop('center')
+      // .crop('center')
       .quality(85)
       .url()
   } catch {
