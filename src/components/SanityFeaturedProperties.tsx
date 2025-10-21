@@ -22,8 +22,8 @@ export type SanityFeaturedPropertiesProps = {
   fallbackToStatic?: boolean; // Fallback to static data if Sanity fails
 };
 
-// Fallback static data (existing data)
-const fallbackProperties = [
+// Fallback static data (properly typed)
+const fallbackProperties: PropertyQueryResult[] = [
   {
     _id: "p1",
     _type: "property" as const,
@@ -40,7 +40,7 @@ const fallbackProperties = [
     beds: 3,
     baths: 2,
     sqft: 145,
-    propertyType: "House",
+    propertyType: "House" as const, // ← Fixed: use proper enum value
     status: "For Sale" as const,
     featured: true,
     mainImage: {
@@ -239,12 +239,14 @@ export default function SanityFeaturedProperties({
           <article
             key={p._id}
             className="group relative overflow-hidden rounded-xl bg-white border shadow-sm transition-all hover:shadow-md focus-within:shadow-md">
-            <button
-              type="button"
-              onClick={() => onSelectProperty?.(p)}
-              className="absolute inset-0 z-10 cursor-pointer"
-              aria-label={`View details for ${p.title} in ${getAddressString(p)}`}
-            />
+            {onSelectProperty && (
+              <button
+                type="button"
+                onClick={() => onSelectProperty(p as PropertyQueryResult)}
+                className="absolute inset-0 z-10 cursor-pointer"
+                aria-label={`View details for ${p.title} in ${getAddressString(p)}`}
+              />
+            )}
             <div className="relative w-full overflow-hidden ">
               <div className="relative h-44 sm:h-48 md:h-52 w-full">
                 <Image
