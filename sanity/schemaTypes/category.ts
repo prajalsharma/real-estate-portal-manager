@@ -27,12 +27,7 @@ export default defineType({
       type: 'text',
       rows: 3,
     }),
-    defineField({
-      name: 'color',
-      title: 'Color',
-      type: 'color',
-      description: 'Color for category badges and labels',
-    }),
+    // Remove the color field for now
   ],
   preview: {
     select: {

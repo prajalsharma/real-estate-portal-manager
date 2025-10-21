@@ -10,8 +10,8 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
 export default defineConfig({
   name: 'real-estate-portal',
   title: 'Real Estate Portal',
-  projectId,
-  dataset,
+  projectId: '8dj9jthx',     // ← Your actual Project ID
+  dataset: 'production',
   plugins: [
     structureTool({
       structure,
