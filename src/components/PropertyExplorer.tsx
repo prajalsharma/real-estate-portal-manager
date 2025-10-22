@@ -42,7 +42,12 @@ export default function PropertyExplorer() {
           </div>
         ))}
       </div>
-      <PropertyDetailsModal open={open} onOpenChange={setOpen} property={selected as unknown as PropertyQueryResult} />
+      <PropertyDetailsModal
+        open={open}
+        onOpenChange={setOpen}
+        property={selected as PropertyQueryResult}
+        gallery={selected?.galleryImages || []}
+      />
     </div>
   );
 }
