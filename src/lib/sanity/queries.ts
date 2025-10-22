@@ -14,6 +14,15 @@ import {
 } from './types'
 
 // Properties Queries
+export const getFeaturedProperties = async (limit: number = 4): Promise<PropertyQueryResult[]> => {
+  const query = groq`
+    *[_type == "property" && featured == true] | order(publishedAt desc) [0...${limit}] {
+      ${PROPERTY_QUERY_FIELDS}
+    }
+  `
+  return await client.fetch(query)
+}
+
 export const getFeaturedAgents = async (limit: number = 4): Promise<SanityAgent[]> => {
   const query = groq`
     *[_type == "agent"] | order(sold desc) [0...${limit}] {
