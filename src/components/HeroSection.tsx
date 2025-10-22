@@ -358,7 +358,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                               onClick={handleTourRequest}
                               className={cn(
                                 "w-full sm:w-auto bg-gold text-white hover:bg-gold/90",
-                                "rounded-xl shadow-lg hover:shadow-xl text-base h-12 px-6 font-bold",
+                                "rounded shadow-lg hover:shadow-xl text-base h-12 px-6 font-semibold cursor-pointer",
                                 "transition-all duration-300 hover:scale-105",
                                 "ring-2 ring-gold/30 hover:ring-gold/50"
                               )}>
@@ -582,9 +582,9 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                 <Button
                   type="submit"
                   className={cn(
-                    "h-11 px-8 rounded-xl text-sm font-bold",
+                    "h-11 px-8 rounded text-base font-semibold",
                     "bg-primary text-white hover:bg-primary/90",
-                    "shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105",
+                    "shadow-lg hover:shadow-xl transition-all duration-300",
                     "ring-2 ring-primary/30 hover:ring-primary/50 cursor-pointer w-full"
                   )}
                   disabled={loading}
@@ -596,7 +596,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                   type="button"
                   variant="ghost"
                   onClick={handleClear}
-                  className="h-11 px-4 rounded-xl text-sm hover:bg-white/20 transition-all cursor-pointer ring-2 ring-gold w-full"
+                  className="h-11 px-4 rounded text-base font-semibold hover:bg-white/20 transition-all cursor-pointer ring-2 ring-gold w-full"
                   aria-label={t("actions.clearFilters", "Clear filters")}>
                   <span className="hidden sm:inline">Clear</span>
                   <span className="sm:hidden">Clear</span>
@@ -612,7 +612,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
 function FieldCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-border/40 bg-white/80 backdrop-blur-sm px-3 py-2.5 transition-all focus-within:ring-2 focus-within:ring-primary/60 focus-within:border-primary/50 shadow-sm flex flex-col gap-2">
+    <div className="rounded border border-border/40 bg-white/80 backdrop-blur-sm px-3 py-2.5 transition-all focus-within:ring-2 focus-within:ring-primary/60 focus-within:border-primary/50 shadow-sm flex flex-col gap-2">
       {children}
     </div>
   );
