@@ -1,5 +1,5 @@
 import React from "react";
-import PropertyDetailsModal, { type Property } from "@/components/PropertyDetailsModal";
+import PropertyDetailsModal from "@/components/PropertyDetailsModal";
 import { PropertyQueryResult } from "@/lib/sanity/types";
 import { useFeaturedProperties } from "@/lib/sanity/hooks";
 import { safeImageUrl } from "@/lib/sanity/image";
@@ -26,7 +26,7 @@ export default function PropertyExplorer() {
               <div className="flex space-x-3 text-sm text-muted-foreground mb-2">
                 <span>{p.beds ?? "-"} bd</span>
                 <span>{p.baths ?? "-"} ba</span>
-                <span>{p.sqft ?? "-"} m²</span>
+                <span>{p.sqft ?? "-"} m8</span>
               </div>
               <button
                 type="button"
@@ -42,7 +42,7 @@ export default function PropertyExplorer() {
           </div>
         ))}
       </div>
-      <PropertyDetailsModal open={open} onOpenChange={setOpen} property={selected as unknown as Property} />
+      <PropertyDetailsModal open={open} onOpenChange={setOpen} property={selected as unknown as PropertyQueryResult} />
     </div>
   );
 }
