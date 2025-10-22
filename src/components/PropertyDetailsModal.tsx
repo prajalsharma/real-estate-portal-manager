@@ -3,7 +3,7 @@ import React, { useState, CSSProperties } from "react";
 import { safeImageUrl, getAgentAvatarUrl } from "@/lib/sanity/image";
 
 interface PropertyDetailsModalProps {
-  gallery: any[]; // Array of SanityImage objects
+  gallery: any[];
   open: boolean;
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
   property: any;
@@ -39,6 +39,25 @@ const galleryThumbStyle: CSSProperties = {
 const gallerySelectedStyle: CSSProperties = { border: '2px solid #FD5B61' };
 const galleryUnselectedStyle: CSSProperties = { border: '1px solid #ececec' };
 
+const FORM_POPUP_BG = 'rgba(255,255,255,0.98)';
+const FORM_POPUP_STYLE: CSSProperties = {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%,-50%)',
+  zIndex: 2001,
+  background: FORM_POPUP_BG,
+  boxShadow: '0 8px 36px rgba(0,0,0,0.16)',
+  borderRadius: 16,
+  padding: '32px 36px 28px',
+  maxWidth: 470,
+  width: '88vw',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  animation: 'fadeIn .23s cubic-bezier(.16,1,.29,.99)' // Keyframes should be globally defined
+};
+
 const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, open, onOpenChange, property }) => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [formMode, setFormMode] = useState<'none'|'request_tour'|'contact_agent'>('none');
@@ -50,23 +69,25 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, op
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Message sent to agent!");
     setForm({ name: "", email: "", phone: "", message: "" });
     setFormMode('none');
   };
-
+  const handleCloseForm = () => {
+    setFormMode('none');
+  };
   return (
     <div style={overlayStyle}>
       <div role="dialog" aria-modal="true" style={modalStyle}>
+        {/* Highly visible close button */}
         <button
           type="button"
           onClick={() => onOpenChange(false)}
           aria-label="Close dialog"
-          style={{position: 'absolute', right: 20, top: 20, fontSize: 20, background: 'none', border: 'none', cursor: 'pointer', color: '#555', zIndex: 10, opacity: 0.67}}>
-          Close ×
+          style={{position: 'absolute', right: 24, top: 24, fontSize: 28, background: '#fff', border: '2px solid #FD5B61', borderRadius: '50%', cursor: 'pointer', color: '#FD5B61', width:44, height:44, zIndex: 20, boxShadow:'0 3px 8px rgba(0,0,0,0.12)'}}>
+          ×
         </button>
         {gallery?.length ? (
           <div style={{ width: '100%', height: 280, position: 'relative', background: '#fafafa', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -89,7 +110,7 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, op
         <div style={{ display:'flex', flexDirection:'row', gap:32, alignItems:'flex-start', padding: '24px 34px 18px' }}>
           <div style={{ flex:2 }}>
             <h2 style={{margin: 0, fontWeight: 700, fontSize: '1.55rem', letterSpacing: '-1px'}}>{property?.title}</h2>
-            <div style={{ fontSize: '1.19rem', color: '#444', marginBottom: 11, marginTop:4 }}>
+            <div style={{ fontSize: '1.19rem', color: '#444', marginBottom: 10, marginTop:4 }}>
               <span style={{ fontWeight: 750, color:'#FD5B61' }}>€{property?.price?.toLocaleString()}</span>
               {property?.beds && <span style={{marginLeft:24}}>{property?.beds} bd</span>}
               {property?.baths && <span style={{marginLeft:14}}>{property?.baths} ba</span>}
@@ -114,41 +135,47 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, op
                 </div>
               )}
             </div>
-            <button onClick={()=>setFormMode('request_tour')} style={{background:'#D8B573',color:'#fff', fontWeight:700, padding:'9px 24px', border:'none', borderRadius:7, fontSize:15, marginRight:10}}>Request a tour</button>
-            <button onClick={()=>setFormMode('contact_agent')} style={{background:'#ebedf0',color:'#715a21', fontWeight:700, padding:'8px 20px', border:'none', borderRadius:7, fontSize:15}}>Contact Agent</button>
+            <button onClick={()=>setFormMode('request_tour')} style={{background:'#D8B573',color:'#fff', fontWeight:700, padding:'9px 24px', border:'none', borderRadius:7, fontSize:15, marginRight:10, boxShadow:'0 2px 6px #e2bd73cc'}}>Request a tour</button>
+            <button onClick={()=>setFormMode('contact_agent')} style={{background:'#f8f9fa',color:'#715a21', fontWeight:600, padding:'8px 20px', border:'1.2px solid #ece9dc', borderRadius:7, fontSize:15}}>Contact Agent</button>
           </div>
           <div style={{ flex:1, minWidth:190 }}>
             <div style={{ background:'#FAFAF6', borderRadius:15, padding:'17px 17px', display:'flex', flexDirection:'column', alignItems:'center', boxShadow:'0 0 10px 1px rgba(70,70,38,0.04)' }}>
-              <img src={getAgentAvatarUrl(agent.avatar, 64)} alt={agent.name || 'Agent Photo'} style={{width:64, height:64, borderRadius:'50%', objectFit:'cover', marginBottom:10}} />
-              <div style={{fontWeight:700, fontSize:17, marginBottom:2}}>{agent.name}</div>
-              <div style={{color:'#a18644', fontWeight:500, fontSize:14, marginBottom:6}}>{agent.role}</div>
-              <div style={{fontSize:13, color:'#555', marginBottom:7}}>{agent.bio || 'No bio available.'}</div>
-              <div style={{display:'flex', gap:8, flexWrap:'wrap', fontSize:13, color:'#8b7a34'}}>
+              <img src={getAgentAvatarUrl(agent.avatar, 64)} alt={agent.name || 'Agent Photo'} style={{width:64, height:64, borderRadius:'50%', objectFit:'cover', marginBottom:10, boxShadow:'0 2px 9px #e8e2dc9c'}} />
+              <div style={{fontWeight:700, fontSize:18, marginBottom:2, color:'#423720'}}>{agent.name}</div>
+              <div style={{color:'#a18644', fontWeight:500, fontSize:15, marginBottom:5}}>{agent.role}</div>
+              <div style={{fontSize:14, color:'#7a7971', marginBottom:7}}>{agent.bio || 'No bio available.'}</div>
+              <div style={{display:'flex', gap:8, flexWrap:'wrap', fontSize:13, color:'#8b7a34', justifyContent:'center'}}>
                 {agent.phone && <div>📞 {agent.phone}</div>}
                 {agent.email && <div>✉️ {agent.email}</div>}
                 {agent.specializations?.length > 0 && <div>{agent.specializations.join(', ')}</div>}
                 {agent.languages?.length > 0 && <div>🌍 {agent.languages.join(', ')}</div>}
-                <div>⭐ {agent.rating || 4.7}</div>
+                <div>⭐ {agent.rating || 5.0}</div>
                 <div>Deals closed: {agent.sold || 0}</div>
               </div>
             </div>
           </div>
         </div>
+        {/* Form as a separate popup above the modal */}
         {formMode !== 'none' && (
-          <div style={{padding:'6px 30px 24px'}}>
-            <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:14, maxWidth:430, margin:'auto', background:'#F9FAF8', borderRadius:13, padding:'18px 13px', boxShadow:'0 0 5px 1.5px rgba(60,50,40,0.04)' }}>
-              <h3 style={{marginTop: 0, marginBottom:5, fontWeight:650, fontSize:19}}>{formMode==='request_tour'?'Request a Tour':'Contact Agent'}</h3>
-              <div style={{display:'flex',gap:9}}>
-                <input name="name" autoComplete="name" type="text" required value={form.name} placeholder="Full Name" onChange={handleChange} style={{padding:'11px 13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 15, background:'#fff', flex:1}} />
-                <input name="email" autoComplete="email" type="email" required value={form.email} placeholder="Email" onChange={handleChange} style={{padding:'11px 13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 15, background:'#fff', flex:1}} />
+          <div style={FORM_POPUP_STYLE}>
+            <button
+              type="button"
+              onClick={handleCloseForm}
+              aria-label="Close form"
+              style={{position: 'absolute', right: 16, top: 15, fontSize: 25, background: '#fff', border: '2px solid #FD5B61', borderRadius: '50%', cursor: 'pointer', color: '#FD5B61', width:39, height:39, zIndex: 20, boxShadow:'0 2px 6px #fcd4d6'}}>
+              ×
+            </button>
+            <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', gap:19, width:'98%', margin:'28px auto 0', background:'#F9FAF8', borderRadius:13, padding:'13px', boxShadow:'0 0 5px 1.5px rgba(60,50,40,0.04)'}}>
+              <h3 style={{margin:0, marginBottom:2, fontWeight:650, fontSize:20, color:'#FD5B61'}}>{formMode==='request_tour'?"Request a Tour":"Contact Agent"}</h3>
+              <div style={{display:'flex',gap:11, flexWrap:'wrap'}}>
+                <input name="name" autoComplete="name" type="text" required value={form.name} placeholder="Full Name" onChange={handleChange} style={{padding:'13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 16, background:'#fff', flex:1}} />
+                <input name="email" autoComplete="email" type="email" required value={form.email} placeholder="Email" onChange={handleChange} style={{padding:'13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 16, background:'#fff', flex:1}} />
               </div>
-              <div style={{display:'flex',gap:9}}>
-                <input name="phone" autoComplete="tel" type="tel" pattern="[+0-9().\-\s]{7,}" value={form.phone} placeholder="Phone number" onChange={handleChange} style={{padding:'11px 13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 15, background:'#fff', flex:1}} />
-              </div>
-              <textarea name="message" required value={form.message} placeholder={formMode==='request_tour'?"Requested dates, times, and your questions":'Your Message'} rows={formMode==='request_tour'?2:3} onChange={handleChange} style={{padding:'13px 13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize:15, background:'#fff'}} />
-              <div style={{display:'flex', gap:10, justifyContent:'flex-end'}}>
-                <button type="button" onClick={()=>setFormMode('none')} style={{padding:'11px 0', borderRadius:7, background:'#ece8df', color:'#9a8542', fontWeight:'bold', border:'none', fontSize:15, minWidth:90}}>Cancel</button>
-                <button type="submit" style={{padding:'11px 0', borderRadius:7, background:'#FD5B61', color:'#fff', fontWeight:'bold', border:'none', fontSize:15, minWidth:110}}>{formMode==='request_tour'?"Request tour":"Send message"}</button>
+              <input name="phone" autoComplete="tel" type="tel" pattern="[+0-9().\-\s]{7,}" value={form.phone} placeholder="Phone number" onChange={handleChange} style={{padding:'13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 16, background:'#fff'}} />
+              <textarea name="message" required value={form.message} placeholder={formMode==='request_tour'?"Requested dates, times, and your questions":'Your Message'} rows={formMode==='request_tour'?2:3} onChange={handleChange} style={{padding:'14px', border:'1px solid #e5e0dd', borderRadius: 8, fontSize:16, background:'#fff'}} />
+              <div style={{display:'flex', gap:14, justifyContent:'flex-end', marginTop:3}}>
+                <button type="button" onClick={handleCloseForm} style={{padding:'12px 0', borderRadius:7, background:'#f2e9e2', color:'#cd8250', fontWeight:'bold', border:'none', fontSize:15, minWidth:90}}>Cancel</button>
+                <button type="submit" style={{padding:'12px 0', borderRadius:7, background:'#FD5B61', color:'#fff', fontWeight:'bold', border:'none', fontSize:16, minWidth:130}}>{formMode==='request_tour'?"Request tour":"Send message"}</button>
               </div>
             </form>
           </div>
