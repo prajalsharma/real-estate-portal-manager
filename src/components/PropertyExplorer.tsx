@@ -46,7 +46,7 @@ export default function PropertyExplorer() {
         open={open}
         onOpenChange={setOpen}
         property={selected as PropertyQueryResult}
-        gallery={selected?.galleryImages || []}
+        gallery={selected?.images?.map((img) => img.asset._ref) || []}
       />
     </div>
   );
