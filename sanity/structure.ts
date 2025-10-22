@@ -43,6 +43,27 @@ export const structure: StructureResolver = (S) =>
                     .title('Sold/Rented')
                     .filter('_type == "property" && (status == "Sold" || status == "Rented")')
                 ),
+              S.listItem()
+                .title('Condos')
+                .child(
+                  S.documentList()
+                    .title('Condos')
+                    .filter('_type == "property" && propertyType == "Condo"')
+                ),
+              S.listItem()
+                .title('Houses')
+                .child(
+                  S.documentList()
+                    .title('Houses')
+                    .filter('_type == "property" && propertyType == "House"')
+                ),
+              S.listItem()
+                .title('Commercial')
+                .child(
+                  S.documentList()
+                    .title('Commercial')
+                    .filter('_type == "property" && propertyType == "Commercial"')
+                ),
             ])
         ),
 
@@ -136,8 +157,6 @@ export const structure: StructureResolver = (S) =>
 
       // Settings section (if you want to add site settings later)
       S.divider(),
-      
-      // Remaining document types
       ...S.documentTypeListItems().filter(
         (listItem) => !['property', 'agent', 'blogPost', 'category', 'location'].includes(listItem.getId()!)
       ),
