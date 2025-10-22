@@ -85,9 +85,17 @@ export default defineType({
     }),
     defineField({
       name: 'featured',
-      title: 'Featured Property',
+      title: 'Featured Section',
       type: 'boolean',
       initialValue: false,
+      description: 'Tick if property should be shown in featured section.'
+    }),
+    defineField({
+      name: 'carousel',
+      title: 'Carousel Section',
+      type: 'boolean',
+      initialValue: false,
+      description: 'Tick if property should be shown in homepage carousel.'
     }),
     defineField({
       name: 'mainImage',
