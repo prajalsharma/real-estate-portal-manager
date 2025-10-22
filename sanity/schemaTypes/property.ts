@@ -12,16 +12,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'price',
       title: 'Price',
       type: 'number',
@@ -63,7 +53,12 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Property', value: 'Property'}
+          {title: 'Apartment', value: 'Apartment'},
+          {title: 'Maisonette', value: 'Maisonette'},
+          {title: 'Commerical', value: 'Commerical'},
+          {title: 'Land', value: 'Land'},
+          {title: 'Rental Service', value: 'Rent'}
+          
         ],
       },
       validation: (Rule) => Rule.required(),
