@@ -31,14 +31,7 @@ type HeaderProps = {
   onLanguageChange?: (value: string) => void;
 };
 
-const NAV_ITEMS = [
-  { key: "nav.condos" },
-  { key: "nav.houses" },
-  { key: "nav.commercial" },
-  { key: "nav.rent" },
-  { key: "nav.about" },
-  { key: "nav.contact" },
-];
+const NAV_ITEMS = [{ key: "nav.about" }, { key: "nav.contact" }];
 
 const LANGUAGES: { label: string; value: HeaderProps["initialLanguage"] }[] = [
   { label: "English", value: "en" },
@@ -106,11 +99,11 @@ export default function Header({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/95 container",
+        "sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-backdrop-filter:bg-background/95 ",
         className
       )}
       role="banner">
-      <div className="mx-auto flex h-16 items-center justify-between gap-3 px-5 md:px-10">
+      <div className="mx-auto flex h-16 items-center justify-between gap-3 w-full px-7 container">
         {/* Left: Logo */}
         <div className="flex items-center gap-3">
           <Link
@@ -132,7 +125,7 @@ export default function Header({
             <Button
               key={item.key}
               variant="ghost"
-              className="text-sm font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold">
+              className="text-base font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold">
               <span className="truncate">{t(item.key)}</span>
             </Button>
           ))}

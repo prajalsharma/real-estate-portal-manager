@@ -252,7 +252,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
         </div>
 
         {/* Content Container */}
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex flex-col lg:flex-row lg:items-center">
           <div className="w-full max-w-7xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
             <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10 max-w-7xl mx-auto justify-center">
               <div className="w-full text-center lg:text-left">
@@ -264,7 +264,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                   {t("hero.title", "Real estate for living and investments")}
                 </h1>
                 <div className="inline-block pb-3 rounded-2xl">
-                  <p className="text-white text-base md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-medium">
+                  <p className="text-white text-base md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-normal">
                     {t(
                       "hero.subtitle",
                       "Discover properties across Greece. Buy, sell, or rent with trusted local expertise."
@@ -293,7 +293,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                           priority
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
                         <div className="flex flex-col items-start justify-between gap-2">
                           <div className="inline-block rounded-full bg-gold px-5 py-2.5 text-base sm:text-lg font-bold shadow-xl ring-2 ring-white/30 text-white z-10">
