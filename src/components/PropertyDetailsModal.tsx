@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -10,7 +9,14 @@ import { useAppPrefs } from "@/lib/prefs-context";
 import { useRates } from "@/lib/hooks/use-rates";
 import { useT } from "@/lib/i18n";
 
-export default function PropertyDetailsModal({ open, onOpenChange, property, autoOpenContact }) {
+interface PropertyDetailsModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  property: any;
+  autoOpenContact?: boolean;
+}
+
+export default function PropertyDetailsModal({ open, onOpenChange, property, autoOpenContact }: PropertyDetailsModalProps) {
   const { currency, language } = useAppPrefs();
   const { convert } = useRates();
   const t = useT();
@@ -65,15 +71,12 @@ export default function PropertyDetailsModal({ open, onOpenChange, property, aut
               <DialogHeader>
                 <DialogTitle className="font-heading text-xl md:text-3xl tracking-tight">{property.title}</DialogTitle>
               </DialogHeader>
-
               <div className="flex items-center gap-2 text-muted-foreground text-sm">
                 <MapPin className="h-4 w-4" />
                 <span>{addressStr}</span>
               </div>
-
               <div className="text-2xl font-semibold">{priceDisplay}</div>
               <div className="text-xs text-muted-foreground mb-1">{property.currency}</div>
-
               <div className="flex items-center gap-4 text-sm mb-2">
                 <div className="flex items-center gap-1.5">
                   <Bed className="h-4 w-4 text-gold" />
@@ -99,32 +102,23 @@ export default function PropertyDetailsModal({ open, onOpenChange, property, aut
                   <span className="text-muted-foreground">Year</span>
                 </div>
               </div>
-
               <div className="flex gap-2 flex-wrap text-xs">
                 <span className="bg-muted px-2 py-1 rounded">Type: {property.type}</span>
                 <span className="bg-muted px-2 py-1 rounded">Status: {property.status}</span>
                 <span className="bg-muted px-2 py-1 rounded">Featured: {property.featured ? "Yes" : "No"}</span>
               </div>
-
               <div className="mt-3 text-sm text-muted-foreground whitespace-pre-wrap">{property.description}</div>
               <div className="mt-2 flex flex-wrap gap-2">
-                {property.features && property.features.map((tag, idx) => (
-                  <span key={tag} className="rounded bg-primary/10 px-2 py-1 text-xs">{tag}</span>
-                ))}
-                {property.amenities && property.amenities.map((tag, idx) => (
-                  <span key={tag} className="rounded bg-accent px-2 py-1 text-xs">{tag}</span>
-                ))}
+                {property.features && property.features.map((tag, idx) => (<span key={tag + idx} className="rounded bg-primary/10 px-2 py-1 text-xs">{tag}</span>))}
+                {property.amenities && property.amenities.map((tag, idx) => (<span key={tag + idx} className="rounded bg-accent px-2 py-1 text-xs">{tag}</span>))}
               </div>
-
               <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
                 <span>Lot Size: <strong>{property.lotSize || "-"}</strong> m²</span>
                 <span>Latitude: <strong>{property.latitude ?? "-"}</strong></span>
                 <span>Longitude: <strong>{property.longitude ?? "-"}</strong></span>
                 <span>Altitude: <strong>{property.altitude ?? "-"}</strong></span>
-                <span>Slug: <strong>{property.slug ?? "-"}</strong></span>
                 <span>Published: <strong>{property.publishedAt ? new Date(property.publishedAt).toLocaleDateString() : "-"}</strong></span>
               </div>
-
               {property.agent ? (
                 <div className="mt-6 rounded-lg border p-3 flex items-center gap-3">
                   <div className="size-10 rounded-full bg-muted overflow-hidden">
@@ -138,16 +132,11 @@ export default function PropertyDetailsModal({ open, onOpenChange, property, aut
                     <p className="text-xs text-muted-foreground truncate">{property.agent.rating ? `⭐ ${property.agent.rating}` : ""}</p>
                   </div>
                   <div className="ml-auto flex gap-2">
-                    {property.agent.phone ? (
-                      <a href={`tel:${property.agent.phone}`} className="inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground"><Phone className="h-4 w-4" />{t("actions.call")}</a>
-                    ) : null}
-                    {whatsappUrl && (
-                      <a href={whatsappUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-sm bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition">WhatsApp</a>
-                    )}
+                    {property.agent.phone ? (<a href={`tel:${property.agent.phone}`} className="inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground"><Phone className="h-4 w-4" />{t("actions.call")}</a>) : null}
+                    {whatsappUrl && (<a href={whatsappUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-sm bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition">WhatsApp</a>)}
                   </div>
                 </div>
               ) : null}
-
               <div className="pt-2 flex gap-2 justify-center">
                 <Button className="bg-primary text-white hover:bg-primary/90 transition-all duration-300" onClick={() => setContactOpen(true)}>
                   Contact Agent
@@ -157,16 +146,7 @@ export default function PropertyDetailsModal({ open, onOpenChange, property, aut
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Contact form modal (still present) */}
-      <ContactModal
-        open={contactOpen}
-        onOpenChange={setContactOpen}
-        lang={language}
-        defaultProperty={property.type?.toLowerCase?.() || undefined}
-        propertyOptions={[{ value: property.id, label: property.title }]}
-        onSubmit={async () => {/* integrate backend later */}}
-      />
+      <ContactModal open={contactOpen} onOpenChange={setContactOpen} lang={language} defaultProperty={property.type?.toLowerCase?.() || undefined} propertyOptions={[{ value: property.id, label: property.title }]} onSubmit={async () => {/* integrate backend later */}} />
     </>
   );
 }
