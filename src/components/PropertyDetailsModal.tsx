@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, CSSProperties } from "react";
 import { safeImageUrl } from "@/lib/sanity/image";
 
 interface PropertyDetailsModalProps {
@@ -7,6 +7,28 @@ interface PropertyDetailsModalProps {
   open: boolean;
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
   property: any;
+}
+
+const overlayStyle: CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  background: 'rgba(0,0,0,0.2)',
+  zIndex: 1000,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+const modalStyle: CSSProperties = {
+  background: 'white',
+  padding: 24,
+  borderRadius: 12,
+  maxWidth: 640,
+  width: '100%',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+  position: 'relative'
 }
 
 const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, open, onOpenChange, property }) => {
@@ -23,29 +45,6 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, op
     e.preventDefault();
     alert("Message sent to agent!");
     setForm({ name: "", email: "", message: "" });
-  };
-
-  // Overlay styles
-  const overlayStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'rgba(0,0,0,0.2)',
-    zIndex: 1000,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  };
-  const modalStyle = {
-    background: 'white',
-    padding: 24,
-    borderRadius: 12,
-    maxWidth: 640,
-    width: '100%',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
-    position: 'relative'
   };
 
   return (
