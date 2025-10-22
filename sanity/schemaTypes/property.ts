@@ -34,8 +34,6 @@ export default defineType({
       options: {
         list: [
           {title: 'EUR - Euro', value: 'EUR'},
-          {title: 'USD - US Dollar', value: 'USD'},
-          {title: 'GBP - British Pound', value: 'GBP'},
         ],
       },
       initialValue: 'EUR',
@@ -65,11 +63,7 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'House', value: 'House'},
-          {title: 'Apartment', value: 'Apartment'},
-          {title: 'Condo', value: 'Condo'},
-          {title: 'Commercial', value: 'Commercial'},
-          {title: 'Land', value: 'Land'},
+          {title: 'Property', value: 'Property'}
         ],
       },
       validation: (Rule) => Rule.required(),
