@@ -35,23 +35,23 @@ export default function SanityFeaturedProperties({
 
   const { properties: sanityProperties, loading, error } = useFeaturedProperties(limit);
 
-  const priceDisplay = React.useMemo(() => {
-    if (!sanityProperties) return "";
-    const amount = convert
-      ? convert(sanityProperties[0].price, currency)
-      : sanityProperties[0].price;
-    try {
-      return new Intl.NumberFormat(language, {
-        style: "currency",
-        currency: currency.toUpperCase(),
-        maximumFractionDigits: 0,
-      })
-        .format(amount)
-        .replace(/^(\D+)/, "$1 ");
-    } catch {
-      return `${currency.toUpperCase()}\u00A0${Math.round(amount).toLocaleString(language)}`;
-    }
-  }, [sanityProperties, currency, language, convert]);
+  // const priceDisplay = React.useMemo(() => {
+  //   if (!sanityProperties) return "";
+  //   const amount = convert
+  //     ? convert(sanityProperties[0].price, currency)
+  //     : sanityProperties[0].price;
+  //   try {
+  //     return new Intl.NumberFormat(language, {
+  //       style: "currency",
+  //       currency: currency.toUpperCase(),
+  //       maximumFractionDigits: 0,
+  //     })
+  //       .format(amount)
+  //       .replace(/^(\D+)/, "$1 ");
+  //   } catch {
+  //     return `${currency.toUpperCase()}\u00A0${Math.round(amount).toLocaleString(language)}`;
+  //   }
+  // }, [sanityProperties, currency, language, convert]);
 
   if (loading) {
     return (

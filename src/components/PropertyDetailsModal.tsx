@@ -6,6 +6,7 @@ import { useAppPrefs } from "@/lib/prefs-context";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import Image from "next/image";
 import { Bed, Mail, MapPin, Phone, Proportions, ShowerHead } from "lucide-react";
+import ContactModal from "./ContactModal";
 
 interface PropertyDetailsModalProps {
   gallery: any[];
@@ -204,7 +205,10 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({
                 </button>
                 <button
                   className="bg-white text-sm text-black hover:opacity-80 transition-all duration-300 border-2 border-gold px-1.5 py-2 rounded font-semibold cursor-pointer"
-                  onClick={() => setFormMode("contact_agent")}>
+                  onClick={() => {
+                    setFormMode("contact_agent");
+                    setContactOpen(true);
+                  }}>
                   {t("actions.contactAgent")}
                 </button>
               </div>
@@ -212,6 +216,17 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({
           </div>
         </DialogContent>
       </Dialog>
+
+      <ContactModal
+        open={contactOpen}
+        onOpenChange={setContactOpen}
+        lang={language}
+        defaultProperty={property.propertyType?.toLowerCase?.() || undefined}
+        propertyOptions={[{ value: property.id, label: property.title }]}
+        onSubmit={async () => {
+          /* integrate backend later */
+        }}
+      />
     </>
   );
 };
