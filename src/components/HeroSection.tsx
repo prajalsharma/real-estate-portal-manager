@@ -252,7 +252,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
         </div>
 
         {/* Content Container */}
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex flex-col lg:flex-row lg:items-center">
           <div className="w-full max-w-7xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
             <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10 max-w-7xl mx-auto justify-center">
               <div className="w-full text-center lg:text-left">
@@ -264,7 +264,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                   {t("hero.title", "Real estate for living and investments")}
                 </h1>
                 <div className="inline-block pb-3 rounded-2xl">
-                  <p className="text-white text-base md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-medium">
+                  <p className="text-white text-base md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-normal">
                     {t(
                       "hero.subtitle",
                       "Discover properties across Greece. Buy, sell, or rent with trusted local expertise."
@@ -293,7 +293,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                           priority
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
                         <div className="flex flex-col items-start justify-between gap-2">
                           <div className="inline-block rounded-full bg-gold px-5 py-2.5 text-base sm:text-lg font-bold shadow-xl ring-2 ring-white/30 text-white z-10">
@@ -358,7 +358,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                               onClick={handleTourRequest}
                               className={cn(
                                 "w-full sm:w-auto bg-gold text-white hover:bg-gold/90",
-                                "rounded-xl shadow-lg hover:shadow-xl text-base h-12 px-6 font-bold",
+                                "rounded shadow-lg hover:shadow-xl text-base h-12 px-6 font-semibold cursor-pointer",
                                 "transition-all duration-300 hover:scale-105",
                                 "ring-2 ring-gold/30 hover:ring-gold/50"
                               )}>
@@ -582,9 +582,9 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                 <Button
                   type="submit"
                   className={cn(
-                    "h-11 px-8 rounded-xl text-sm font-bold",
+                    "h-11 px-8 rounded text-base font-semibold",
                     "bg-primary text-white hover:bg-primary/90",
-                    "shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105",
+                    "shadow-lg hover:shadow-xl transition-all duration-300",
                     "ring-2 ring-primary/30 hover:ring-primary/50 cursor-pointer w-full"
                   )}
                   disabled={loading}
@@ -596,7 +596,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                   type="button"
                   variant="ghost"
                   onClick={handleClear}
-                  className="h-11 px-4 rounded-xl text-sm hover:bg-white/20 transition-all cursor-pointer ring-2 ring-gold w-full"
+                  className="h-11 px-4 rounded text-base font-semibold hover:bg-white/20 transition-all cursor-pointer ring-2 ring-gold w-full"
                   aria-label={t("actions.clearFilters", "Clear filters")}>
                   <span className="hidden sm:inline">Clear</span>
                   <span className="sm:hidden">Clear</span>
@@ -612,7 +612,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
 function FieldCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-border/40 bg-white/80 backdrop-blur-sm px-3 py-2.5 transition-all focus-within:ring-2 focus-within:ring-primary/60 focus-within:border-primary/50 shadow-sm flex flex-col gap-2">
+    <div className="rounded border border-border/40 bg-white/80 backdrop-blur-sm px-3 py-2.5 transition-all focus-within:ring-2 focus-within:ring-primary/60 focus-within:border-primary/50 shadow-sm flex flex-col gap-2">
       {children}
     </div>
   );

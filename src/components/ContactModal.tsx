@@ -608,7 +608,7 @@ export default function ContactModal({
                   <Label htmlFor="property">{t.labels.property}</Label>
                   <Select value={property} onValueChange={(v) => setProperty(v)}>
                     <SelectTrigger id="property" className="bg-white">
-                      <SelectValue placeholder={t.placeholders.property} />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {options.map((opt) => (
@@ -662,10 +662,10 @@ export default function ContactModal({
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={t.placeholders.message}
-                  rows={5}
+                  rows={2.5}
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "message-error" : undefined}
-                  className="bg-white resize-y"
+                  className="bg-white resize-none leading-5 overflow-y-auto scrollbar-none wrap-break-word"
                 />
                 {errors.message && (
                   <p id="message-error" className="text-destructive text-xs">
@@ -709,19 +709,6 @@ export default function ContactModal({
             </form>
           </div>
         </div>
-
-        <DialogFooter className="px-6 pb-6">
-          <div className="w-full flex items-center justify-between text-xs text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Check className="size-3.5" aria-hidden="true" />
-              <span>{t.footer?.secure ?? "Secure & private"}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Map className="size-3.5" aria-hidden="true" />
-              <span>{t.footer?.maps ?? "Google Maps"}</span>
-            </div>
-          </div>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
