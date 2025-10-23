@@ -12,6 +12,16 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'price',
       title: 'Price',
       type: 'number',
@@ -165,11 +175,6 @@ export default defineType({
         },
       ],
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'location',
-      title: 'Location (GPS)',
-      type: 'geopoint',
     }),
     defineField({
       name: 'description',
