@@ -1,6 +1,12 @@
-import Image from "next/image";
-import React, { useState, CSSProperties } from "react";
+import React, { useMemo, useState } from "react";
 import { safeImageUrl, getAgentAvatarUrl } from "@/lib/sanity/image";
+import { useT } from "@/lib/i18n";
+import { useRates } from "@/lib/hooks/use-rates";
+import { useAppPrefs } from "@/lib/prefs-context";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import Image from "next/image";
+import { Bed, Mail, MapPin, Phone, Proportions, ShowerHead } from "lucide-react";
+import ContactModal from "./ContactModal";
 
 interface PropertyDetailsModalProps {
   gallery: any[];
@@ -9,62 +15,39 @@ interface PropertyDetailsModalProps {
   property: any;
 }
 
-const overlayStyle: CSSProperties = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  background: 'rgba(34,34,38,0.45)',
-  zIndex: 1000,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backdropFilter: 'blur(2px)'
-};
-const modalStyle: CSSProperties = {
-  background: 'white',
-  padding: 0,
-  borderRadius: 18,
-  maxWidth: 720,
-  width: '95vw',
-  boxShadow: '0 8px 36px rgba(0,0,0,0.23)',
-  position: 'relative',
-  overflow: 'hidden',
-};
-
-const galleryThumbStyle: CSSProperties = {
-  width: 50, height: 42, objectFit: 'cover', borderRadius: 7, cursor: 'pointer', transition: 'border 0.2s'
-};
-const gallerySelectedStyle: CSSProperties = { border: '2px solid #FD5B61' };
-const galleryUnselectedStyle: CSSProperties = { border: '1px solid #ececec' };
-
-const FORM_POPUP_BG = 'rgba(255,255,255,0.98)';
-const FORM_POPUP_STYLE: CSSProperties = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%,-50%)',
-  zIndex: 2001,
-  background: FORM_POPUP_BG,
-  boxShadow: '0 8px 36px rgba(0,0,0,0.16)',
-  borderRadius: 16,
-  padding: '32px 36px 28px',
-  maxWidth: 470,
-  width: '88vw',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  animation: 'fadeIn .23s cubic-bezier(.16,1,.29,.99)' // Keyframes should be globally defined
-};
-
-const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, open, onOpenChange, property }) => {
+const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({
+  gallery,
+  open,
+  onOpenChange,
+  property,
+}) => {
+  const { currency, language } = useAppPrefs();
+  const { convert } = useRates();
+  const t = useT();
+  const [contactOpen, setContactOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
-  const [formMode, setFormMode] = useState<'none'|'request_tour'|'contact_agent'>('none');
+  const [formMode, setFormMode] = useState<"none" | "request_tour" | "contact_agent">("none");
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
+  const priceDisplay = useMemo(() => {
+    if (!property) return "";
+    const amount = convert ? convert(property.price, currency) : property.price;
+    try {
+      return new Intl.NumberFormat(language, {
+        style: "currency",
+        currency: currency.toUpperCase(),
+        maximumFractionDigits: 0,
+      })
+        .format(amount)
+        .replace(/^(\D+)/, "$1 ");
+    } catch {
+      return `${currency.toUpperCase()}\u00A0${Math.round(amount).toLocaleString(language)}`;
+    }
+  }, [property, currency, language, convert]);
+
   if (!open || !property) return null;
-  const agent = property.agent || {};
+
+  const currentImage = gallery[Math.min(activeIdx, gallery.length - 1)];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -73,115 +56,178 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({ gallery, op
     e.preventDefault();
     alert("Message sent to agent!");
     setForm({ name: "", email: "", phone: "", message: "" });
-    setFormMode('none');
+    setFormMode("none");
   };
   const handleCloseForm = () => {
-    setFormMode('none');
+    setFormMode("none");
   };
+
   return (
-    <div style={overlayStyle}>
-      <div role="dialog" aria-modal="true" style={modalStyle}>
-        {/* Highly visible close button */}
-        <button
-          type="button"
-          onClick={() => onOpenChange(false)}
-          aria-label="Close dialog"
-          style={{position: 'absolute', right: 24, top: 24, fontSize: 28, background: '#fff', border: '2px solid #FD5B61', borderRadius: '50%', cursor: 'pointer', color: '#FD5B61', width:44, height:44, zIndex: 20, boxShadow:'0 3px 8px rgba(0,0,0,0.12)'}}>
-          ×
-        </button>
-        {gallery?.length ? (
-          <div style={{ width: '100%', height: 280, position: 'relative', background: '#fafafa', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <img src={safeImageUrl(gallery[activeIdx])} alt={property?.title || "Image"} style={{ width: '97%', height: 264, objectFit: 'cover', borderRadius: '16px', boxShadow: '0 0 12px rgba(0,0,0,0.04)', position: 'absolute', left: '1.5%' }} />
-            <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(255,255,255,0.85)', padding: '7px 20px', borderRadius: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.08)', alignItems: 'center' }}>
-              {gallery.map((img: any, idx: number) => (
-                <img
-                  src={safeImageUrl(img)}
-                  key={idx}
-                  onClick={() => setActiveIdx(idx)}
-                  style={idx === activeIdx ? { ...galleryThumbStyle, ...gallerySelectedStyle } : { ...galleryThumbStyle, ...galleryUnselectedStyle }}
-                  alt={(property?.title || 'Property') + ' thumbnail'}
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-3xl overflow-hidden p-0 bg-popover border-none">
+          <div className="grid grid-cols-1 md:grid-cols-5">
+            <div className="relative md:col-span-3">
+              <div className="relative h-56 md:min-h-full">
+                <Image
+                  src={safeImageUrl(currentImage)}
+                  alt={property?.title || "Image"}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 60vw"
                 />
-              ))}
+                {gallery.length > 0 ? (
+                  <div className="absolute z-99 bottom-0 flex gap-2 p-3 overflow-x-auto items-center w-full justify-center">
+                    {gallery.map((src, idx) => (
+                      <button
+                        key={`${src}-${idx}`}
+                        type="button"
+                        onClick={() => setActiveIdx(idx)}
+                        className={`relative h-16 w-20 shrink-0 overflow-hidden rounded-md transition focus:outline-none ring-1 cursor-pointer ${
+                          idx === activeIdx
+                            ? "ring-2 ring-white border-ring/30"
+                            : "hover:opacity-90"
+                        }`}
+                        aria-label={`Preview image ${idx + 1}`}>
+                        <Image
+                          src={safeImageUrl(src)}
+                          alt={(property?.title || "Property") + " thumbnail"}
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div style={{ width: '100%', height: 220, background: '#f5f7fa', borderRadius: '16px' }}></div>
-        )}
-        <div style={{ display:'flex', flexDirection:'row', gap:32, alignItems:'flex-start', padding: '24px 34px 18px' }}>
-          <div style={{ flex:2 }}>
-            <h2 style={{margin: 0, fontWeight: 700, fontSize: '1.55rem', letterSpacing: '-1px'}}>{property?.title}</h2>
-            <div style={{ fontSize: '1.19rem', color: '#444', marginBottom: 10, marginTop:4 }}>
-              <span style={{ fontWeight: 750, color:'#FD5B61' }}>€{property?.price?.toLocaleString()}</span>
-              {property?.beds && <span style={{marginLeft:24}}>{property?.beds} bd</span>}
-              {property?.baths && <span style={{marginLeft:14}}>{property?.baths} ba</span>}
-              {property?.sqft && <span style={{marginLeft:14}}>{property?.sqft} m²</span>}
-              {property?.status && <span style={{marginLeft:14}}>{property?.status}</span>}
-            </div>
-            <div style={{marginBottom:10, fontSize:15, color:'#666'}}>
-              <b style={{ fontWeight:600 }}>Address:</b> {property?.address?.street}, {property?.address?.city}, {property?.address?.region}, {property?.address?.country}
-            </div>
-            <div style={{marginBottom:18, fontSize:15, color:'#494949'}}>
-              <b style={{ fontWeight:550 }}>Description:</b> {property?.description}
-            </div>
-            <div style={{display:'flex', gap:14, flexWrap:'wrap', marginBottom:14}}>
+            <div className="md:col-span-2 p-5 space-y-4 flex flex-col">
+              <DialogHeader>
+                <DialogTitle className="font-heading text-xl md:text-3xl tracking-tight">
+                  {property?.title}
+                </DialogTitle>
+              </DialogHeader>
+
+              <div className="text-2xl font-semibold">{priceDisplay}</div>
+
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-1.5">
+                  <Bed className="h-4 w-4 text-gold" />
+                  <span className="font-medium">
+                    {property.beds && `${property.beds} ${t("labels.bed")}`}
+                  </span>
+                </div>
+                <div className="h-4 w-px bg-border" />
+                <div className="flex items-center gap-1.5">
+                  <ShowerHead className="h-4 w-4 text-gold" />
+                  <span className="font-medium">
+                    {property.baths && `${property.baths} ${t("labels.bath")}`}
+                  </span>
+                </div>
+                <div className="h-4 w-px bg-border" />
+                <div className="flex items-center gap-1.5">
+                  <Proportions className="h-4 w-4 text-gold" />
+                  <span className="font-medium">
+                    {property.sqft && `${property.sqft} ${t("labels.area")}`}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center md:items-start gap-2 text-muted-foreground text-sm">
+                <MapPin className="h-4 w-4 shrink-0 md:mt-1" />
+                <span>
+                  {" "}
+                  {property?.address?.street}, {property?.address?.city},{" "}
+                  {property?.address?.region}, {property?.address?.country}
+                </span>
+              </div>
+              {property?.description && (
+                <div className="mt-4">
+                  <p className="text-muted-foreground">{property?.description}</p>
+                </div>
+              )}
               {property?.features?.length > 0 && (
-                <div style={{background:'#FAF3F2', borderRadius:8, padding:'4.5px 12px', fontSize:14, color:'#cb2947', fontWeight:600}}>
-                  {property?.features.join(', ')}
+                <div className="flex flex-wrap gap-2 mt-4 p-3">
+                  <b className="font-semibold">Features:</b>{" "}
+                  <span className="text-muted-foreground">{property?.features.join(", ")}</span>
                 </div>
               )}
               {property?.amenities?.length > 0 && (
-                <div style={{background:'#F4F8EF', borderRadius:8, padding:'4px 10px', fontSize:14, color:'#3e734c', fontWeight:500}}>
-                  Amenities: {property?.amenities.join(', ')}
+                <div className="flex flex-wrap gap-2 mt-2 p-3">
+                  <b className="font-semibold">Amenities:</b>{" "}
+                  <span className="text-muted-foreground">{property?.amenities.join(", ")}</span>
                 </div>
               )}
-            </div>
-            <button onClick={()=>setFormMode('request_tour')} style={{background:'#D8B573',color:'#fff', fontWeight:700, padding:'9px 24px', border:'none', borderRadius:7, fontSize:15, marginRight:10, boxShadow:'0 2px 6px #e2bd73cc'}}>Request a tour</button>
-            <button onClick={()=>setFormMode('contact_agent')} style={{background:'#f8f9fa',color:'#715a21', fontWeight:600, padding:'8px 20px', border:'1.2px solid #ece9dc', borderRadius:7, fontSize:15}}>Contact Agent</button>
-          </div>
-          <div style={{ flex:1, minWidth:190 }}>
-            <div style={{ background:'#FAFAF6', borderRadius:15, padding:'17px 17px', display:'flex', flexDirection:'column', alignItems:'center', boxShadow:'0 0 10px 1px rgba(70,70,38,0.04)' }}>
-              <img src={getAgentAvatarUrl(agent.avatar, 64)} alt={agent.name || 'Agent Photo'} style={{width:64, height:64, borderRadius:'50%', objectFit:'cover', marginBottom:10, boxShadow:'0 2px 9px #e8e2dc9c'}} />
-              <div style={{fontWeight:700, fontSize:18, marginBottom:2, color:'#423720'}}>{agent.name}</div>
-              <div style={{color:'#a18644', fontWeight:500, fontSize:15, marginBottom:5}}>{agent.role}</div>
-              <div style={{fontSize:14, color:'#7a7971', marginBottom:7}}>{agent.bio || 'No bio available.'}</div>
-              <div style={{display:'flex', gap:8, flexWrap:'wrap', fontSize:13, color:'#8b7a34', justifyContent:'center'}}>
-                {agent.phone && <div>📞 {agent.phone}</div>}
-                {agent.email && <div>✉️ {agent.email}</div>}
-                {agent.specializations?.length > 0 && <div>{agent.specializations.join(', ')}</div>}
-                {agent.languages?.length > 0 && <div>🌍 {agent.languages.join(', ')}</div>}
-                <div>⭐ {agent.rating || 5.0}</div>
-                <div>Deals closed: {agent.sold || 0}</div>
+
+              {property.agent && (
+                <div className="mt-2 rounded-lg border p-3 flex items-center gap-3 bg-muted">
+                  <div className="size-10 rounded-full bg-muted overflow-hidden">
+                    <Image
+                      src={getAgentAvatarUrl(property.agent.avatar, 64)}
+                      alt={property.agent.name || "Agent Photo"}
+                      width={40}
+                      height={40}
+                      className="object-cover size-10 aspect-square"
+                    />
+                  </div>
+                  <div className="min-w-0 flex flex-col gap-0.5">
+                    <p className="text-sm font-medium truncate">{property.agent.name}</p>
+                    {property.agent.role && (
+                      <p className="text-xs text-muted-foreground truncate">
+                        {property.agent.role}
+                      </p>
+                    )}
+                  </div>
+                  <div className="ml-auto flex gap-2">
+                    {property.agent.phone && (
+                      <p className="inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground">
+                        <Phone className="h-4 w-4" />
+                        {property.agent.phone}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    {property.agent.email && (
+                      <p className="inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground">
+                        <Mail className="h-4 w-4" />
+                        {property.agent.email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+              <div className="pt-2 flex flex-col gap-2 justify-between">
+                <button
+                  className="bg-primary text-white hover:bg-primary/60 transition-all duration-300 px-1.5 py-2 rounded font-semibold cursor-pointer text-sm"
+                  onClick={() => setFormMode("request_tour")}>
+                  {" "}
+                  {t("actions.requestTour")}
+                </button>
+                <button
+                  className="bg-white text-sm text-black hover:opacity-80 transition-all duration-300 border-2 border-gold px-1.5 py-2 rounded font-semibold cursor-pointer"
+                  onClick={() => {
+                    setFormMode("contact_agent");
+                    setContactOpen(true);
+                  }}>
+                  {t("actions.contactAgent")}
+                </button>
               </div>
             </div>
           </div>
-        </div>
-        {/* Form as a separate popup above the modal */}
-        {formMode !== 'none' && (
-          <div style={FORM_POPUP_STYLE}>
-            <button
-              type="button"
-              onClick={handleCloseForm}
-              aria-label="Close form"
-              style={{position: 'absolute', right: 16, top: 15, fontSize: 25, background: '#fff', border: '2px solid #FD5B61', borderRadius: '50%', cursor: 'pointer', color: '#FD5B61', width:39, height:39, zIndex: 20, boxShadow:'0 2px 6px #fcd4d6'}}>
-              ×
-            </button>
-            <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', gap:19, width:'98%', margin:'28px auto 0', background:'#F9FAF8', borderRadius:13, padding:'13px', boxShadow:'0 0 5px 1.5px rgba(60,50,40,0.04)'}}>
-              <h3 style={{margin:0, marginBottom:2, fontWeight:650, fontSize:20, color:'#FD5B61'}}>{formMode==='request_tour'?"Request a Tour":"Contact Agent"}</h3>
-              <div style={{display:'flex',gap:11, flexWrap:'wrap'}}>
-                <input name="name" autoComplete="name" type="text" required value={form.name} placeholder="Full Name" onChange={handleChange} style={{padding:'13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 16, background:'#fff', flex:1}} />
-                <input name="email" autoComplete="email" type="email" required value={form.email} placeholder="Email" onChange={handleChange} style={{padding:'13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 16, background:'#fff', flex:1}} />
-              </div>
-              <input name="phone" autoComplete="tel" type="tel" pattern="[+0-9().\-\s]{7,}" value={form.phone} placeholder="Phone number" onChange={handleChange} style={{padding:'13px', border:'1px solid #e5e0dd', borderRadius: 7, fontSize: 16, background:'#fff'}} />
-              <textarea name="message" required value={form.message} placeholder={formMode==='request_tour'?"Requested dates, times, and your questions":'Your Message'} rows={formMode==='request_tour'?2:3} onChange={handleChange} style={{padding:'14px', border:'1px solid #e5e0dd', borderRadius: 8, fontSize:16, background:'#fff'}} />
-              <div style={{display:'flex', gap:14, justifyContent:'flex-end', marginTop:3}}>
-                <button type="button" onClick={handleCloseForm} style={{padding:'12px 0', borderRadius:7, background:'#f2e9e2', color:'#cd8250', fontWeight:'bold', border:'none', fontSize:15, minWidth:90}}>Cancel</button>
-                <button type="submit" style={{padding:'12px 0', borderRadius:7, background:'#FD5B61', color:'#fff', fontWeight:'bold', border:'none', fontSize:16, minWidth:130}}>{formMode==='request_tour'?"Request tour":"Send message"}</button>
-              </div>
-            </form>
-          </div>
-        )}
-      </div>
-    </div>
+        </DialogContent>
+      </Dialog>
+
+      <ContactModal
+        open={contactOpen}
+        onOpenChange={setContactOpen}
+        lang={language}
+        defaultProperty={property.propertyType?.toLowerCase?.() || undefined}
+        propertyOptions={[{ value: property.id, label: property.title }]}
+        onSubmit={async () => {
+          /* integrate backend later */
+        }}
+      />
+    </>
   );
 };
 

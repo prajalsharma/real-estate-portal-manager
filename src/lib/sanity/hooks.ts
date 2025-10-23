@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from "react";
 import {
   PropertyQueryResult,
   SanityAgent,

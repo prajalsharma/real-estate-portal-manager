@@ -126,7 +126,6 @@ function getCardAspect(index: number) {
 
 export default function RecommendedProperties({
   title = "You might be interested in",
-  viewAllHref = "/properties",
   properties = defaultProperties,
   className,
 }: RecommendedPropertiesProps) {
@@ -154,22 +153,15 @@ export default function RecommendedProperties({
             <h2
               id="recommended-heading"
               className="font-semibold text-3xl text-foreground tracking-tight">
-              {title}
+              {t("recommended.title", title)}
             </h2>
             <p className="mt-1 text-sm sm:text-base text-muted-foreground">
-              Curated homes and apartments picked for you
+              {t("recommended.subtitle", " Curated homes and apartments picked for you")}
             </p>
           </div>
-          {viewAllHref ? (
-            <Button asChild variant="ghost" className="h-9 px-3 text-foreground hover:bg-secondary">
-              <Link href={viewAllHref} aria-label="View all properties">
-                {t("actions.viewAll")}
-              </Link>
-            </Button>
-          ) : null}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {properties.map((p) => {
             // Derive EUR numeric price from provided string (fallback to original if parsing fails)
             const eur = Number(p.price?.replace(/[^\d]/g, "")) || 0;
@@ -189,7 +181,7 @@ export default function RecommendedProperties({
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] rounded-t-lg"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent group-hover:bg-none transition-all" />
+                    <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent group-hover:bg-none transition-all" />
                     {p.tag ? (
                       <div className="absolute left-3 top-3">
                         <Badge

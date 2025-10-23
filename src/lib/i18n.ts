@@ -15,6 +15,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.viewAll": "View all",
     "actions.login": "Log in",
     "actions.requestTour": "Request a tour",
+    "actions.contactAgent": "Contact agent",
     "actions.close": "Close",
     "actions.call": "Call",
     "actions.more": "More",
@@ -59,6 +60,14 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "hero.search.title": "Find your next home",
     "hero.search.subtitle": "Search by location, price, and more",
 
+    // featured section
+    "featured.title": "Latest in your area",
+    "featured.subtitle": "Curated homes across Greece - fresh listings picked for you",
+
+    // Recommended section
+    "recommended.title": "You might be interested in",
+    "recommended.subtitle": " Curated homes and apartments picked for you",
+
     // Messages
     "messages.advancedFiltersSoon": "Advanced filters coming soon.",
 
@@ -85,6 +94,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.viewAll": "Δείτε όλα",
     "actions.login": "Σύνδεση",
     "actions.requestTour": "Κλείστε επίσκεψη",
+    "actions.contactAgent": "Επικοινωνία με σύμβουλο",
     "actions.close": "Κλείσιμο",
     "actions.call": "Κλήση",
     "actions.more": "Περισσότερα",
@@ -129,6 +139,14 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "hero.search.title": "Βρείτε το επόμενό σας σπίτι",
     "hero.search.subtitle": "Αναζήτηση ανά περιοχή, τιμή και άλλα",
 
+    // featured section
+    "featured.title": "Τα τελευταία στην περιοχή σας",
+    "featured.subtitle": "Επιλεγμένα σπίτια σε όλη την Ελλάδα - φρέσκιες καταχωρήσεις για εσάς",
+
+    // Recommended section
+    "recommended.title": "Ίσως σας ενδιαφέρουν",
+    "recommended.subtitle": "Επιλεγμένα σπίτια και διαμερίσματα για εσάς",
+
     // Messages
     "messages.advancedFiltersSoon": "Σύντομα περισσότερα φίλτρα.",
 
@@ -155,6 +173,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.viewAll": "Погледај све",
     "actions.login": "Пријава",
     "actions.requestTour": "Закажи обилазак",
+    "actions.contactAgent": "Контактирај агента",
     "actions.close": "Затвори",
     "actions.call": "Позови",
     "actions.more": "Више",
@@ -199,6 +218,14 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "hero.search.title": "Пронађите свој следећи дом",
     "hero.search.subtitle": "Претрага по локацији, цени и још много тога",
 
+    // featured section
+    "featured.title": "Најновије у вашем крају",
+    "featured.subtitle": "Изабране куће широм Грчке - свеже понуде одабране за вас",
+
+    // Recommended section
+    "recommended.title": "Можда ће вас занимати",
+    "recommended.subtitle": "Изабране куће и станови одабрани за вас",
+
     // Messages
     "messages.advancedFiltersSoon": "Напредни филтери ускоро.",
 
@@ -225,6 +252,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.viewAll": "Смотреть все",
     "actions.login": "Войти",
     "actions.requestTour": "Записаться на просмотр",
+    "actions.contactAgent": "Связаться с агентом",
     "actions.close": "Закрыть",
     "actions.call": "Позвонить",
     "actions.more": "Ещё",
@@ -269,6 +297,14 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "hero.search.title": "Найдите свой следующий дом",
     "hero.search.subtitle": "Поиск по локации, цене и другим параметрам",
 
+    // featured section
+    "featured.title": "Последние предложения в вашем районе",
+    "featured.subtitle": "Отобранные дома по всей Греции - свежие объявления для вас",
+
+    // Recommended section
+    "recommended.title": "Возможно, вам будет интересно",
+    "recommended.subtitle": "Отобранные дома и квартиры для вас",
+
     // Messages
     "messages.advancedFiltersSoon": "Скоро появятся расширенные фильтры.",
 
@@ -295,6 +331,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.viewAll": "Виж всички",
     "actions.login": "Вход",
     "actions.requestTour": "Запази оглед",
+    "actions.contactAgent": "Свържи се с агент",
     "actions.close": "Затвори",
     "actions.call": "Обади се",
     "actions.more": "Още",
@@ -338,6 +375,14 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
       "Открийте имоти в цяла Гърция. Купете, продайте или наемете с доверени местни експерти.",
     "hero.search.title": "Намерете своя следващ дом",
     "hero.search.subtitle": "Търсене по локация, цена и други",
+
+    // featured section
+    "featured.title": "Последни в района ви",
+    "featured.subtitle": "Подбрани домове в цяла Гърция - свежи обяви за вас",
+
+    // Recommended section
+    "recommended.title": "Може да се интересувате от",
+    "recommended.subtitle": "Подбрани домове и апартаменти за вас",
 
     // Messages
     "messages.advancedFiltersSoon": "Скоро ще има разширени филтри.",
