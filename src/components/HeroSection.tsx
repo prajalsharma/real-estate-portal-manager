@@ -39,6 +39,8 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useT } from "@/lib/i18n";
+import { useCarouselProperties } from "@/lib/sanity/hooks";
+import { safeImageUrl } from "@/lib/sanity/image";
 
 type FeaturedAgent = {
   name: string;
@@ -71,8 +73,11 @@ export interface HeroSectionProps {
 }
 
 export default function HeroSection({ className, style, onSearch }: HeroSectionProps) {
-  // Dummy featured properties array
-  const featuredProperties: FeaturedProperty[] = [
+  // Fetch carousel properties from Sanity
+  const { properties: carouselPropertiesData = [] } = useCarouselProperties(5);
+
+  // Fallback dummy featured properties array
+  const fallbackProperties: FeaturedProperty[] = [
     {
       imageUrl:
         "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop",
@@ -122,6 +127,25 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
       },
     },
   ];
+
+  // Map Sanity properties to FeaturedProperty format
+  const sanityMappedProperties: FeaturedProperty[] = carouselPropertiesData.map((prop) => ({
+    imageUrl: safeImageUrl(prop.mainImage) || "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop",
+    title: prop.title,
+    address: `${prop.address?.city || ""}${prop.address?.region ? ", " + prop.address.region : ""}`,
+    price: `€${prop.price?.toLocaleString() || "0"}`,
+    beds: prop.beds || 0,
+    baths: prop.baths || 0,
+    sqft: prop.sqft || 0,
+    agent: {
+      name: prop.agent?.name || "Agent",
+      avatarUrl: safeImageUrl(prop.agent?.avatar) || "https://images.unsplash.com/photo-1558222217-42c7baf5f8b9?q=80&w=400&auto=format&fit=crop",
+      title: prop.agent?.role || "Listing Agent",
+    },
+  }));
+
+  // Use Sanity properties if available, otherwise fallback to dummy data
+  const featuredProperties = sanityMappedProperties.length > 0 ? sanityMappedProperties : fallbackProperties;
 
   const [currentIdx, setCurrentIdx] = React.useState(0);
   const featured = featuredProperties[currentIdx];
