@@ -8,11 +8,11 @@ import clsx from "clsx";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { useT } from "@/lib/i18n";
 import { useRates } from "@/lib/hooks/use-rates";
-import { useFeaturedProperties } from "@/lib/sanity/hooks";
+import { useAllProperties } from "@/lib/sanity/hooks";
 import { PropertyQueryResult } from "@/lib/sanity/types";
 import { safeImageUrl } from "@/lib/sanity/image";
 
-export type SanityFeaturedPropertiesProps = {
+export type SanityAllPropertiesProps = {
   className?: string;
   title?: string;
   subtitle?: string;
@@ -21,19 +21,22 @@ export type SanityFeaturedPropertiesProps = {
   onSelectProperty?: (property: PropertyQueryResult) => void;
 };
 
-export default function SanityFeaturedProperties({
+export default function SanityAllProperties({
   className,
   title = "Latest in your area",
   subtitle = "Curated homes across Greece — fresh listings picked for you",
-  limit = 4,
-  properties = [],
+  limit = 12,
+  properties: propProperties = [],
   onSelectProperty,
-}: SanityFeaturedPropertiesProps) {
+}: SanityAllPropertiesProps) {
   const t = useT();
   const { currency, language } = useAppPrefs();
   const { convert } = useRates();
 
-  const { properties: sanityProperties, loading, error } = useFeaturedProperties(limit);
+  const { properties: sanityProperties, total, hasMore, loading, error } = useAllProperties(undefined, 1, limit);
+  
+  // Use properties from props if provided, otherwise use fetched properties
+  const properties = propProperties.length > 0 ? propProperties : sanityProperties;
 
   // const priceDisplay = React.useMemo(() => {
   //   if (!sanityProperties) return "";
@@ -95,20 +98,27 @@ export default function SanityFeaturedProperties({
         </div>
       </div>
 
-      {properties.length === 0 && !loading && (
-        <div className="mt-6 rounded-lg border bg-popover p-6 text-center text-muted-foreground">
-          <p>{t("messages.noResults", "No properties match your search.")}</p>
-          <button
-            type="button"
-            onClick={() => {
-              if (typeof window !== "undefined") {
-                window.dispatchEvent(new CustomEvent("app:search", { detail: {} }));
-              }
-            }}
-            className="mt-4 inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm font-medium text-foreground hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            {t("actions.clearFilters", "Clear filters")}
-          </button>
+      {error && (
+        <div className="mt-6 rounded-lg border border-destructive bg-destructive/10 p-6 text-center text-destructive">
+          <p>{error}</p>
         </div>
+      )}
+
+      {properties.length === 0 && !loading && !error && (
+        <div className="mt-6 rounded-lg border bg-popover p-6 text-center text-muted-foreground">
+          <p>{t("messages.noResults", "No properties found. Add some properties in the Studio!")}</p>
+          <a
+            href="/studio"
+            className="mt-4 inline-flex items-center justify-center rounded-md bg-gold text-white px-4 py-2 text-sm font-medium hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            Open Sanity Studio
+          </a>
+        </div>
+      )}
+
+      {total > 0 && !loading && (
+        <p className="mt-2 text-sm text-muted-foreground">
+          Showing {properties.length} of {total} properties
+        </p>
       )}
       <div className="w-full">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
