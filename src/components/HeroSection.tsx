@@ -38,9 +38,13 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import PropertyDetailsModal from "@/components/PropertyDetailsModal";
 import { useT } from "@/lib/i18n";
 import { useCarouselProperties } from "@/lib/sanity/hooks";
 import { safeImageUrl } from "@/lib/sanity/image";
+import { useAppPrefs } from "@/lib/prefs-context";
+import { useRates } from "@/lib/hooks/use-rates";
+import { formatter } from "@/lib/priceFormatter";
 
 type FeaturedAgent = {
   name: string;
@@ -130,7 +134,9 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
   // Map Sanity properties to FeaturedProperty format
   const sanityMappedProperties: FeaturedProperty[] = carouselPropertiesData.map((prop) => ({
-    imageUrl: safeImageUrl(prop.mainImage) || "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop",
+    imageUrl:
+      safeImageUrl(prop.mainImage) ||
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop",
     title: prop.title,
     address: `${prop.address?.city || ""}${prop.address?.region ? ", " + prop.address.region : ""}`,
     price: `€${prop.price?.toLocaleString() || "0"}`,
@@ -139,13 +145,16 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     sqft: prop.sqft || 0,
     agent: {
       name: prop.agent?.name || "Agent",
-      avatarUrl: safeImageUrl(prop.agent?.avatar) || "https://images.unsplash.com/photo-1558222217-42c7baf5f8b9?q=80&w=400&auto=format&fit=crop",
+      avatarUrl:
+        safeImageUrl(prop.agent?.avatar) ||
+        "https://images.unsplash.com/photo-1558222217-42c7baf5f8b9?q=80&w=400&auto=format&fit=crop",
       title: prop.agent?.role || "Listing Agent",
     },
   }));
 
   // Use Sanity properties if available, otherwise fallback to dummy data
-  const featuredProperties = sanityMappedProperties.length > 0 ? sanityMappedProperties : fallbackProperties;
+  const featuredProperties =
+    sanityMappedProperties.length > 0 ? sanityMappedProperties : fallbackProperties;
 
   const [currentIdx, setCurrentIdx] = React.useState(0);
   const featured = featuredProperties[currentIdx];
@@ -163,6 +172,34 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
   const [maxPrice, setMaxPrice] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
   const t = useT();
+  const { currency, language } = useAppPrefs();
+  const { convert, loading: ratesLoading } = useRates();
+
+  const eur = Number(featured.price?.replace(/[^\d]/g, "")) || 0;
+  const priceDisplay =
+    !ratesLoading && eur > 0
+      ? formatter(language, currency)
+          .format(convert(eur as number, currency as any))
+          .replace(/(\p{Sc})\s?/u, "$1\u00A0")
+      : featured.price;
+
+  const [detailsOpen, setDetailsOpen] = React.useState(false);
+  const [detailsProperty, setDetailsProperty] = React.useState<any | null>(null);
+  const [autoOpenContact, setAutoOpenContact] = React.useState(false);
+
+  React.useEffect(() => {
+    function handleOpen(e: Event) {
+      const custom = e as CustomEvent<{ property?: any; autoContact?: boolean }>;
+      const { property, autoContact } = custom.detail || {};
+      if (!property) return;
+      setDetailsProperty(property);
+      setAutoOpenContact(Boolean(autoContact));
+      setDetailsOpen(true);
+    }
+
+    window.addEventListener("app:open-property", handleOpen as EventListener);
+    return () => window.removeEventListener("app:open-property", handleOpen as EventListener);
+  }, []);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -213,7 +250,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     // Open details modal with this featured property and auto-open contact form
     const numericPrice = Number(String(featured.price).replace(/[^\d.]/g, "")) || 0;
     const property = {
-      id: "featured",
+      id: featured.title,
       title: featured.title,
       address: featured.address,
       price: numericPrice,
@@ -321,7 +358,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
                         <div className="flex flex-col items-start justify-between gap-2">
                           <div className="inline-block rounded-full bg-gold px-5 py-2.5 text-base sm:text-lg font-bold shadow-xl ring-2 ring-white/30 text-white z-10">
-                            {featured.price}
+                            {priceDisplay}
                           </div>
                           <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-white drop-shadow-2xl leading-tight">
                             {featured.title}
@@ -338,7 +375,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                                 {featured.beds} {t("labels.bed", "bd")}
                               </span>
                               <span className="text-sm text-foreground/60">•</span>
-                              <span className="text-sm font-bold text-foreground">
+                              <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                                <ShowerHead className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
                                 {featured.baths} {t("labels.bath", "ba")}
                               </span>
                               <span className="text-sm text-foreground/60">•</span>
@@ -630,6 +668,14 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
           </CardContent>
         </Card>
       </div>
+
+      <PropertyDetailsModal
+        gallery={detailsProperty?.images ?? []}
+        open={detailsOpen}
+        onOpenChange={setDetailsOpen}
+        property={detailsProperty}
+        autoOpenContact={autoOpenContact}
+      />
     </>
   );
 }
