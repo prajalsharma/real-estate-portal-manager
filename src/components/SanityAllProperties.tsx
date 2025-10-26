@@ -11,6 +11,7 @@ import { useRates } from "@/lib/hooks/use-rates";
 import { useAllProperties } from "@/lib/sanity/hooks";
 import { PropertyQueryResult } from "@/lib/sanity/types";
 import { safeImageUrl } from "@/lib/sanity/image";
+import { formatter } from "@/lib/priceFormatter";
 
 export type SanityAllPropertiesProps = {
   className?: string;
@@ -31,30 +32,18 @@ export default function SanityAllProperties({
 }: SanityAllPropertiesProps) {
   const t = useT();
   const { currency, language } = useAppPrefs();
-  const { convert } = useRates();
+  const { convert, loading: ratesLoading } = useRates();
 
-  const { properties: sanityProperties, total, hasMore, loading, error } = useAllProperties(undefined, 1, limit);
-  
+  const {
+    properties: sanityProperties,
+    total,
+    hasMore,
+    loading,
+    error,
+  } = useAllProperties(undefined, 1, limit);
+
   // Use properties from props if provided, otherwise use fetched properties
   const properties = propProperties.length > 0 ? propProperties : sanityProperties;
-
-  // const priceDisplay = React.useMemo(() => {
-  //   if (!sanityProperties) return "";
-  //   const amount = convert
-  //     ? convert(sanityProperties[0].price, currency)
-  //     : sanityProperties[0].price;
-  //   try {
-  //     return new Intl.NumberFormat(language, {
-  //       style: "currency",
-  //       currency: currency.toUpperCase(),
-  //       maximumFractionDigits: 0,
-  //     })
-  //       .format(amount)
-  //       .replace(/^(\D+)/, "$1 ");
-  //   } catch {
-  //     return `${currency.toUpperCase()}\u00A0${Math.round(amount).toLocaleString(language)}`;
-  //   }
-  // }, [sanityProperties, currency, language, convert]);
 
   if (loading) {
     return (
@@ -106,7 +95,9 @@ export default function SanityAllProperties({
 
       {properties.length === 0 && !loading && !error && (
         <div className="mt-6 rounded-lg border bg-popover p-6 text-center text-muted-foreground">
-          <p>{t("messages.noResults", "No properties found. Add some properties in the Studio!")}</p>
+          <p>
+            {t("messages.noResults", "No properties found. Add some properties in the Studio!")}
+          </p>
           <a
             href="/studio"
             className="mt-4 inline-flex items-center justify-center rounded-md bg-gold text-white px-4 py-2 text-sm font-medium hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -122,63 +113,72 @@ export default function SanityAllProperties({
       )}
       <div className="w-full">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {properties.map((p) => (
-            <div
-              key={p._id}
-              className="group relative overflow-hidden rounded-xl bg-white border shadow-sm transition-all hover:shadow-md focus-within:shadow-md">
-              <div className="relative w-full overflow-hidden">
-                <div className="relative h-44 sm:h-48 md:h-56 w-full">
-                  <Image
-                    src={
-                      safeImageUrl(p.mainImage) ||
-                      "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80"
-                    }
-                    alt={p.mainImage?.alt || p.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="absolute left-3 top-3 z-10 rounded-full bg-gold text-white backdrop-blur px-2.5 py-1 text-xs font-medium">
-                  {p.propertyType}
-                </div>
-              </div>
+          {properties.map((p) => {
+            const price = `€${p.price.toLocaleString()}`;
+            const eur = Number(price.replace(/[^\d]/g, "")) || 0;
+            const priceDisplay =
+              !ratesLoading && eur > 0
+                ? formatter(language, currency).format(convert(eur as number, currency as any))
+                : p.price;
 
-              <div className="p-4 sm:p-5">
-                <h3 className="font-semibold text-lg truncate">{p.title}</h3>
-                <p className="text-primary text-lg font-bold mb-1">€ {p.price?.toLocaleString()}</p>
-                <p className="text-gray-700 mb-1 flex gap-1 items-center text-sm">
-                  <MapPin className="text-primary size-4" />
-                  {p.address?.city}, {p.address?.region}
-                </p>
-                <div className="flex items-center gap-4 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
-                  <div className="flex items-center gap-1.5">
-                    <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
-                    <span className="font-medium">{p.beds}</span>
-                    <span className="text-muted-foreground">{t("labels.bed")}</span>
+            return (
+              <div
+                key={p._id}
+                className="group relative overflow-hidden rounded-xl bg-white border shadow-sm transition-all hover:shadow-md focus-within:shadow-md">
+                <div className="relative w-full overflow-hidden">
+                  <div className="relative h-44 sm:h-48 md:h-56 w-full">
+                    <Image
+                      src={
+                        safeImageUrl(p.mainImage) ||
+                        "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80"
+                      }
+                      alt={p.mainImage?.alt || p.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    />
                   </div>
-                  <div className="h-4 w-px bg-border" aria-hidden="true" />
-                  <div className="flex items-center gap-1.5">
-                    <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
-                    <span className="font-medium">{p.baths}</span>
-                    <span className="text-muted-foreground">{t("labels.bath")}</span>
-                  </div>
-                  <div className="h-4 w-px bg-border" aria-hidden="true" />
-                  <div className="flex items-center gap-1.5">
-                    <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
-                    <span className="font-medium">{p.sqft}</span>
-                    <span className="text-muted-foreground">{t("labels.area")}</span>
+                  <div className="absolute left-3 top-3 z-10 rounded-full bg-gold text-white backdrop-blur px-2.5 py-1 text-xs font-medium">
+                    {p.propertyType}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => onSelectProperty && onSelectProperty(p)}
-                  className="w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
-                  View details
-                </button>
+
+                <div className="p-4 sm:p-5">
+                  <h3 className="font-semibold text-lg truncate">{p.title}</h3>
+                  <p className="text-primary text-lg font-bold mb-1">{priceDisplay}</p>
+                  <p className="text-gray-700 mb-1 flex gap-1 items-center text-sm">
+                    <MapPin className="text-primary size-4" />
+                    {p.address?.city}, {p.address?.region}
+                  </p>
+                  <div className="flex items-center gap-4 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
+                    <div className="flex items-center gap-1.5">
+                      <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
+                      <span className="font-medium">{p.beds}</span>
+                      <span className="text-muted-foreground">{t("labels.bed")}</span>
+                    </div>
+                    <div className="h-4 w-px bg-border" aria-hidden="true" />
+                    <div className="flex items-center gap-1.5">
+                      <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
+                      <span className="font-medium">{p.baths}</span>
+                      <span className="text-muted-foreground">{t("labels.bath")}</span>
+                    </div>
+                    <div className="h-4 w-px bg-border" aria-hidden="true" />
+                    <div className="flex items-center gap-1.5">
+                      <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
+                      <span className="font-medium">{p.sqft}</span>
+                      <span className="text-muted-foreground">{t("labels.area")}</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onSelectProperty && onSelectProperty(p)}
+                    className="w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
+                    View details
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

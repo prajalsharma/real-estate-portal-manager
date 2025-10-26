@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Bed, LampFloor, Proportions, MapPin, ShowerHead } from "lucide-react";
+import { Bed, Proportions, MapPin, ShowerHead } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +10,8 @@ import { useAppPrefs } from "@/lib/prefs-context";
 import { useRates } from "@/lib/hooks/use-rates";
 import { useFeaturedProperties } from "@/lib/sanity/hooks";
 import { safeImageUrl } from "@/lib/sanity/image";
+import PropertyDetailsModal from "./PropertyDetailsModal";
+import { formatter } from "@/lib/priceFormatter";
 
 type Property = {
   id: string;
@@ -20,7 +20,13 @@ type Property = {
   beds: number;
   baths: number;
   sqft: number;
-  address: string;
+  address: {
+    street: string;
+    city: string;
+    region: string;
+    postalCode: string;
+    country: string;
+  };
   imageUrl: string;
   imageAlt?: string;
   tag?: string;
@@ -34,138 +40,45 @@ export interface RecommendedPropertiesProps {
   className?: string;
 }
 
-const defaultProperties: Property[] = [
-  {
-    id: "p1",
-    title: "Modern Apartment in Kolonaki",
-    price: "€465,000",
-    beds: 2,
-    baths: 2,
-    sqft: 104,
-    address: "Iraklitou 18, Kolonaki, Athens",
-    imageUrl:
-      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=1600&auto=format&fit=crop",
-    tag: "For Sale",
-    interior: true,
-  },
-  {
-    id: "p2",
-    title: "Seaside Villa with Terrace",
-    price: "€1,250,000",
-    beds: 4,
-    baths: 3,
-    sqft: 280,
-    address: "Leof. Posidonos 214, Glyfada",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
-    tag: "Featured",
-  },
-  {
-    id: "p3",
-    title: "Minimal Loft in Psyrri",
-    price: "€320,000",
-    beds: 1,
-    baths: 1,
-    sqft: 72,
-    address: "Sarri 9, Psyrri, Athens",
-    imageUrl:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop",
-    tag: "New",
-    interior: true,
-  },
-  {
-    id: "p4",
-    title: "Penthouse Overlooking Acropolis",
-    price: "€980,000",
-    beds: 3,
-    baths: 2,
-    sqft: 156,
-    address: "Mitropoleos 12, Plaka, Athens",
-    imageUrl:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1600&auto=format&fit=crop",
-    tag: "For Sale",
-  },
-  {
-    id: "p5",
-    title: "Cozy Maisonette in Kifisia",
-    price: "€690,000",
-    beds: 3,
-    baths: 2,
-    sqft: 140,
-    address: "Kifisias Ave 122, Kifisia",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
-    tag: "Open House",
-  },
-  {
-    id: "p6",
-    title: "Contemporary Interior in Marousi",
-    price: "€410,000",
-    beds: 2,
-    baths: 1,
-    sqft: 96,
-    address: "Dekeleias 45, Marousi",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
-    tag: "Price Drop",
-    interior: true,
-  },
-];
-
-function getCardAspect(index: number) {
-  // Create intentional variety to mimic a tasteful masonry rhythm.
-  // Map indices to aspect ratios and row spans with responsive refinement.
-  // We avoid fixed heights to maintain responsiveness.
-  const patterns = [
-    { aspect: "aspect-[4/3]", md: "aspect-[4/3]" },
-    { aspect: "aspect-[3/4]", md: "aspect-[3/4]" },
-    { aspect: "aspect-square", md: "aspect-[5/4]" },
-    { aspect: "aspect-[16/11]", md: "aspect-[16/10]" },
-    { aspect: "aspect-[5/6]", md: "aspect-[4/5]" },
-    { aspect: "aspect-[4/3]", md: "aspect-[16/11]" },
-  ];
-  return patterns[index % patterns.length];
-}
-
 export default function RecommendedProperties({
   title = "You might be interested in",
   properties: propProperties,
   className,
 }: RecommendedPropertiesProps) {
+  // Fetch featured properties from Sanity
+  const { properties: sanityProperties, loading: sanityLoading, error } = useFeaturedProperties(6);
   // i18n + currency prefs
   const t = useT();
   const { currency, language } = useAppPrefs();
   const { convert, loading: ratesLoading } = useRates();
-  
-  // Fetch featured properties from Sanity
-  const { properties: sanityProperties, loading: sanityLoading, error } = useFeaturedProperties(6);
-  
-  const formatter = React.useMemo(
-    () =>
-      new Intl.NumberFormat(language, {
-        style: "currency",
-        currency: (currency as any).toUpperCase(),
-        maximumFractionDigits: 0,
-      }),
-    [language, currency]
-  );
-  
+
+  const [open, setOpen] = React.useState(false);
+  const [selectedProperty, setSelectedProperty] = React.useState<Property | null>(null);
+
   // Use prop properties if provided, otherwise use Sanity featured properties
   const properties = React.useMemo(() => {
     if (propProperties && propProperties.length > 0) {
       return propProperties;
     }
-    
+
     // Map Sanity properties to component format
-    return sanityProperties.map(p => ({
+    return sanityProperties.map((p) => ({
       id: p._id,
       title: p.title,
       price: `€${p.price.toLocaleString()}`,
       beds: p.beds,
       baths: p.baths,
       sqft: p.sqft,
-      address: `${p.address.city}, ${p.address.region}`,
-      imageUrl: safeImageUrl(p.mainImage) || 'https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80',
+      address: {
+        street: p.address.street,
+        city: p.address.city,
+        region: p.address.region,
+        postalCode: p.address.postalCode,
+        country: p.address.country,
+      },
+      imageUrl:
+        safeImageUrl(p.mainImage) ||
+        "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80",
       imageAlt: p.mainImage?.alt || p.title,
       tag: p.status,
       interior: false,
@@ -175,7 +88,8 @@ export default function RecommendedProperties({
   // Loading state
   if (sanityLoading && !propProperties) {
     return (
-      <section className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
+      <section
+        className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
         <div className="w-full max-w-full">
           <div className="mb-5 sm:mb-6">
             <div className="h-8 bg-muted rounded w-64 mb-2 animate-pulse"></div>
@@ -205,7 +119,8 @@ export default function RecommendedProperties({
   // Error state
   if (error && !propProperties) {
     return (
-      <section className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
+      <section
+        className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
         <div className="w-full max-w-full">
           <div className="mb-5 sm:mb-6">
             <h2 className="font-semibold text-3xl text-foreground tracking-tight">
@@ -223,7 +138,8 @@ export default function RecommendedProperties({
   // Empty state
   if (properties.length === 0) {
     return (
-      <section className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
+      <section
+        className={["w-full bg-background", "py-6 sm:py-8", className ?? ""].join(" ").trim()}>
         <div className="w-full max-w-full">
           <div className="mb-5 sm:mb-6">
             <h2 className="font-semibold text-3xl text-foreground tracking-tight">
@@ -267,7 +183,7 @@ export default function RecommendedProperties({
             const eur = Number(p.price?.replace(/[^\d]/g, "")) || 0;
             const priceDisplay =
               !ratesLoading && eur > 0
-                ? formatter.format(convert(eur as number, currency as any))
+                ? formatter(language, currency).format(convert(eur as number, currency as any))
                 : p.price;
             return (
               <article
@@ -303,45 +219,44 @@ export default function RecommendedProperties({
                       </span>
                     </div>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground font-semibold">
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground">
                       <div className="flex items-center gap-1.5">
                         <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="min-w-0">
-                          {t("labels.bed")} {p.beds}
-                        </span>
+                        <span className="font-medium">{p.beds}</span>
+                        <span className="text-muted-foreground">{t("labels.bed")}</span>
                       </div>
+                      <div className="h-4 w-px bg-border" aria-hidden="true" />
                       <div className="flex items-center gap-1.5">
                         <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="min-w-0">
-                          {t("labels.bath")} {p.baths}
-                        </span>
+                        <span className="font-medium">{p.baths}</span>
+                        <span className="text-muted-foreground">{t("labels.bath")}</span>
                       </div>
+                      <div className="h-4 w-px bg-border" aria-hidden="true" />
                       <div className="flex items-center gap-1.5">
                         <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="min-w-0">
-                          {p.sqft} {t("labels.area")}
-                        </span>
+                        <span className="font-medium">{p.sqft}</span>
+                        <span className="text-muted-foreground">{t("labels.area")}</span>
                       </div>
                     </div>
 
                     <div className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
                       <MapPin className="h-4 w-4 text-foreground/70" aria-hidden="true" />
-                      <p className="min-w-0 truncate" title={p.address}>
-                        {p.address}
+                      <p className="min-w-0 truncate">
+                        {p.address.city}, {p.address.region}
                       </p>
                     </div>
 
                     <div className="mt-3 flex items-center justify-center py-2">
                       <Button
-                        asChild
+                        onClick={() => {
+                          setSelectedProperty(p as Property);
+                          setOpen(true);
+                        }}
+                        aria-label={`View ${p.title}`}
                         size="sm"
                         variant="outline"
-                        className="h-8 rounded-md border-border text-foreground hover:bg-secondary">
-                        <Link
-                          href={`/properties/${encodeURIComponent(p.id)}`}
-                          aria-label={`View ${p.title}`}>
-                          View details
-                        </Link>
+                        className="h-8 rounded-md border-border text-foreground hover:bg-secondary cursor-pointer">
+                        View details
                       </Button>
                     </div>
                   </div>
@@ -351,6 +266,13 @@ export default function RecommendedProperties({
               </article>
             );
           })}
+
+          <PropertyDetailsModal
+            gallery={selectedProperty?.imageUrl ? [selectedProperty.imageUrl] : []}
+            open={open}
+            onOpenChange={setOpen}
+            property={selectedProperty as Property}
+          />
         </div>
       </div>
     </section>
