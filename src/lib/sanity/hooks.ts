@@ -20,28 +20,32 @@ import {
 // (hooks unchanged)
 // ... all hook content as before ...
 
-export function useFeaturedProperties(limit: number = 4) {
+export function useAllProperties(filters?: PropertyFilters, page: number = 1, limit: number = 12) {
   const [properties, setProperties] = useState<PropertyQueryResult[]>([])
+  const [total, setTotal] = useState(0)
+  const [hasMore, setHasMore] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const refetch = useCallback(async () => {
     try {
       setLoading(true)
-      const data = await getFeaturedProperties(limit)
-      setProperties(data)
+      const data = await getAllProperties(filters, page, limit)
+      setProperties(data.properties)
+      setTotal(data.total)
+      setHasMore(data.hasMore)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch properties')
     } finally {
       setLoading(false)
     }
-  }, [limit])
+  }, [filters, page, limit])
 
   useEffect(() => {
     refetch()
   }, [refetch])
 
-  return { properties, loading, error, refetch }
+  return { properties, total, hasMore, loading, error, refetch }
 }
 
 export function useCarouselProperties(limit: number = 4) {

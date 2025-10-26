@@ -1,19 +1,18 @@
 import React from "react";
 import PropertyDetailsModal from "@/components/PropertyDetailsModal";
 import { PropertyQueryResult } from "@/lib/sanity/types";
-import { useFeaturedProperties } from "@/lib/sanity/hooks";
-import SanityFeaturedProperties from "./SanityFeaturedProperties";
+import SanityAllProperties from "./SanityAllProperties";
 
 export default function PropertyExplorer() {
-  const { properties = [] } = useFeaturedProperties(8);
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<PropertyQueryResult | null>(null);
 
   return (
     <div>
-      <SanityFeaturedProperties
-        properties={properties}
-        limit={8}
+      <SanityAllProperties
+        title="All Properties"
+        subtitle="Browse all available properties"
+        limit={12}
         onSelectProperty={(p: PropertyQueryResult) => {
           setSelected(p);
           setOpen(true);
