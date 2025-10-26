@@ -4,7 +4,7 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './spasic/schemaTypes'
-import {structure} from './spasic/structure'
+import {structure} from './studio-structure'
 
 export default defineConfig({
   name: 'real-estate-portal',
