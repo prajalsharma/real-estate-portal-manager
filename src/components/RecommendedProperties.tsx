@@ -4,7 +4,6 @@ import * as React from "react";
 import { Bed, Proportions, MapPin, ShowerHead } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/i18n";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { useRates } from "@/lib/hooks/use-rates";
@@ -247,17 +246,16 @@ export default function RecommendedProperties({
                     </div>
 
                     <div className="mt-3 flex items-center justify-center py-2">
-                      <Button
+                      <button
+                        type="button"
                         onClick={() => {
                           setSelectedProperty(p as Property);
                           setOpen(true);
                         }}
                         aria-label={`View ${p.title}`}
-                        size="sm"
-                        variant="outline"
-                        className="h-8 rounded-md border-border text-foreground hover:bg-secondary cursor-pointer">
+                        className="w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
                         View details
-                      </Button>
+                      </button>
                     </div>
                   </div>
 
