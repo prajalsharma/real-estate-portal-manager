@@ -31,7 +31,14 @@ type HeaderProps = {
   onLanguageChange?: (value: string) => void;
 };
 
-const NAV_ITEMS = [{ key: "nav.about" }, { key: "nav.contact" }];
+const NAV_ITEMS = [
+  { key: "nav.condos" },
+  { key: "nav.houses" },
+  { key: "nav.commercial" },
+  { key: "nav.rent" },
+  { key: "nav.about" },
+  { key: "nav.contact" },
+];
 
 const LANGUAGES: { label: string; value: HeaderProps["initialLanguage"] }[] = [
   { label: "English", value: "en" },
