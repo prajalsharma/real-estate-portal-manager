@@ -13,17 +13,13 @@ export default function PropertyExplorer() {
         title="All Properties"
         subtitle="Browse all available properties"
         limit={12}
-        onSelectProperty={(p: PropertyQueryResult) => {
-          setSelected(p);
-          setOpen(true);
-        }}
       />
-      <PropertyDetailsModal
+      {/* <PropertyDetailsModal
         open={open}
         onOpenChange={setOpen}
         property={selected as PropertyQueryResult}
         gallery={selected?.images?.map((img) => img.asset._ref) || []}
-      />
+      /> */}
     </div>
   );
 }

@@ -129,22 +129,21 @@ export default function Header({
         </div>
 
         {/* Center: Navigation (desktop) */}
-        <nav className="hidden lg:flex items-center gap-1 lg:ml-20" aria-label="Primary navigation">
+        <nav className="hidden lg:flex items-center gap-5 lg:ml-20" aria-label="Primary navigation">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             return (
-              <Link key={item.key} href={item.href} className="relative">
-                <Button
-                  variant="ghost"
-                  className={cn(
-                    "text-base font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold",
-                    isActive && "bg-accent/80 text-gold font-semibold"
-                  )}>
-                  <span className="truncate">{t(item.key)}</span>
-                  {isActive && (
-                    <span className="w-full h-0.5 bg-gold absolute bottom-0 left-0"></span>
-                  )}
-                </Button>
+              <Link
+                key={item.key}
+                href={item.href}
+                className={cn(
+                  "text-base relative font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold transition-colors",
+                  isActive && "bg-accent/80 text-gold font-semibold"
+                )}>
+                <span className="truncate">{t(item.key)}</span>
+                {isActive && (
+                  <span className="w-full h-0.5 bg-gold absolute bottom-0 left-0"></span>
+                )}
               </Link>
             );
           })}

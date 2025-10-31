@@ -11,6 +11,7 @@ import { useFeaturedProperties } from "@/lib/sanity/hooks";
 import { safeImageUrl } from "@/lib/sanity/image";
 import PropertyDetailsModal from "./PropertyDetailsModal";
 import { formatter } from "@/lib/priceFormatter";
+import Link from "next/link";
 
 type Property = {
   id: string;
@@ -46,6 +47,7 @@ export default function RecommendedProperties({
 }: RecommendedPropertiesProps) {
   // Fetch featured properties from Sanity
   const { properties: sanityProperties, loading: sanityLoading, error } = useFeaturedProperties(6);
+
   // i18n + currency prefs
   const t = useT();
   const { currency, language } = useAppPrefs();
@@ -246,16 +248,12 @@ export default function RecommendedProperties({
                     </div>
 
                     <div className="mt-3 flex items-center justify-center py-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedProperty(p as Property);
-                          setOpen(true);
-                        }}
+                      <Link
+                        href={`/properties/${p.id}`}
                         aria-label={`View ${p.title}`}
-                        className="w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
+                        className="inline-flex justify-center w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
                         View details
-                      </button>
+                      </Link>
                     </div>
                   </div>
 

@@ -169,12 +169,11 @@ export default function SanityAllProperties({
                       <span className="text-muted-foreground">{t("labels.area")}</span>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => onSelectProperty && onSelectProperty(p)}
-                    className="w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
+                  <Link
+                    href={`/properties/${p._id}`}
+                    className="inline-flex justify-center  w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
                     View details
-                  </button>
+                  </Link>
                 </div>
               </div>
             );
