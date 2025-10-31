@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,6 +64,7 @@ export default function Header({
 }: HeaderProps) {
   const { currency, language, setCurrency, setLanguage } = useAppPrefs();
   const t = useT();
+  const pathname = usePathname();
 
   // theme toggle
   const [theme, setTheme] = React.useState<"light" | "dark">("light");
@@ -128,15 +130,24 @@ export default function Header({
 
         {/* Center: Navigation (desktop) */}
         <nav className="hidden lg:flex items-center gap-1 lg:ml-20" aria-label="Primary navigation">
-          {NAV_ITEMS.map((item) => (
-            <Link key={item.key} href={item.href}>
-              <Button
-                variant="ghost"
-                className="text-base font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold">
-                <span className="truncate">{t(item.key)}</span>
-              </Button>
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link key={item.key} href={item.href} className="relative">
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "text-base font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold",
+                    isActive && "bg-accent/80 text-gold font-semibold"
+                  )}>
+                  <span className="truncate">{t(item.key)}</span>
+                  {isActive && (
+                    <span className="w-full h-0.5 bg-gold absolute bottom-0 left-0"></span>
+                  )}
+                </Button>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right: Utilities */}
@@ -206,16 +217,22 @@ export default function Header({
 
               <div className="flex flex-col">
                 <div className="flex flex-col p-2">
-                  {NAV_ITEMS.map((item) => (
-                    <SheetClose asChild key={item.key}>
-                      <Link
-                        href={item.href}
-                        className="flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base font-medium text-foreground/90 hover:bg-accent/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                        aria-label={t(item.key)}>
-                        <span className="min-w-0 truncate">{t(item.key)}</span>
-                      </Link>
-                    </SheetClose>
-                  ))}
+                  {NAV_ITEMS.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <SheetClose asChild key={item.key}>
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            "flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base font-medium text-foreground/90 hover:bg-accent/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                            isActive && "bg-accent/80 text-gold font-semibold"
+                          )}
+                          aria-label={t(item.key)}>
+                          <span className="min-w-0 truncate">{t(item.key)}</span>
+                        </Link>
+                      </SheetClose>
+                    );
+                  })}
                 </div>
 
                 <div className="mt-1 border-t p-4">
