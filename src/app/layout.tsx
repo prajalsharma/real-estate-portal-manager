@@ -5,6 +5,8 @@ import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 import { AppPreferencesProvider } from "@/lib/prefs-context";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -31,7 +33,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="en"
       className={`!text-[#0e100f] ${montserrat.className} ${playfair_display.variable}`}>
       <body className="antialiased">
-        <AppPreferencesProvider>
+        <AppPreferencesProvider initialCurrency="eur" initialLanguage="en">
+          <div className="min-h-dvh bg-background text-foreground">
+            <Header initialCurrency="eur" initialLanguage="en" />
+
+            <main className="w-full">{children}</main>
+
+            <Footer className="border-t bg-background mt-0" />
+          </div>
+
           <ErrorReporter />
           <Script
             src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
@@ -43,8 +53,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             data-debug="true"
             data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
           />
-
-          {children}
           <VisualEditsMessenger />
         </AppPreferencesProvider>
       </body>

@@ -32,12 +32,12 @@ type HeaderProps = {
 };
 
 const NAV_ITEMS = [
-  { key: "nav.condos" },
-  { key: "nav.houses" },
-  { key: "nav.commercial" },
-  { key: "nav.rent" },
-  { key: "nav.about" },
-  { key: "nav.contact" },
+  { key: "nav.condos", href: "/condos" },
+  { key: "nav.houses", href: "/houses" },
+  { key: "nav.commercial", href: "/commercial" },
+  { key: "nav.rent", href: "/rent" },
+  { key: "nav.about", href: "/about" },
+  { key: "nav.contact", href: "/contact" },
 ];
 
 const LANGUAGES: { label: string; value: HeaderProps["initialLanguage"] }[] = [
@@ -129,12 +129,13 @@ export default function Header({
         {/* Center: Navigation (desktop) */}
         <nav className="hidden lg:flex items-center gap-1 lg:ml-20" aria-label="Primary navigation">
           {NAV_ITEMS.map((item) => (
-            <Button
-              key={item.key}
-              variant="ghost"
-              className="text-base font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold">
-              <span className="truncate">{t(item.key)}</span>
-            </Button>
+            <Link key={item.key} href={item.href}>
+              <Button
+                variant="ghost"
+                className="text-base font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold">
+                <span className="truncate">{t(item.key)}</span>
+              </Button>
+            </Link>
           ))}
         </nav>
 
@@ -207,11 +208,12 @@ export default function Header({
                 <div className="flex flex-col p-2">
                   {NAV_ITEMS.map((item) => (
                     <SheetClose asChild key={item.key}>
-                      <button
+                      <Link
+                        href={item.href}
                         className="flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base font-medium text-foreground/90 hover:bg-accent/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         aria-label={t(item.key)}>
                         <span className="min-w-0 truncate">{t(item.key)}</span>
-                      </button>
+                      </Link>
                     </SheetClose>
                   ))}
                 </div>
