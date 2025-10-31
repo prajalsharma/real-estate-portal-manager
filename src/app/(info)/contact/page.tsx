@@ -3,8 +3,6 @@
 import * as React from "react";
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,8 +47,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header initialCurrency="eur" initialLanguage="el" />
-
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
@@ -277,7 +273,6 @@ export default function ContactPage() {
         </div>
       </main>
 
-      <Footer className="border-t bg-background" />
       <Toaster />
     </div>
   );

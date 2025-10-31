@@ -1,6 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { AppPreferencesProvider } from "@/lib/prefs-context";
 import { Building2, Users, Award, TrendingUp, MapPin, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,8 +5,6 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <Header initialCurrency="eur" initialLanguage="el" />
-
       <main className="w-full">
         {/* Hero Section */}
         <section className="relative w-full bg-gradient-to-br from-primary/10 via-background to-primary/5 py-16 sm:py-20 md:py-24">
@@ -158,8 +153,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-
-      <Footer className="border-t bg-background" />
     </div>
   );
 }
