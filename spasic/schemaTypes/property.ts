@@ -142,8 +142,11 @@ export default defineType({
       title: "Property Videos",
       type: "array",
       of: [
-        { type: "mux.video" }
-      ]
+        {
+          type: "file",
+          options: { accept: "video/*" },
+        },
+      ],
     }),
     // Address object
     defineField({
