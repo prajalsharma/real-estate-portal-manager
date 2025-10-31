@@ -122,9 +122,10 @@ export default defineType({
           ],
         },
       ],
-      options: { sortable: true }, // enables manual ordering in Studio
+      options: { sortable: true }, // optional for ordering
       validation: (Rule) => Rule.min(1).max(20),
     }),
+    
     // Main Image (legacy/preview only)
     defineField({
       name: "mainImage",
