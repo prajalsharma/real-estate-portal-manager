@@ -1,8 +1,9 @@
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemaTypes'
-import {structure} from './structure'
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { schemaTypes } from './schemaTypes'
+import { structure } from './structure'
+import { muxInput } from 'sanity-plugin-mux-input'
 
 export default defineConfig({
   name: 'real-estate-portal',
@@ -13,6 +14,7 @@ export default defineConfig({
   plugins: [
     structureTool({ structure }),
     visionTool(),
+    muxInput(), // <-- add Mux for video uploads
   ],
   schema: {
     types: schemaTypes,

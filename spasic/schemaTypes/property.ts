@@ -108,7 +108,7 @@ export default defineType({
       initialValue: false,
       description: "Tick if property should be shown in homepage carousel.",
     }),
-    // Images Array (sortable)
+    // Property Images — bulk upload & ordering!
     defineField({
       name: "images",
       title: "Property Images",
@@ -122,10 +122,10 @@ export default defineType({
           ],
         },
       ],
-      options: { sortable: true }, // enables ordering
+      options: { sortable: true }, // enables manual ordering in Studio
       validation: (Rule) => Rule.min(1).max(20),
     }),
-    // Main Image (for preview)
+    // Main Image (legacy/preview only)
     defineField({
       name: "mainImage",
       title: "Main Image",
@@ -136,19 +136,13 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required(),
     }),
-    // Videos Section
+    // Videos Section — direct upload via Mux!
     defineField({
       name: "videos",
-      title: "Videos",
+      title: "Property Videos",
       type: "array",
       of: [
-        {
-          type: "object",
-          fields: [
-            { name: "url", title: "Video URL", type: "url", validation: Rule => Rule.required() },
-            { name: "caption", title: "Caption", type: "string" }
-          ]
-        }
+        { type: "mux.video" }
       ]
     }),
     // Address object
