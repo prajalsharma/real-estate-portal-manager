@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Montserrat } from "next/font/google";
+import { Playfair_Display, Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
@@ -8,9 +8,9 @@ import { AppPreferencesProvider } from "@/lib/prefs-context";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-inter",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -29,9 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`!text-[#0e100f] ${montserrat.className} ${playfair_display.variable}`}>
+    <html lang="en" className={`text-[#0e100f] ${inter.className} ${playfair_display.variable}`}>
       <body className="antialiased">
         <AppPreferencesProvider initialCurrency="eur" initialLanguage="en">
           <div className="min-h-dvh bg-background text-foreground">

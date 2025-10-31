@@ -52,9 +52,9 @@ export default function Footer({ className }: FooterProps) {
       <div className="w-full py-6 sm:py-4">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-x-10 sm:justify-between">
-            <div className="w-full flex-shrink-0 sm:max-w-70">
+            <div className="w-full shrink-0 sm:max-w-70">
               <Logo />
-              <p className={cn(mutedText, "mt-2.5 max-w-prose break-words")}>
+              <p className={cn(mutedText, "mt-2.5 max-w-prose wrap-break-word")}>
                 Trusted real estate partner in Greece. Discover condos, houses, and commercial
                 properties to buy or rent, with expert guidance at every step.
               </p>
@@ -74,24 +74,24 @@ export default function Footer({ className }: FooterProps) {
                       </Link>
                     </li>
                     <li className="min-w-0">
-                      <span className={linkBase} role="link" tabIndex={0}>
+                      <Link href="/condos" className={linkBase}>
                         Condos
-                      </span>
+                      </Link>
                     </li>
                     <li className="min-w-0">
-                      <span className={linkBase} role="link" tabIndex={0}>
+                      <Link href="/houses" className={linkBase}>
                         Houses
-                      </span>
+                      </Link>
                     </li>
                     <li className="min-w-0">
-                      <span className={linkBase} role="link" tabIndex={0}>
+                      <Link href="/commercial" className={linkBase}>
                         Commercial
-                      </span>
+                      </Link>
                     </li>
                     <li className="min-w-0">
-                      <span className={linkBase} role="link" tabIndex={0}>
+                      <Link href="/rent" className={linkBase}>
                         For rent
-                      </span>
+                      </Link>
                     </li>
                   </ul>
                 </Column>
@@ -136,7 +136,9 @@ export default function Footer({ className }: FooterProps) {
                     <li className="flex items-start gap-2">
                       <Mail className="mt-0.5 h-4 w-4 text-[--color-red]" aria-hidden="true" />
                       <div className="min-w-0">
-                        <p className="text-sm text-foreground break-words">hello@realestate.gr</p>
+                        <p className="text-sm text-foreground wrap-break-word">
+                          hello@realestate.gr
+                        </p>
                         <p className={mutedText}>Email us anytime</p>
                       </div>
                     </li>

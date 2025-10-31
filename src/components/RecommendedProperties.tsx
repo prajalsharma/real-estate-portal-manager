@@ -28,6 +28,7 @@ type Property = {
     country: string;
   };
   imageUrl: string;
+  slug?: string;
   imageAlt?: string;
   tag?: string;
   interior?: boolean;
@@ -66,6 +67,7 @@ export default function RecommendedProperties({
     return sanityProperties.map((p) => ({
       id: p._id,
       title: p.title,
+      slug: p.slug,
       price: `€${p.price.toLocaleString()}`,
       beds: p.beds,
       baths: p.baths,
@@ -249,7 +251,7 @@ export default function RecommendedProperties({
 
                     <div className="mt-3 flex items-center justify-center py-2">
                       <Link
-                        href={`/properties/${p.id}`}
+                        href={`/properties/${p.slug || p.id}`}
                         aria-label={`View ${p.title}`}
                         className="inline-flex justify-center w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
                         View details
