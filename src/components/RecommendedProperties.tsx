@@ -28,7 +28,9 @@ type Property = {
     country: string;
   };
   imageUrl: string;
-  slug?: string;
+  slug?: {
+    current: string;
+  };
   imageAlt?: string;
   tag?: string;
   interior?: boolean;

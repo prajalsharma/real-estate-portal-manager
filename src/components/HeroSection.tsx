@@ -45,6 +45,7 @@ import { safeImageUrl } from "@/lib/sanity/image";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { useRates } from "@/lib/hooks/use-rates";
 import { formatter } from "@/lib/priceFormatter";
+import Link from "next/link";
 
 type FeaturedAgent = {
   name: string;
@@ -60,6 +61,9 @@ type FeaturedProperty = {
   beds: number;
   baths: number;
   sqft: number;
+  slug?: {
+    current: string;
+  };
   agent: FeaturedAgent;
 };
 
@@ -143,6 +147,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     beds: prop.beds || 0,
     baths: prop.baths || 0,
     sqft: prop.sqft || 0,
+    slug: prop.slug,
     agent: {
       name: prop.agent?.name || "Agent",
       avatarUrl:
@@ -158,6 +163,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
   const [currentIdx, setCurrentIdx] = React.useState(0);
   const featured = featuredProperties[currentIdx];
+
+  console.log("Featured Properties:", featuredProperties);
 
   const videoRef = React.useRef<HTMLVideoElement>(null);
   React.useEffect(() => {
@@ -182,24 +189,6 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
           .format(convert(eur as number, currency as any))
           .replace(/(\p{Sc})\s?/u, "$1\u00A0")
       : featured.price;
-
-  const [detailsOpen, setDetailsOpen] = React.useState(false);
-  const [detailsProperty, setDetailsProperty] = React.useState<any | null>(null);
-  const [autoOpenContact, setAutoOpenContact] = React.useState(false);
-
-  React.useEffect(() => {
-    function handleOpen(e: Event) {
-      const custom = e as CustomEvent<{ property?: any; autoContact?: boolean }>;
-      const { property, autoContact } = custom.detail || {};
-      if (!property) return;
-      setDetailsProperty(property);
-      setAutoOpenContact(Boolean(autoContact));
-      setDetailsOpen(true);
-    }
-
-    window.addEventListener("app:open-property", handleOpen as EventListener);
-    return () => window.removeEventListener("app:open-property", handleOpen as EventListener);
-  }, []);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -238,12 +227,6 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
           .join(" • "),
       });
     }
-  }
-
-  function handleMoreFilters() {
-    toast.message(t("actions.moreFilters", "More filters"), {
-      description: t("messages.advancedFiltersSoon", "Advanced filters coming soon."),
-    });
   }
 
   function handleTourRequest() {
@@ -416,16 +399,11 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                             </div>
                           </div>
                           <div className="w-full sm:w-auto">
-                            <Button
-                              onClick={handleTourRequest}
-                              className={cn(
-                                "w-full sm:w-auto bg-gold text-white hover:bg-gold/90",
-                                "rounded shadow-lg hover:shadow-xl text-base h-12 px-6 font-semibold cursor-pointer",
-                                "transition-all duration-300 hover:scale-105",
-                                "ring-2 ring-gold/30 hover:ring-gold/50"
-                              )}>
-                              {t("actions.requestTour", "Request a tour")}
-                            </Button>
+                            <Link
+                              href={`/properties/${featured.slug}`}
+                              className="inline-flex bg-gold text-white hover:bg-gold/90 py-2 w-full sm:w-auto rounded shadow-lg hover:shadow-xl text-base px-6 font-semibold cursor-pointer transition-all duration-300 hover:scale-105 ring-2 ring-gold/30 hover:ring-gold/50">
+                              View Details
+                            </Link>
                           </div>
                         </div>
                       </CardContent>
@@ -536,7 +514,6 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                 </FieldCard>
 
                 <FieldCard>
-                  {/* Property Type */}
                   <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                     <House className="h-4.5 w-4.5 text-primary shrink-0" aria-hidden="true" />
                     <span>{t("labels.propertyType", "Property type")}</span>
@@ -629,17 +606,6 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                 </FieldCard>
               </div>
 
-              {/* Buttons */}
-              {/* <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleMoreFilters}
-                  className="h-11 px-4 bg-white rounded-xl text-sm border-border/50 hover:bg-white hover:border-primary/60 transition-all shadow-sm hover:shadow-md"
-                  aria-label={t("aria.moreFilters", "Open more filters")}>
-                  <SlidersHorizontal className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="hidden sm:inline">Filters</span>
-                  <span className="sm:hidden">More</span>
-                </Button> */}
               <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:max-w-70 lg:mx-auto">
                 <Button
                   type="submit"
@@ -669,13 +635,13 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
         </Card>
       </div>
 
-      <PropertyDetailsModal
+      {/* <PropertyDetailsModal
         gallery={detailsProperty?.images ?? []}
         open={detailsOpen}
         onOpenChange={setDetailsOpen}
         property={detailsProperty}
         autoOpenContact={autoOpenContact}
-      />
+      /> */}
     </>
   );
 }
