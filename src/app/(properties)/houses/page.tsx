@@ -1,5 +1,3 @@
-"use client";
-
 import PropertyGrid from "@/components/PropertyGrid";
 import { getHouseProperties } from "@/lib/dummy-data";
 

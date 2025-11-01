@@ -7,10 +7,11 @@ import Script from "next/script";
 import { AppPreferencesProvider } from "@/lib/prefs-context";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import "leaflet/dist/leaflet.css";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-montserrat",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -29,7 +30,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`text-[#0e100f] ${inter.className} ${playfair_display.variable}`}>
+    <html
+      lang="en"
+      className={`text-[#0e100f] ${montserrat.className} ${playfair_display.variable}`}>
       <body className="antialiased">
         <AppPreferencesProvider initialCurrency="eur" initialLanguage="en">
           <div className="min-h-dvh bg-background text-foreground">
