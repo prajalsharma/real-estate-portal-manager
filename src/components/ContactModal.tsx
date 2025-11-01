@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +47,7 @@ export interface ContactModalProps {
   lang?: Lang;
   propertyOptions?: PropertyOption[];
   defaultProperty?: string;
+  defaultMessage?: string;
   whatsappNumber?: string; // E.164 without '+', e.g. "3069XXXXXXX"
   defaultLocationQuery?: string;
   className?: string;
@@ -100,7 +100,7 @@ const translations: Record<
   }
 > = {
   en: {
-    title: "Contact Agent",
+    title: "Contact",
     description: "Send an inquiry about this property. We'll get back to you promptly.",
     labels: {
       name: "Full name",
@@ -393,6 +393,7 @@ export default function ContactModal({
   onOpenChange,
   lang = "en",
   propertyOptions,
+  defaultMessage,
   defaultProperty,
   whatsappNumber,
   defaultLocationQuery,
@@ -431,7 +432,7 @@ export default function ContactModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(defaultMessage ?? "");
   const [property, setProperty] = useState<string | undefined>(
     defaultPropertyValid ? defaultProperty : undefined
   );
@@ -442,6 +443,12 @@ export default function ContactModal({
   useEffect(() => {
     if (defaultPropertyValid) setProperty(defaultProperty);
   }, [defaultPropertyValid, defaultProperty]);
+
+  useEffect(() => {
+    if (open) {
+      setMessage(defaultMessage ?? "");
+    }
+  }, [defaultMessage, open]);
 
   const validate = () => {
     const newErrors: Record<string, string | undefined> = {};
@@ -637,15 +644,6 @@ export default function ContactModal({
                       aria-hidden="true"
                     />
                   </div>
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={openMaps}
-                    className="shrink-0"
-                    aria-label={t.ctas.openMaps}>
-                    <Map className="size-4 mr-2" aria-hidden="true" />
-                    {t.ctas.openMaps}
-                  </Button>
                 </div>
               </div>
 

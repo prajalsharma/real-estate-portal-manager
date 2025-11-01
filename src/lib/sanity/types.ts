@@ -1,161 +1,162 @@
 // Sanity schema types for Real Estate Portal
 
 export interface SanityImage {
-  _type: 'image'
+  _type: "image";
   asset: {
-    _ref: string
-    _type: 'reference'
-  }
-  alt?: string
+    _ref: string;
+    _type: "reference";
+  };
+  alt?: string;
 }
 
 export interface SanityAgent {
-  _id: string
-  _type: 'agent'
-  name: string
-  role?: string
-  rating: number
-  sold: number
-  phone?: string
-  email?: string
-  avatar: SanityImage
-  bio?: string
-  specializations?: string[]
-  languages?: string[]
+  _id: string;
+  _type: "agent";
+  name: string;
+  role?: string;
+  rating: number;
+  sold: number;
+  phone?: string;
+  email?: string;
+  avatar: SanityImage;
+  bio?: string;
+  specializations?: string[];
+  languages?: string[];
 }
 
 export interface SanityProperty {
-  _id: string
-  _type: 'property'
-  title: string
+  _id: string;
+  _type: "property";
+  title: string;
   slug: {
-    current: string
-  }
-  price: number
-  currency: 'EUR' | 'USD' | 'GBP'
-  beds: number
-  baths: number
-  sqft: number
-  propertyType: 'House' | 'Apartment' | 'Condo' | 'Commercial' | 'Land'
-  status: 'For Sale' | 'For Rent' | 'Sold' | 'Rented'
-  featured: boolean
-  images: SanityImage[]
-  mainImage: SanityImage
+    current: string;
+  };
+  price: number;
+  currency: "EUR" | "USD" | "GBP";
+  beds: number;
+  baths: number;
+  sqft: number;
+  propertyType: "House" | "Apartment" | "Condo" | "Commercial" | "Land";
+  status: "For Sale" | "For Rent" | "Sold" | "Rented";
+  featured: boolean;
+  images: SanityImage[];
+  mainImage: SanityImage;
   address: {
-    street?: string
-    city: string
-    region: string
-    country: string
-    postalCode?: string
-  }
+    street?: string;
+    city: string;
+    region: string;
+    country: string;
+    postalCode?: string;
+  };
   location: {
-    lat: number
-    lng: number
-  }
-  description?: string
-  features?: string[]
-  amenities?: string[]
-  yearBuilt?: number
-  lotSize?: number
-  agent: SanityAgent
-  publishedAt: string
-  _createdAt: string
-  _updatedAt: string
+    lat: number;
+    lng: number;
+  };
+  description?: string;
+  features?: string[];
+  videos?: string[];
+  amenities?: string[];
+  yearBuilt?: number;
+  lotSize?: number;
+  agent: SanityAgent;
+  publishedAt: string;
+  _createdAt: string;
+  _updatedAt: string;
 }
 
 export interface SanityBlogPost {
-  _id: string
-  _type: 'blogPost'
-  title: string
+  _id: string;
+  _type: "blogPost";
+  title: string;
   slug: {
-    current: string
-  }
-  excerpt: string
-  content: any[] // Portable text
-  mainImage?: SanityImage
+    current: string;
+  };
+  excerpt: string;
+  content: any[]; // Portable text
+  mainImage?: SanityImage;
   category: {
-    title: string
-    slug: { current: string }
-  }
-  author: SanityAgent
-  tags?: string[]
-  publishedAt: string
-  _createdAt: string
-  _updatedAt: string
+    title: string;
+    slug: { current: string };
+  };
+  author: SanityAgent;
+  tags?: string[];
+  publishedAt: string;
+  _createdAt: string;
+  _updatedAt: string;
 }
 
 export interface SanityCategory {
-  _id: string
-  _type: 'category'
-  title: string
+  _id: string;
+  _type: "category";
+  title: string;
   slug: {
-    current: string
-  }
-  description?: string
+    current: string;
+  };
+  description?: string;
 }
 
 export interface SanityLocation {
-  _id: string
-  _type: 'location'
-  name: string
+  _id: string;
+  _type: "location";
+  name: string;
   slug: {
-    current: string
-  }
-  region: string
-  country: string
+    current: string;
+  };
+  region: string;
+  country: string;
   coordinates: {
-    lat: number
-    lng: number
-  }
-  description?: string
-  image?: SanityImage
-  featured: boolean
-  propertyCount?: number
+    lat: number;
+    lng: number;
+  };
+  description?: string;
+  image?: SanityImage;
+  featured: boolean;
+  propertyCount?: number;
 }
 
 // Query result types
-export interface PropertyQueryResult extends Omit<SanityProperty, 'agent'> {
-  agent: SanityAgent
+export interface PropertyQueryResult extends Omit<SanityProperty, "agent"> {
+  agent: SanityAgent;
 }
 
-export interface BlogQueryResult extends Omit<SanityBlogPost, 'author' | 'category'> {
-  author: SanityAgent
-  category: SanityCategory
+export interface BlogQueryResult extends Omit<SanityBlogPost, "author" | "category"> {
+  author: SanityAgent;
+  category: SanityCategory;
 }
 
 // API Response types
 export interface PropertiesResponse {
-  properties: PropertyQueryResult[]
-  total: number
-  hasMore: boolean
+  properties: PropertyQueryResult[];
+  total: number;
+  hasMore: boolean;
 }
 
 export interface AgentsResponse {
-  agents: SanityAgent[]
-  total: number
+  agents: SanityAgent[];
+  total: number;
 }
 
 export interface BlogResponse {
-  posts: BlogQueryResult[]
-  total: number
-  hasMore: boolean
+  posts: BlogQueryResult[];
+  total: number;
+  hasMore: boolean;
 }
 
 // Filter types
 export interface PropertyFilters {
-  location?: string
-  propertyType?: string
-  minPrice?: number
-  maxPrice?: number
-  beds?: string
-  status?: string
-  featured?: boolean
+  location?: string;
+  propertyType?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  beds?: string;
+  status?: string;
+  featured?: boolean;
 }
 
 export interface BlogFilters {
-  category?: string
-  tag?: string
-  author?: string
+  category?: string;
+  tag?: string;
+  author?: string;
 }
 
 // GROQ query helpers
@@ -184,7 +185,7 @@ export const PROPERTY_QUERY_FIELDS = `
   publishedAt,
   _createdAt,
   _updatedAt
-`
+`;
 
 export const AGENT_QUERY_FIELDS = `
   _id,
@@ -198,7 +199,7 @@ export const AGENT_QUERY_FIELDS = `
   bio,
   specializations,
   languages
-`
+`;
 
 export const BLOG_QUERY_FIELDS = `
   _id,
@@ -213,4 +214,4 @@ export const BLOG_QUERY_FIELDS = `
   publishedAt,
   _createdAt,
   _updatedAt
-`
+`;
