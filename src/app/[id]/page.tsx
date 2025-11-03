@@ -34,6 +34,8 @@ export default function PropertyDetailsPage() {
   const propertySlug = pathname.split("/").pop();
   const { currency, language } = useAppPrefs();
 
+  console.log("Property slug:", propertySlug);
+
   const [property, setProperty] = useState<PropertyQueryResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -244,7 +246,7 @@ export default function PropertyDetailsPage() {
                           loop>
                           <source src={allMedia[0]?.asset?.url} type="video/mp4" />
                         </video>
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-md">
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-md cursor-pointer hover:bg-black/30 transition-colors pointer-events-none">
                           <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
                             <div className="w-0 h-0 border-l-12 border-l-black border-t-8 border-t-transparent border-b-8 border-b-transparent ml-1"></div>
                           </div>
@@ -273,7 +275,7 @@ export default function PropertyDetailsPage() {
                               muted>
                               <source src={media.asset?.url} type="video/mp4" />
                             </video>
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded">
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-md cursor-pointer hover:bg-black/30 transition-colors pointer-events-none">
                               <div className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center">
                                 <div className="w-0 h-0 border-l-6 border-l-black border-t-4 border-t-transparent border-b-4 border-b-transparent ml-0.5"></div>
                               </div>
@@ -585,7 +587,7 @@ export default function PropertyDetailsPage() {
             {allMedia.length > 1 && (
               <button
                 onClick={prevImage}
-                className="absolute left-4 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-colors">
+                className="absolute left-4 z-10 p-2 bg-white bg-opacity-50 text-black rounded-full hover:bg-opacity-70 transition-colors cursor-pointer">
                 <ChevronLeft className="h-6 w-6" />
               </button>
             )}
@@ -593,7 +595,7 @@ export default function PropertyDetailsPage() {
             {allMedia[currentImageIndex] && (
               <>
                 {allMedia[currentImageIndex]?.type === "video" ? (
-                  <video className="max-w-full max-h-full object-contain" controls autoPlay>
+                  <video className="max-w-full max-h-full object-contain" controls autoPlay={false}>
                     <source src={allMedia[currentImageIndex]?.asset?.url} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -616,14 +618,10 @@ export default function PropertyDetailsPage() {
             {allMedia.length > 1 && (
               <button
                 onClick={nextImage}
-                className="absolute right-4 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-colors">
+                className="absolute right-4 z-10 p-2 bg-white bg-opacity-50 text-black rounded-full hover:bg-opacity-70 transition-colors cursor-pointer">
                 <ChevronRight className="h-6 w-6" />
               </button>
             )}
-
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm">
-              {currentImageIndex + 1} / {allMedia.length} - {allMedia[currentImageIndex]?.type}
-            </div>
           </div>
         </DialogContent>
       </Dialog>
