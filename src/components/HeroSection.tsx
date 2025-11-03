@@ -400,7 +400,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                           </div>
                           <div className="w-full sm:w-auto">
                             <Link
-                              href={`/properties/${featured.slug}`}
+                              href={`/${featured.slug}`}
                               className="inline-flex bg-gold text-white hover:bg-gold/90 py-2 w-full sm:w-auto rounded shadow-lg hover:shadow-xl text-base px-6 font-semibold cursor-pointer transition-all duration-300 hover:scale-105 ring-2 ring-gold/30 hover:ring-gold/50">
                               View Details
                             </Link>
