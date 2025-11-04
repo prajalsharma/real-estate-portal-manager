@@ -1,5 +1,7 @@
 // Sanity schema types for Real Estate Portal
 
+import { title } from "node:process";
+
 export interface SanityImage {
   _type: "image";
   asset: {
@@ -39,6 +41,10 @@ export interface SanityProperty {
   propertyType: "House" | "Apartment" | "Condo" | "Commercial" | "Land";
   status: "For Sale" | "For Rent" | "Sold" | "Rented";
   featured: boolean;
+  interiorFeatures?: string[];
+  externalFeatures?: string[];
+  construction?: string[];
+  suitableFor?: string[];
   images: SanityImage[];
   mainImage: SanityImage;
   address: {

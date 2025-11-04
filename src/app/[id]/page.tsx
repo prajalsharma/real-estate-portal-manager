@@ -34,8 +34,6 @@ export default function PropertyDetailsPage() {
   const propertySlug = pathname.split("/").pop();
   const { currency, language } = useAppPrefs();
 
-  console.log("Property slug:", propertySlug);
-
   const [property, setProperty] = useState<PropertyQueryResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -81,16 +79,6 @@ export default function PropertyDetailsPage() {
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + allMedia.length) % allMedia.length);
   };
-
-  const dummyInterior = [
-    "Internal Staircase",
-    "Wooden Flooring",
-    "Fireplace",
-    "Central Heating",
-    "Air Conditioning",
-    "Double Glazed Windows",
-    "Smart Home System",
-  ];
 
   useEffect(() => {
     async function fetchPropertyBySlug() {
@@ -139,8 +127,18 @@ export default function PropertyDetailsPage() {
             asset,
             alt
           },
-          features,
-          amenities,
+          interiorFeatures,
+          externalFeatures,
+          construction,
+          suitableFor,
+          features[] {
+            _key,
+            title
+          },
+          amenities[] {
+            _key,
+            title
+          },
           yearBuilt,
           lotSize,
           agent-> {
@@ -309,7 +307,7 @@ export default function PropertyDetailsPage() {
               )}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8 relative">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_325px] gap-8 relative">
               <div>
                 <div className="flex justify-between items-center">
                   <h1 className="text-5xl font-light mb-2 hero-heading">{property.title}</h1>
@@ -472,10 +470,10 @@ export default function PropertyDetailsPage() {
                   </div>
                 </div>
 
-                <FeatureBlock title="Interior" items={dummyInterior} />
-                <FeatureBlock title="External Features" items={dummyInterior} />
-                <FeatureBlock title="Construction" items={dummyInterior} />
-                <FeatureBlock title="Suitable for" items={dummyInterior} />
+                <FeatureBlock title="Interior" items={property.interiorFeatures || []} />
+                <FeatureBlock title="External Features" items={property.externalFeatures || []} />
+                <FeatureBlock title="Construction" items={property.construction || []} />
+                <FeatureBlock title="Suitable for" items={property.suitableFor || []} />
 
                 <div className="mt-8">
                   <h2 className="text-xl font-semibold">Location</h2>
@@ -646,7 +644,7 @@ function FeatureBlock({ title, items }: { title: string; items: string[] }) {
         {items.map((feature, index) => (
           <div
             key={index}
-            className={`flex items-center gap-2 rounded px-4 py-2 ${title === "Suitable for" ? "border border-gray-300 justify-center" : ""}`}>
+            className={`flex items-center gap-2 rounded py-2 ${title === "Suitable for" ? "border border-gray-300 justify-center" : ""}`}>
             {title !== "Suitable for" && <Diamond className="size-5 text-gold shrink-0" />}
             <span className="text-gray-700">{feature}</span>
           </div>
