@@ -6,7 +6,6 @@ import { PropertyQueryResult, SanityImage } from "@/lib/sanity/types";
 import { client } from "@/lib/sanity/client";
 import { safeImageUrl } from "@/lib/sanity/image";
 import { getFileAsset } from "@sanity/asset-utils";
-
 import {
   ChevronLeft,
   ChevronRight,
@@ -17,6 +16,8 @@ import {
   Phone,
   Share2,
   Clipboard,
+  Send,
+  Mail,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { MapContainer, TileLayer, Marker, Popup, AttributionControl } from "react-leaflet";
@@ -314,7 +315,7 @@ export default function PropertyDetailsPage() {
                   <Dialog>
                     <DialogTrigger asChild>
                       <button className="cursor-pointer p-2 rounded-md  hover:bg-white transition-colors ">
-                        <Share2 className="size-10 text-gold" />
+                        <Share2 className="size-8 text-gold" />
                       </button>
                     </DialogTrigger>
                     <DialogContent className="max-w-3xl p-0">
@@ -347,9 +348,9 @@ export default function PropertyDetailsPage() {
                             href={`https://wa.me/?text=Check out this property: ${property.title} - ${window.location.href}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                            <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                              <span className="text-white text-sm font-bold">W</span>
+                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
+                            <div className="size-8">
+                              <img src="/whatsapp.svg" alt="WhatsApp" />
                             </div>
                             <div>
                               <h3 className="font-medium text-gray-900">WhatsApp</h3>
@@ -360,9 +361,9 @@ export default function PropertyDetailsPage() {
                             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                              <span className="text-white text-sm font-bold">f</span>
+                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
+                            <div className="size-8">
+                              <img src="/facebook.svg" alt="Facebook" />
                             </div>
                             <div>
                               <h3 className="font-medium text-gray-900">Facebook</h3>
@@ -373,9 +374,9 @@ export default function PropertyDetailsPage() {
                             href={`https://twitter.com/intent/tweet?text=Check out this property: ${property.title}&url=${encodeURIComponent(window.location.href)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                            <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
-                              <span className="text-white text-sm font-bold">𝕏</span>
+                            className="flex items-center gap-4 px-5 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
+                            <div className="size-6">
+                              <img src="/twitter.svg" alt="Twitter" />
                             </div>
                             <div>
                               <h3 className="font-medium text-gray-900">Twitter</h3>
@@ -384,9 +385,9 @@ export default function PropertyDetailsPage() {
 
                           <Link
                             href={`mailto:?subject=Property: ${property.title}&body=I found this property that might interest you: ${window.location.href}`}
-                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                            <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
-                              <span className="text-white text-sm font-bold">@</span>
+                            className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm hover:bg-gray-200 transition-colors">
+                            <div className="size-8 rounded-full flex items-center justify-center">
+                              <Mail className="text-black size-full" aria-hidden="true" />
                             </div>
                             <div>
                               <h3 className="font-medium text-gray-900">Email</h3>
@@ -552,7 +553,9 @@ export default function PropertyDetailsPage() {
                     <button
                       onClick={() => setContactOpen(true)}
                       className="w-full bg-gold hover:bg-gold/80 text-white font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2">
-                      <span>Send Message</span>
+                      <span className="flex gap-2 items-center">
+                        <Send className="size-4 text-white" /> Send Message
+                      </span>
                     </button>
                     <a
                       href="tel:+1234567890" //
@@ -579,7 +582,7 @@ export default function PropertyDetailsPage() {
       />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl w-full h-[80vh] p-0 bg-black">
+        <DialogContent className="max-w-4xl w-full h-[75vh] p-0 bg-black">
           <DialogTitle className="sr-only">Media Gallery</DialogTitle>
           <div className="relative w-full h-full flex items-center justify-center">
             {allMedia.length > 1 && (
@@ -593,7 +596,10 @@ export default function PropertyDetailsPage() {
             {allMedia[currentImageIndex] && (
               <>
                 {allMedia[currentImageIndex]?.type === "video" ? (
-                  <video className="max-w-full max-h-full object-contain" controls autoPlay={false}>
+                  <video
+                    className="max-w-full h-full object-cover rounded-lg"
+                    controls
+                    autoPlay={false}>
                     <source src={allMedia[currentImageIndex]?.asset?.url} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -607,7 +613,7 @@ export default function PropertyDetailsPage() {
                       allMedia[currentImageIndex]?.alt ||
                       `${property.title} - Media ${currentImageIndex + 1}`
                     }
-                    className="max-w-full max-h-full object-contain"
+                    className="max-w-full h-full object-cover rounded-lg"
                   />
                 )}
               </>
@@ -620,6 +626,9 @@ export default function PropertyDetailsPage() {
                 <ChevronRight className="h-6 w-6" />
               </button>
             )}
+          </div>
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm">
+            {currentImageIndex + 1} / {allMedia.length}
           </div>
         </DialogContent>
       </Dialog>
