@@ -34,7 +34,7 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
       options: {
-        layout: "checkbox",
+        layout: "list",
         list: [
           { title: "Internal staircase", value: "Internal staircase" },
           { title: "Air conditioning", value: "Air conditioning" },
@@ -71,7 +71,7 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
       options: {
-        layout: "checkbox",
+        layout: "list",
         list: [
           { title: "Veranda (5sq.m.)", value: "Veranda (5sq.m.)" },
           { title: "Private Garden", value: "Private Garden" },
@@ -97,7 +97,7 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
       options: {
-        layout: "checkbox",
+        layout: "list",
         list: [
           { title: "Semi-finished", value: "Semi-finished" },
           { title: "Ceiling apartment", value: "Ceiling apartment" },
@@ -117,7 +117,7 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
       options: {
-        layout: "checkbox",
+        layout: "list",
         list: [
           { title: "Holiday", value: "Holiday" },
           { title: "Investment", value: "Investment" },
