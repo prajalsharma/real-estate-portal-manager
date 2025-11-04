@@ -26,6 +26,109 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+
+    // Interior Features
+    defineField({
+      name: "interiorFeatures",
+      title: "Interior Features",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+        list: [
+          { title: "Internal staircase", value: "Internal staircase" },
+          { title: "Air conditioning", value: "Air conditioning" },
+          { title: "Solar water heater", value: "Solar water heater" },
+          { title: "Floor type: Plaque", value: "Floor type: Plaque" },
+          { title: "Security door", value: "Security door" },
+          { title: "Buffets: Aluminum", value: "Buffets: Aluminum" },
+          { title: "Double glassboard", value: "Double glassboard" },
+          { title: "Sites", value: "Sites" },
+          { title: "Bright", value: "Bright" },
+          { title: "Diaspora", value: "Diaspora" },
+          { title: "Stained", value: "Stained" },
+          { title: "Asan elevator", value: "Asan elevator" },
+          { title: "Furnished", value: "Furnished" },
+          { title: "Fireplace", value: "Fireplace" },
+          { title: "Intra-deposits heating", value: "Intra-deposits heating" },
+          { title: "Night current", value: "Night current" },
+          { title: "Warehouse", value: "Warehouse" },
+          { title: "Sofa", value: "Sofa" },
+          { title: "Playroom", value: "Playroom" },
+          { title: "Satellite antenna", value: "Satellite antenna" },
+          { title: "Alarm", value: "Alarm" },
+          { title: "Reception with a doorman", value: "Reception with a doorman" },
+          { title: "Electric car charging facilities", value: "Electric car charging facilities" },
+          { title: "Luxurious", value: "Luxurious" },
+        ]
+      },
+    }),
+
+    // External Features
+    defineField({
+      name: "externalFeatures",
+      title: "External Features",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+        list: [
+          { title: "Veranda (5sq.m.)", value: "Veranda (5sq.m.)" },
+          { title: "Private Garden", value: "Private Garden" },
+          { title: "Swimming pool", value: "Swimming pool" },
+          { title: "Careful", value: "Careful" },
+          { title: "Orientation: Western-famous", value: "Orientation: Western-famous" },
+          { title: "Access from: asphalt", value: "Access from: asphalt" },
+          { title: "Agricultural zone", value: "Agricultural zone" },
+          { title: "Parking", value: "Parking" },
+          { title: "Tentes", value: "Tentes" },
+          { title: "Built-in BBQ", value: "Built-in BBQ" },
+          { title: "View", value: "View" },
+          { title: "Access for America", value: "Access for America" },
+          { title: "Corner", value: "Corner" },
+        ]
+      },
+    }),
+
+    // Construction
+    defineField({
+      name: "construction",
+      title: "Construction",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+        list: [
+          { title: "Semi-finished", value: "Semi-finished" },
+          { title: "Ceiling apartment", value: "Ceiling apartment" },
+          { title: "Renovated", value: "Renovated" },
+          { title: "It swells renovation", value: "It swells renovation" },
+          { title: "Neoclassic", value: "Neoclassic" },
+          { title: "Maintain", value: "Maintain" },
+          { title: "Subzafos", value: "Subzafos" },
+        ]
+      },
+    }),
+
+    // Suitable For
+    defineField({
+      name: "suitableFor",
+      title: "Suitable For",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+        list: [
+          { title: "Holiday", value: "Holiday" },
+          { title: "Investment", value: "Investment" },
+          { title: "Tourist rental", value: "Tourist rental" },
+          { title: "Student", value: "Student" },
+          { title: "Professional use", value: "Professional use" },
+          { title: "Clinic", value: "Clinic" },
+        ]
+      },
+    }),
+
     // Price and Currency
     defineField({
       name: "price",
@@ -125,7 +228,6 @@ export default defineType({
       options: { sortable: true }, // optional for ordering
       validation: (Rule) => Rule.min(1).max(20),
     }),
-    
     // Main Image (legacy/preview only)
     defineField({
       name: "mainImage",
@@ -137,7 +239,7 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required(),
     }),
-    // Videos Section — direct upload via Mux!
+    // Videos Section — direct file upload (not Mux)
     defineField({
       name: "videos",
       title: "Property Videos",
@@ -163,7 +265,7 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required(),
     }),
-    // Desc/Features/Amenities
+    // Description
     defineField({
       name: "description",
       title: "Description",
@@ -196,7 +298,6 @@ export default defineType({
       type: "number",
       validation: (Rule) => Rule.min(0),
     }),
-    // Agent Reference
     defineField({
       name: "agent",
       title: "Listing Agent",
@@ -204,7 +305,6 @@ export default defineType({
       to: [{ type: "agent" }],
       validation: (Rule) => Rule.required(),
     }),
-    // Publish Date
     defineField({
       name: "publishedAt",
       title: "Published At",
