@@ -143,7 +143,7 @@ export default function Header({
                   "text-base relative font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold transition-colors",
                   isActive && "bg-accent/80 text-gold font-semibold"
                 )}>
-                <span className="truncate">{t(item.href)}</span>
+                <span className="truncate">{t(item.label)}</span>
                 {isActive && (
                   <span className="w-full h-0.5 bg-gold absolute bottom-0 left-0"></span>
                 )}
@@ -230,7 +230,7 @@ export default function Header({
                             isActive && "bg-accent/80 text-gold font-semibold"
                           )}
                           aria-label={t(item.href)}>
-                          <span className="min-w-0 truncate">{t(item.href)}</span>
+                          <span className="min-w-0 truncate">{t(item.label)}</span>
                         </Link>
                       </SheetClose>
                     );
