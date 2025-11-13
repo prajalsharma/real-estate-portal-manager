@@ -7,13 +7,13 @@ export default function AboutPage() {
     <div className="min-h-dvh bg-background text-foreground">
       <main className="w-full">
         {/* Hero Section */}
-        <section className="relative w-full bg-gradient-to-br from-primary/10 via-background to-primary/5 py-16 sm:py-20 md:py-24">
+        <section className="relative w-full bg-linear-to-br from-primary/10 via-background to-primary/5 py-16 sm:py-20 md:py-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-2 hero-heading">
                 About Spasic Real Estate
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 leading-relaxed">
+              <p className="text-lg sm:text-xl text-foreground/80 leading-relaxed">
                 Your trusted partner in discovering exceptional properties across Halkidiki and
                 Greece
               </p>
@@ -25,7 +25,7 @@ export default function AboutPage() {
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative aspect-4/3 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop"
                   alt="Luxury Greek villa"
@@ -34,7 +34,7 @@ export default function AboutPage() {
                 />
               </div>
               <div className="space-y-6">
-                <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground">
+                <h2 className="hero-heading text-3xl sm:text-4xl font-bold text-foreground">
                   Our Story
                 </h2>
                 <div className="space-y-4 text-foreground/80 leading-relaxed text-base sm:text-lg">
@@ -66,7 +66,7 @@ export default function AboutPage() {
         <section className="bg-muted/30 py-16 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground text-center mb-12">
+              <h2 className="hero-heading text-3xl sm:text-4xl font-bold text-foreground text-center mb-12">
                 Why Choose Us
               </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -108,7 +108,7 @@ export default function AboutPage() {
         {/* Mission Section */}
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground">
+            <h2 className="hero-heading text-3xl sm:text-4xl font-bold text-foreground">
               Our Mission
             </h2>
             <p className="text-lg sm:text-xl text-foreground/80 leading-relaxed">
@@ -128,7 +128,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gradient-to-br from-primary/90 to-primary py-16 sm:py-20">
+        <section className="bg-linear-to-br from-primary/90 to-primary py-16 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">

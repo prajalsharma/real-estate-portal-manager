@@ -303,12 +303,12 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                 <h1
                   id="hero-heading"
                   className={cn(
-                    "hero-heading tracking-tight leading-[1.1] text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] mb-4 sm:mb-5 font-bold"
+                    "hero-heading tracking-tight leading-[1.1] text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] mb-4 sm:mb-5 font-bold wrap-break-word"
                   )}>
                   {t("hero.title", "Real estate for living and investments")}
                 </h1>
                 <div className="inline-block pb-3 rounded-2xl">
-                  <p className="text-white text-base md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-normal">
+                  <p className="text-white text-base md:text-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] leading-relaxed font-light">
                     {t(
                       "hero.subtitle",
                       "Discover properties across Greece. Buy, sell, or rent with trusted local expertise."

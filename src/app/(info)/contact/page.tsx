@@ -51,7 +51,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-12 sm:mb-16">
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4">
+            <h1 className="hero-heading text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4">
               {t("contact.title", "Get in Touch")}
             </h1>
             <p className="text-lg sm:text-xl text-foreground/70 max-w-2xl mx-auto">
@@ -143,7 +143,7 @@ export default function ContactPage() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 text-base font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all">
+                    className="w-full h-12 text-base font-bold bg-primary text-white cursor-pointer hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all">
                     {loading
                       ? t("contact.form.sending", "Sending...")
                       : t("contact.form.submit", "Send Message")}
@@ -153,8 +153,8 @@ export default function ContactPage() {
             </Card>
 
             {/* Contact Information */}
-            <div className="space-y-6">
-              <Card className="shadow-lg">
+            <div className="space-y-6 h-full flex flex-col justify-between gap-3">
+              <Card className="shadow-lg m-0">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold">
                     {t("contact.info.title", "Contact Information")}
@@ -166,7 +166,7 @@ export default function ContactPage() {
                     )}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-10">
                   <div className="flex items-start gap-4">
                     <div className="shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <Phone className="h-5 w-5 text-primary" />
@@ -238,7 +238,7 @@ export default function ContactPage() {
               {/* WhatsApp Button */}
               <Button
                 onClick={handleWhatsAppClick}
-                className="w-full h-14 text-lg font-bold bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all">
+                className="w-full h-14 text-lg font-bold bg-green-500 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all">
                 <MessageCircle className="mr-2 h-5 w-5" />
                 {t("contact.whatsapp", "Chat on WhatsApp")}
               </Button>
