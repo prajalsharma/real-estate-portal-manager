@@ -80,7 +80,7 @@ export default function PropertyGrid({ properties, onSelectProperty }: PropertyG
                 </div>
               </div>
               <Link
-                href={`/${p._id}`}
+                href={`/${p.slug.current}`}
                 onClick={() => onSelectProperty && onSelectProperty(p)}
                 className="inline-flex justify-center w-full bg-gold/90 text-white py-2 rounded shadow font-semibold hover:bg-white transition cursor-pointer hover:text-gold border border-gold hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2">
                 View details
