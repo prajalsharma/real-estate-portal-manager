@@ -1,16 +1,18 @@
 import PropertyGrid from "@/components/PropertyGrid";
-import { getRentalProperties } from "@/lib/dummy-data";
+import { client } from "@/lib/sanity/client";
 
-export default function RentPage() {
-  const rentalProperties = getRentalProperties();
+export default async function RentPage() {
+  const properties = await client.fetch(
+    `*[_type == "property" && propertyType == "Rental Service"]{
+      _id, title, slug, price, mainImage { asset->{url}, alt }, beds, baths, sqft, address { city, region }
+    }`
+  );
 
   return (
-    <>
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-7xl">
-          <PropertyGrid properties={rentalProperties} />
-        </div>
-      </section>
-    </>
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl">
+        <PropertyGrid properties={properties} />
+      </div>
+    </section>
   );
 }
