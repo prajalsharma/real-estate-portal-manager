@@ -34,11 +34,13 @@ type HeaderProps = {
 
 const NAV_ITEMS = [
  
-  { key: "nav.apartments", href: "/apartments" },
-  { key: "nav.maisonettes", href: "/maisonettes" },
-  { key: "nav.commercial", href: "/commercial" },
-  { key: "nav.land", href: "/land" },
-  { key: "nav.rent", href: "/rent" }
+ { label: "Apartments", href: "/apartments" },
+  { label: "Maisonettes", href: "/maisonettes" },
+  { label: "Commercial", href: "/commercial" },
+  { label: "Land", href: "/land" },
+  { label: "Rental Service", href: "/rent" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" }
 
 ];
 
