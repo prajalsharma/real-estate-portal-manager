@@ -45,7 +45,7 @@ const PROPERTY_PAGES = {
     descriptionFallback:
       "Browse available Lands in Greece",
     breadcrumbKey: "nav.rent",
-    breadcrumbFallback: "Rent",}
+    breadcrumbFallback: "Land",},
   "/rent": {
     titleKey: "pages.rent.title",
     titleFallback: "Rental Properties",
