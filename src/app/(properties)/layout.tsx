@@ -6,7 +6,7 @@ import { ChevronRight } from "lucide-react";
 import { useT } from "@/lib/i18n";
 
 const PROPERTY_PAGES = {
-  "/condos": {
+  "/Apartments": {
     titleKey: "pages.condos.title",
     titleFallback: "Apartments",
     locationTitleKey: "pages.condos.locationTitle",
@@ -14,7 +14,7 @@ const PROPERTY_PAGES = {
     descriptionKey: "pages.condos.description",
     descriptionFallback: "Explore modern acretes and seaside Apartments across Greece.",
     breadcrumbKey: "nav.condos",
-    breadcrumbFallback: "Condos",
+    breadcrumbFallback: "Apartments",
   },
   "/houses": {
     titleKey: "pages.houses.title",
@@ -36,7 +36,16 @@ const PROPERTY_PAGES = {
       "Explore commercial real estate opportunities including offices, retail spaces, and warehouses.",
     breadcrumbKey: "nav.commercial",
     breadcrumbFallback: "Commercial",
-  },
+  },  "/land": {
+    titleKey: "pages.rent.title",
+    titleFallback: "Lands ",
+    locationTitleKey: "pages.rent.locationTitle",
+    locationTitleFallback: "Lands in Greece",
+    descriptionKey: "pages.rent.description",
+    descriptionFallback:
+      "Browse available Lands in Greece",
+    breadcrumbKey: "nav.rent",
+    breadcrumbFallback: "Rent",
   "/rent": {
     titleKey: "pages.rent.title",
     titleFallback: "Rental Properties",
