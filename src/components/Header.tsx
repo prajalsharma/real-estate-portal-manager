@@ -137,7 +137,7 @@ export default function Header({
             const isActive = pathname === item.href;
             return (
               <Link
-                key={item.key}
+                key={item.href}
                 href={item.href}
                 className={cn(
                   "text-base relative font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold transition-colors",
@@ -222,15 +222,15 @@ export default function Header({
                   {NAV_ITEMS.map((item) => {
                     const isActive = pathname === item.href;
                     return (
-                      <SheetClose asChild key={item.key}>
+                      <SheetClose asChild key={item.href}>
                         <Link
                           href={item.href}
                           className={cn(
                             "flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base font-medium text-foreground/90 hover:bg-accent/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                             isActive && "bg-accent/80 text-gold font-semibold"
                           )}
-                          aria-label={t(item.key)}>
-                          <span className="min-w-0 truncate">{t(item.key)}</span>
+                          aria-label={t(item.href)}>
+                          <span className="min-w-0 truncate">{t(item.href)}</span>
                         </Link>
                       </SheetClose>
                     );
