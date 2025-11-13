@@ -8,11 +8,11 @@ import { useT } from "@/lib/i18n";
 const PROPERTY_PAGES = {
   "/condos": {
     titleKey: "pages.condos.title",
-    titleFallback: "Condos",
+    titleFallback: "Apartments",
     locationTitleKey: "pages.condos.locationTitle",
-    locationTitleFallback: "Condos in Greece",
+    locationTitleFallback: "Apartments in Greece",
     descriptionKey: "pages.condos.description",
-    descriptionFallback: "Explore modern acretes and seaside condos across Greece.",
+    descriptionFallback: "Explore modern acretes and seaside Apartments across Greece.",
     breadcrumbKey: "nav.condos",
     breadcrumbFallback: "Condos",
   },
