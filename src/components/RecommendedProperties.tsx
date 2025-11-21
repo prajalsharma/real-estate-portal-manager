@@ -191,8 +191,8 @@ export default function RecommendedProperties({
             const priceInEur = (p as any).priceInEur || Number(p.price?.replace(/[^\d]/g, "")) || 0;
             
             // Convert and format price based on selected currency
-            const convertedPrice = convert && priceInEur > 0 ? convert(priceInEur, currency) : priceInEur;
-            const priceDisplay = !ratesLoading && convert && priceInEur > 0
+            const convertedPrice = (typeof convert === "function" && priceInEur > 0) ? convert(priceInEur, currency) : priceInEur;
+            const priceDisplay = !ratesLoading && (typeof convert === "function") && priceInEur > 0
               ? formatter(language, currency).format(convertedPrice).replace(/(\p{Sc})\s?/u, "$1\u00A0")
               : p.price; // Fallback to original price string
             return (
