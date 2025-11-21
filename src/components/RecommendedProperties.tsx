@@ -17,6 +17,7 @@ type Property = {
   id: string;
   title: string;
   price: string;
+  priceInEur?: number; // Optional: numeric EUR value for conversion
   beds: number;
   baths: number;
   sqft: number;
@@ -66,11 +67,13 @@ export default function RecommendedProperties({
     }
 
     // Map Sanity properties to component format
+    // Note: Price conversion happens in render (lines 188-192) for real-time updates
     return sanityProperties.map((p) => ({
       id: p._id,
       title: p.title,
       slug: p.slug,
-      price: `€${p.price.toLocaleString()}`,
+      price: `€${p.price.toLocaleString()}`, // Keep as EUR string, will be converted in render
+      priceInEur: p.price, // Store numeric value for conversion
       beds: p.beds,
       baths: p.baths,
       sqft: p.sqft,
@@ -184,12 +187,14 @@ export default function RecommendedProperties({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {properties.map((p) => {
-            // Derive EUR numeric price from provided string (fallback to original if parsing fails)
-            const eur = Number(p.price?.replace(/[^\d]/g, "")) || 0;
-            const priceDisplay =
-              !ratesLoading && eur > 0
-                ? formatter(language, currency).format(convert(eur as number, currency as any))
-                : p.price;
+            // Get numeric price in EUR (from stored value or parse from string)
+            const priceInEur = (p as any).priceInEur || Number(p.price?.replace(/[^\d]/g, "")) || 0;
+            
+            // Convert and format price based on selected currency
+            const convertedPrice = convert && priceInEur > 0 ? convert(priceInEur, currency) : priceInEur;
+            const priceDisplay = !ratesLoading && convert && priceInEur > 0
+              ? formatter(language, currency).format(convertedPrice).replace(/(\p{Sc})\s?/u, "$1\u00A0")
+              : p.price; // Fallback to original price string
             return (
               <article
                 key={p.id}

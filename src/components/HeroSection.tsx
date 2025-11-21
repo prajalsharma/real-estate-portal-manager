@@ -46,6 +46,8 @@ import { useAppPrefs } from "@/lib/prefs-context";
 import { useRates } from "@/lib/hooks/use-rates";
 import { formatter } from "@/lib/priceFormatter";
 import Link from "next/link";
+import { usePropertySearch } from "@/lib/hooks/usePropertySearch";
+import { PropertyFilters } from "@/lib/sanity/types";
 
 type FeaturedAgent = {
   name: string;
@@ -181,6 +183,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
   const t = useT();
   const { currency, language } = useAppPrefs();
   const { convert, loading: ratesLoading } = useRates();
+  const { searchProperties, loading: searching, error: searchError } = usePropertySearch();
 
   const eur = Number(featured.price?.replace(/[^\d]/g, "")) || 0;
   const priceDisplay =
@@ -197,34 +200,69 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     return () => clearTimeout(timer);
   }, [currentIdx, featuredProperties.length]);
 
-  function handleSearch(e?: React.FormEvent) {
+  async function handleSearch(e?: React.FormEvent) {
     e?.preventDefault();
-    const payload = {
-      location,
-      type,
-      beds,
-      minPrice: minPrice ? Number(minPrice) : null,
-      maxPrice: maxPrice ? Number(maxPrice) : null,
-    };
-    // Broadcast search so PropertyExplorer can filter dummy data
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("app:search", { detail: payload }));
+    
+    // Validate at least one filter is selected
+    if (!location && !type && !beds && !minPrice && !maxPrice) {
+      toast.error(t("forms.validation.required", "Required fields missing"), {
+        description: t("forms.validation.selectFilter", "Please select at least one search criterion")
+      });
+      return;
     }
-    if (onSearch) {
-      onSearch(payload);
-    } else {
-      toast.success(t("actions.searchSubmitted", "Search submitted"), {
-        description: [
-          payload.location && `${t("labels.location", "Location")}: ${payload.location}`,
-          payload.type && `${t("labels.type", "Type")}: ${payload.type}`,
-          payload.beds && `${t("labels.bedrooms", "Bedrooms")}: ${payload.beds}`,
-          payload.minPrice !== null &&
-            `${t("labels.min", "Min")}: €${payload.minPrice?.toLocaleString()}`,
-          payload.maxPrice !== null &&
-            `${t("labels.max", "Max")}: €${payload.maxPrice?.toLocaleString()}`,
-        ]
-          .filter(Boolean)
-          .join(" • "),
+
+    const filters: PropertyFilters = {
+      location: location || undefined,
+      propertyType: type || undefined,
+      beds: beds || undefined,
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined,
+    };
+
+    try {
+      // Call the search API
+      const results = await searchProperties(filters);
+      
+      console.log('🔍 Search completed:', { total: results.total, filters });
+
+      // Dispatch custom event for PropertyExplorer component
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("app:search", {
+            detail: {
+              filters,
+              results: results.properties,
+              total: results.total
+            }
+          })
+        );
+      }
+
+      // Call onSearch prop if provided
+      if (onSearch) {
+        // @ts-ignore
+        onSearch({ ...filters, results: results.properties });
+      }
+
+      // Show success toast
+      toast.success(t("actions.searchSubmitted", "Search completed"), {
+        description: `Found ${results.total} ${results.total === 1 ? 'property' : 'properties'}${
+          filters.location ? ` in ${filters.location}` : ''
+        }`,
+      });
+
+      // Scroll to results section
+      setTimeout(() => {
+        document.getElementById('property-results')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 500);
+
+    } catch (error) {
+      console.error('❌ Search error:', error);
+      toast.error(t("errors.searchFailed", "Search failed"), {
+        description: searchError || "Please try again later"
       });
     }
   }
@@ -255,9 +293,9 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
   }
 
   function handleClear() {
-    setLocation(undefined);
-    setType(undefined);
-    setBeds(undefined);
+    setLocation("");
+    setType("");
+    setBeds("");
     setMinPrice("");
     setMaxPrice("");
     const payload = {};
@@ -525,17 +563,17 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                       <SelectValue placeholder={t("placeholders.selectType", "Select type")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="apartment">
+                      <SelectItem value="Apartment">
                         {t("propertyTypes.apartment", "Apartment")}
                       </SelectItem>
-                      <SelectItem value="maisonette">
+                      <SelectItem value="Maisonette">
                         {t("propertyTypes.maisonette", "Maisonette")}
                       </SelectItem>
-                      <SelectItem value="commercial">
+                      <SelectItem value="Commercial">
                         {t("propertyTypes.commercial", "Commercial")}
                       </SelectItem>
-                      <SelectItem value="land">{t("propertyTypes.land", "Land")}</SelectItem>
-                      <SelectItem value="rental">
+                      <SelectItem value="Land">{t("propertyTypes.land", "Land")}</SelectItem>
+                      <SelectItem value="Rent">
                         {t("propertyTypes.rental", "Rental Services")}
                       </SelectItem>
                     </SelectContent>
@@ -615,10 +653,10 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                     "shadow-lg hover:shadow-xl transition-all duration-300",
                     "ring-2 ring-primary/30 hover:ring-primary/50 cursor-pointer w-full"
                   )}
-                  disabled={loading}
+                  disabled={searching || loading}
                   aria-label={t("aria.searchProperties", "Search properties")}>
                   <SearchCheck className="mr-2 h-4.5 w-4.5" aria-hidden="true" />
-                  Search
+                  {searching ? t("actions.searching", "Searching...") : t("actions.search", "Search")}
                 </Button>
                 <Button
                   type="button"
