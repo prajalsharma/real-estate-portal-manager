@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { PropertyQueryResult, SanityImage } from "@/lib/sanity/types";
 import { client } from "@/lib/sanity/client";
 import { safeImageUrl } from "@/lib/sanity/image";
@@ -29,11 +29,14 @@ import ContactModal from "@/components/ContactModal";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import { useRates } from "@/lib/hooks/use-rates";
+import { formatter } from "@/lib/priceFormatter";
 
 export default function PropertyDetailsPage() {
   const pathname = usePathname();
   const propertySlug = pathname.split("/").pop();
   const { currency, language } = useAppPrefs();
+  const { convert, loading: ratesLoading, rates } = useRates();
 
   const [property, setProperty] = useState<PropertyQueryResult | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,6 +55,40 @@ export default function PropertyDetailsPage() {
     "contact.defaultMessage",
     "I'm interested in this property and would like more information."
   );
+
+
+  const priceDisplay = useMemo(() => {
+    if (!property) return null;
+    const priceInEur = property.price || 0;
+    
+    const shouldConvert = !ratesLoading && rates && currency !== "eur";
+    const convertedPrice = shouldConvert ? convert(priceInEur, currency) : priceInEur;
+    
+    if (shouldConvert || currency !== "eur") {
+      return formatter(language, currency).format(convertedPrice).replace(/(\p{Sc})\s?/u, "$1\u00A0");
+    }
+    
+    // Fallback to EUR formatting
+    return `€${priceInEur.toLocaleString()}`;
+  }, [property, convert, currency, language, ratesLoading, rates]);
+
+  const pricePerSqftDisplay = useMemo(() => {
+    if (!property || !property.sqft || property.sqft <= 0) return null;
+    const priceInEur = property.price || 0;
+    
+    // Convert price if rates are loaded and currency is not EUR
+    const shouldConvert = !ratesLoading && rates && currency !== "eur";
+    const convertedPrice = shouldConvert ? convert(priceInEur, currency) : priceInEur;
+    const pricePerSqft = convertedPrice / property.sqft;
+    
+    // Format price per sqft with currency symbol
+    if (shouldConvert || currency !== "eur") {
+      return formatter(language, currency).format(pricePerSqft).replace(/(\p{Sc})\s?/u, "$1\u00A0");
+    }
+    
+    // Fallback to EUR formatting
+    return `€${Math.round(priceInEur / property.sqft).toLocaleString()}`;
+  }, [property, convert, currency, language, ratesLoading, rates]);
 
   const allMedia = property
     ? [
@@ -409,9 +446,11 @@ export default function PropertyDetailsPage() {
                   </address>
                 </div>
                 <div>
-                  <p className="text-3xl text-black font-semibold mb-1.5">
-                    €{property.price?.toLocaleString()}
-                  </p>
+                  {priceDisplay && (
+                    <p className="text-3xl text-black font-semibold mb-1.5">
+                      {priceDisplay}
+                    </p>
+                  )}
                   <div className="flex flex-wrap items-center gap-5 text-lg text-black">
                     <div className="flex items-center gap-1.5">
                       <Bed className="size-8 text-gold" aria-hidden="true" />
@@ -441,11 +480,15 @@ export default function PropertyDetailsPage() {
                   <h2 className="text-xl font-semibold mb-6">Features</h2>
                   <div className="bg-gray-50 rounded-lg border">
                     <div className="grid">
-                      <FeatureDetail label="Price" value={`€${property.price?.toLocaleString()}`} />
-                      <FeatureDetail
-                        label="Price per sq m."
-                        value={`€${Math.round(property.price / property.sqft).toLocaleString()}`}
-                      />
+                      {priceDisplay && (
+                        <FeatureDetail label="Price" value={priceDisplay} />
+                      )}
+                      {pricePerSqftDisplay && (
+                        <FeatureDetail
+                          label="Price per sq m."
+                          value={pricePerSqftDisplay}
+                        />
+                      )}
                       <FeatureDetail label="Area" value={`${property.sqft} sq.m.`} />
                       {property.lotSize && (
                         <FeatureDetail label="Plot area" value={`${property.lotSize} sq.m.`} />
