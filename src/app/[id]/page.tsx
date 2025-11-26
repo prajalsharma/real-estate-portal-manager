@@ -56,18 +56,19 @@ export default function PropertyDetailsPage() {
     "I'm interested in this property and would like more information."
   );
 
-
   const priceDisplay = useMemo(() => {
     if (!property) return null;
     const priceInEur = property.price || 0;
-    
+
     const shouldConvert = !ratesLoading && rates && currency !== "eur";
     const convertedPrice = shouldConvert ? convert(priceInEur, currency) : priceInEur;
-    
+
     if (shouldConvert || currency !== "eur") {
-      return formatter(language, currency).format(convertedPrice).replace(/(\p{Sc})\s?/u, "$1\u00A0");
+      return formatter(language, currency)
+        .format(convertedPrice)
+        .replace(/(\p{Sc})\s?/u, "$1\u00A0");
     }
-    
+
     // Fallback to EUR formatting
     return `€${priceInEur.toLocaleString()}`;
   }, [property, convert, currency, language, ratesLoading, rates]);
@@ -75,17 +76,19 @@ export default function PropertyDetailsPage() {
   const pricePerSqftDisplay = useMemo(() => {
     if (!property || !property.sqft || property.sqft <= 0) return null;
     const priceInEur = property.price || 0;
-    
+
     // Convert price if rates are loaded and currency is not EUR
     const shouldConvert = !ratesLoading && rates && currency !== "eur";
     const convertedPrice = shouldConvert ? convert(priceInEur, currency) : priceInEur;
     const pricePerSqft = convertedPrice / property.sqft;
-    
+
     // Format price per sqft with currency symbol
     if (shouldConvert || currency !== "eur") {
-      return formatter(language, currency).format(pricePerSqft).replace(/(\p{Sc})\s?/u, "$1\u00A0");
+      return formatter(language, currency)
+        .format(pricePerSqft)
+        .replace(/(\p{Sc})\s?/u, "$1\u00A0");
     }
-    
+
     // Fallback to EUR formatting
     return `€${Math.round(priceInEur / property.sqft).toLocaleString()}`;
   }, [property, convert, currency, language, ratesLoading, rates]);
@@ -306,7 +309,7 @@ export default function PropertyDetailsPage() {
                         {media.type === "video" ? (
                           <div className="relative size-full">
                             <video
-                              className="size-full object-cover rounded cursor-pointer"
+                              className="size-full aspect-video object-cover rounded cursor-pointer"
                               onClick={() => openModal(index + 1)}
                               muted>
                               <source src={media.asset?.url} type="video/mp4" />
@@ -324,7 +327,7 @@ export default function PropertyDetailsPage() {
                               "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80"
                             }
                             alt={media?.alt || `${property.title} - Image ${index + 2}`}
-                            className="size-full object-cover rounded cursor-pointer hover:opacity-90 transition-opacity"
+                            className="size-full aspect-video object-cover rounded cursor-pointer hover:opacity-90 transition-opacity"
                             onClick={() => openModal(index + 1)}
                           />
                         )}
@@ -333,7 +336,7 @@ export default function PropertyDetailsPage() {
                           <div
                             className="absolute inset-0 bg-black/40 flex items-center justify-center cursor-pointer hover:bg-opacity-70 rounded-lg hover:bg-black/60 transition-colors"
                             onClick={() => openModal(index + 1)}>
-                            <span className="text-white font-semibold text-lg">
+                            <span className="text-white font-semibold text-xs md:text-lg">
                               +{allMedia.length - 5} more
                             </span>
                           </div>
@@ -447,9 +450,7 @@ export default function PropertyDetailsPage() {
                 </div>
                 <div>
                   {priceDisplay && (
-                    <p className="text-3xl text-black font-semibold mb-1.5">
-                      {priceDisplay}
-                    </p>
+                    <p className="text-3xl text-black font-semibold mb-1.5">{priceDisplay}</p>
                   )}
                   <div className="flex flex-wrap items-center gap-5 text-lg text-black">
                     <div className="flex items-center gap-1.5">
@@ -480,14 +481,9 @@ export default function PropertyDetailsPage() {
                   <h2 className="text-xl font-semibold mb-6">Features</h2>
                   <div className="bg-gray-50 rounded-lg border">
                     <div className="grid">
-                      {priceDisplay && (
-                        <FeatureDetail label="Price" value={priceDisplay} />
-                      )}
+                      {priceDisplay && <FeatureDetail label="Price" value={priceDisplay} />}
                       {pricePerSqftDisplay && (
-                        <FeatureDetail
-                          label="Price per sq m."
-                          value={pricePerSqftDisplay}
-                        />
+                        <FeatureDetail label="Price per sq m." value={pricePerSqftDisplay} />
                       )}
                       <FeatureDetail label="Area" value={`${property.sqft} sq.m.`} />
                       {property.lotSize && (
@@ -625,13 +621,13 @@ export default function PropertyDetailsPage() {
       />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl w-full h-[75vh] p-0 bg-black">
+        <DialogContent className="min-w-[60vw] h-[90vh] max-h-[90vh] p-0 bg-black">
           <DialogTitle className="sr-only">Media Gallery</DialogTitle>
           <div className="relative w-full h-full flex items-center justify-center">
             {allMedia.length > 1 && (
               <button
                 onClick={prevImage}
-                className="absolute left-4 z-10 p-2 bg-white bg-opacity-50 text-black rounded-full hover:bg-opacity-70 transition-colors cursor-pointer">
+                className="absolute left-4 z-20 p-2 bg-white bg-opacity-50 text-black rounded-full hover:bg-opacity-70 transition-colors cursor-pointer">
                 <ChevronLeft className="h-6 w-6" />
               </button>
             )}
@@ -640,7 +636,7 @@ export default function PropertyDetailsPage() {
               <>
                 {allMedia[currentImageIndex]?.type === "video" ? (
                   <video
-                    className="max-w-full h-full object-cover rounded-lg"
+                    className="w-full h-full aspect-video object-contain rounded-lg"
                     controls
                     autoPlay={false}>
                     <source src={allMedia[currentImageIndex]?.asset?.url} type="video/mp4" />
@@ -656,7 +652,7 @@ export default function PropertyDetailsPage() {
                       allMedia[currentImageIndex]?.alt ||
                       `${property.title} - Media ${currentImageIndex + 1}`
                     }
-                    className="max-w-full h-full object-cover rounded-lg"
+                    className="w-full h-full aspect-video object-contain rounded-lg"
                   />
                 )}
               </>
@@ -665,12 +661,12 @@ export default function PropertyDetailsPage() {
             {allMedia.length > 1 && (
               <button
                 onClick={nextImage}
-                className="absolute right-4 z-10 p-2 bg-white bg-opacity-50 text-black rounded-full hover:bg-opacity-70 transition-colors cursor-pointer">
+                className="absolute right-4 z-20 p-2 bg-white bg-opacity-50 text-black rounded-full hover:bg-opacity-70 transition-colors cursor-pointer">
                 <ChevronRight className="h-6 w-6" />
               </button>
             )}
           </div>
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm">
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-transparent bg-opacity-50 text-white px-4 py-2 rounded-full text-sm">
             {currentImageIndex + 1} / {allMedia.length}
           </div>
         </DialogContent>
