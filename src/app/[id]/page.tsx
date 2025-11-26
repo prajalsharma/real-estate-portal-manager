@@ -208,8 +208,6 @@ export default function PropertyDetailsPage() {
 
         const result = await client.fetch(query, { slug: propertySlug });
 
-        console.log("Fetched property:", result);
-
         if (!result) {
           setError("Property not found");
         } else {
@@ -486,9 +484,11 @@ export default function PropertyDetailsPage() {
                         <FeatureDetail label="Price per sq m." value={pricePerSqftDisplay} />
                       )}
                       <FeatureDetail label="Area" value={`${property.sqft} sq.m.`} />
-                      {property.lotSize && (
-                        <FeatureDetail label="Plot area" value={`${property.lotSize} sq.m.`} />
-                      )}
+                      {property.lotSize !== null &&
+                        property.lotSize !== undefined &&
+                        property.lotSize > 0 && (
+                          <FeatureDetail label="Plot Size" value={`${property.lotSize} sq.m.`} />
+                        )}
                       <FeatureDetail label="Property Type" value={property.propertyType} />
                       <FeatureDetail label="Bedrooms" value={property.beds} />
                       <FeatureDetail label="Bathrooms" value={property.baths} />
@@ -621,7 +621,7 @@ export default function PropertyDetailsPage() {
       />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="min-w-[60vw] h-[90vh] max-h-[90vh] p-0 bg-black">
+        <DialogContent className="min-w-[70vw] h-[90vh] max-h-[90vh] p-0 bg-black">
           <DialogTitle className="sr-only">Media Gallery</DialogTitle>
           <div className="relative w-full h-full flex items-center justify-center">
             {allMedia.length > 1 && (
@@ -666,7 +666,7 @@ export default function PropertyDetailsPage() {
               </button>
             )}
           </div>
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-transparent bg-opacity-50 text-white px-4 py-2 rounded-full text-sm">
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black/80 bg-opacity-50 text-white px-4  rounded-full text-sm ">
             {currentImageIndex + 1} / {allMedia.length}
           </div>
         </DialogContent>
@@ -676,6 +676,7 @@ export default function PropertyDetailsPage() {
 }
 
 function FeatureDetail({ label, value }: { label: string; value: string | number }) {
+  if (value === null || value === undefined) return null;
   return (
     <div className="flex items-center border-b border-gray-200 gap-2 font-medium">
       <span className="text-gray-700 bg-gray-200/30 basis-1/3 md:basis-1/4 p-3">{label}</span>
