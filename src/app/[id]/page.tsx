@@ -152,10 +152,8 @@ export default function PropertyDetailsPage() {
             postalCode,
             country
           },
-          location {
-            lat,
-            lng
-          },
+          latitude,
+          longitude,
           mainImage {
             asset,
             alt
@@ -531,8 +529,8 @@ export default function PropertyDetailsPage() {
                   <div className="mt-2 relative h-[420px]">
                     <MapContainer
                       center={
-                        property.location && property.location.lat && property.location.lng
-                          ? [property.location.lat, property.location.lng]
+                        property.latitude && property.longitude
+                          ? [property.latitude, property.longitude]
                           : [51.505, -0.09]
                       }
                       zoom={13}
@@ -546,15 +544,16 @@ export default function PropertyDetailsPage() {
                       <AttributionControl position="bottomright" prefix={false} />
                       <Marker
                         position={
-                          property.location && property.location.lat && property.location.lng
-                            ? [property.location.lat, property.location.lng]
+                          property.latitude && property.longitude
+                            ? [property.latitude, property.longitude]
                             : [51.505, -0.09]
                         }
                         icon={
                           new Icon({
                             iconUrl: markerIconPng as any,
                             iconSize: [25, 41],
-                            iconAnchor: [12, 12],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [0, -41],
                           })
                         }>
                         <Popup>
