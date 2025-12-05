@@ -47,6 +47,7 @@ export interface SanityProperty {
   suitableFor?: string[];
   images: SanityImage[];
   mainImage: SanityImage;
+
   address: {
     street?: string;
     city: string;
@@ -54,10 +55,8 @@ export interface SanityProperty {
     country: string;
     postalCode?: string;
   };
-  location: {
-    lat: number;
-    lng: number;
-  };
+  latitude?: number;
+  longitude?: number;
   description?: string;
   features?: string[];
   videos?: string[];

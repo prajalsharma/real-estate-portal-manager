@@ -19,11 +19,7 @@ export default defineType({
       options: {
         source: "title",
         maxLength: 96,
-        slugify: (input) =>
-          input
-            .toLowerCase()
-            .replace(/\s+/g, "-")
-            .slice(0, 96),
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -225,9 +221,7 @@ export default defineType({
         {
           type: "image",
           options: { hotspot: true },
-          fields: [
-            { name: "alt", type: "string", title: "Εναλλακτικό κείμενο (ALT)" },
-          ],
+          fields: [{ name: "alt", type: "string", title: "Εναλλακτικό κείμενο (ALT)" }],
         },
       ],
       options: { sortable: true },
@@ -240,9 +234,7 @@ export default defineType({
       title: "Κεντρική φωτογραφία",
       type: "image",
       options: { hotspot: true },
-      fields: [
-        { name: "alt", type: "string", title: "Εναλλακτικό κείμενο (ALT)" },
-      ],
+      fields: [{ name: "alt", type: "string", title: "Εναλλακτικό κείμενο (ALT)" }],
       validation: (Rule) => Rule.required(),
     }),
 
@@ -289,7 +281,7 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required(),
     }),
-        // Coordinates (for maps)
+
     defineField({
       name: "latitude",
       title: "Γεωγραφικό πλάτος (Latitude)",
