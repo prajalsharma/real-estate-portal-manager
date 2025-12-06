@@ -206,6 +206,8 @@ export default function PropertyDetailsPage() {
 
         const result = await client.fetch(query, { slug: propertySlug });
 
+        console.log("Fetched property:", result);
+
         if (!result) {
           setError("Property not found");
         } else {
@@ -533,7 +535,7 @@ export default function PropertyDetailsPage() {
                           ? [property.latitude, property.longitude]
                           : [51.505, -0.09]
                       }
-                      zoom={13}
+                      zoom={14}
                       scrollWheelZoom={false}
                       className="h-full w-full z-10"
                       attributionControl={false}>
@@ -550,7 +552,8 @@ export default function PropertyDetailsPage() {
                         }
                         icon={
                           new Icon({
-                            iconUrl: markerIconPng as any,
+                            iconUrl:
+                              typeof markerIconPng === "string" ? markerIconPng : markerIconPng.src,
                             iconSize: [25, 41],
                             iconAnchor: [12, 41],
                             popupAnchor: [0, -41],
