@@ -2,13 +2,13 @@ import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "property",
-  title: "Ακίνητο",
+  title: "Property",
   type: "document",
   fields: [
     // Title and Slug
     defineField({
       name: "title",
-      title: "Τίτλος",
+      title: "Title",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -19,7 +19,11 @@ export default defineType({
       options: {
         source: "title",
         maxLength: 96,
-        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
+        slugify: (input) =>
+          input
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -27,36 +31,36 @@ export default defineType({
     // Interior Features
     defineField({
       name: "interiorFeatures",
-      title: "Εσωτερικά χαρακτηριστικά",
+      title: "Interior Features",
       type: "array",
       of: [{ type: "string" }],
       options: {
         layout: "list",
         list: [
-          { title: "Εσωτερική σκάλα", value: "Internal staircase" },
-          { title: "Κλιματισμός", value: "Air conditioning" },
-          { title: "Ηλιακός θερμοσίφωνας", value: "Solar water heater" },
-          { title: "Δάπεδο: Πλακάκι", value: "Floor type: Plaque" },
-          { title: "Θωρακισμένη πόρτα", value: "Security door" },
-          { title: "Κουφώματα αλουμινίου", value: "Buffets: Aluminum" },
-          { title: "Διπλά τζάμια", value: "Double glassboard" },
-          { title: "Σίτες", value: "Sites" },
-          { title: "Φωτεινό", value: "Bright" },
-          { title: "Διαμπερές", value: "Diaspora" },
-          { title: "Βαμμένο", value: "Stained" },
-          { title: "Ασανσέρ", value: "Asan elevator" },
-          { title: "Επιπλωμένο", value: "Furnished" },
-          { title: "Τζάκι", value: "Fireplace" },
-          { title: "Αυτόνομη θέρμανση", value: "Intra-deposits heating" },
-          { title: "Νυχτερινό ρεύμα", value: "Night current" },
-          { title: "Αποθήκη", value: "Warehouse" },
-          { title: "Σοφίτα", value: "Sofa" },
+          { title: "Internal staircase", value: "Internal staircase" },
+          { title: "Air conditioning", value: "Air conditioning" },
+          { title: "Solar water heater", value: "Solar water heater" },
+          { title: "Floor type: Plaque", value: "Floor type: Plaque" },
+          { title: "Security door", value: "Security door" },
+          { title: "Buffets: Aluminum", value: "Buffets: Aluminum" },
+          { title: "Double glassboard", value: "Double glassboard" },
+          { title: "Sites", value: "Sites" },
+          { title: "Bright", value: "Bright" },
+          { title: "Diaspora", value: "Diaspora" },
+          { title: "Stained", value: "Stained" },
+          { title: "Asan elevator", value: "Asan elevator" },
+          { title: "Furnished", value: "Furnished" },
+          { title: "Fireplace", value: "Fireplace" },
+          { title: "Intra-deposits heating", value: "Intra-deposits heating" },
+          { title: "Night current", value: "Night current" },
+          { title: "Warehouse", value: "Warehouse" },
+          { title: "Sofa", value: "Sofa" },
           { title: "Playroom", value: "Playroom" },
-          { title: "Δορυφορική κεραία", value: "Satellite antenna" },
-          { title: "Συναγερμός", value: "Alarm" },
-          { title: "Υποδοχή με θυρωρό", value: "Reception with a doorman" },
-          { title: "Φόρτιση ηλεκτρικών οχημάτων", value: "Electric car charging facilities" },
-          { title: "Πολυτελές", value: "Luxurious" },
+          { title: "Satellite antenna", value: "Satellite antenna" },
+          { title: "Alarm", value: "Alarm" },
+          { title: "Reception with a doorman", value: "Reception with a doorman" },
+          { title: "Electric car charging facilities", value: "Electric car charging facilities" },
+          { title: "Luxurious", value: "Luxurious" },
         ],
       },
     }),
@@ -64,25 +68,25 @@ export default defineType({
     // External Features
     defineField({
       name: "externalFeatures",
-      title: "Εξωτερικά χαρακτηριστικά",
+      title: "External Features",
       type: "array",
       of: [{ type: "string" }],
       options: {
         layout: "list",
         list: [
-          { title: "Βεράντα (5 τ.μ.)", value: "Veranda (5sq.m.)" },
-          { title: "Ιδιωτικός κήπος", value: "Private Garden" },
-          { title: "Πισίνα", value: "Swimming pool" },
-          { title: "Περιποιημένος χώρος", value: "Careful" },
-          { title: "Προσανατολισμός: Δυτικός", value: "Orientation: Western-famous" },
-          { title: "Πρόσβαση από άσφαλτο", value: "Access from: asphalt" },
-          { title: "Αγροτική ζώνη", value: "Agricultural zone" },
-          { title: "Θέση στάθμευσης", value: "Parking" },
-          { title: "Τέντες", value: "Tentes" },
-          { title: "Χτιστό BBQ", value: "Built-in BBQ" },
-          { title: "Θέα", value: "View" },
-          { title: "Πρόσβαση για ΑμεΑ", value: "Access for America" },
-          { title: "Γωνιακό", value: "Corner" },
+          { title: "Veranda (5sq.m.)", value: "Veranda (5sq.m.)" },
+          { title: "Private Garden", value: "Private Garden" },
+          { title: "Swimming pool", value: "Swimming pool" },
+          { title: "Careful", value: "Careful" },
+          { title: "Orientation: Western-famous", value: "Orientation: Western-famous" },
+          { title: "Access from: asphalt", value: "Access from: asphalt" },
+          { title: "Agricultural zone", value: "Agricultural zone" },
+          { title: "Parking", value: "Parking" },
+          { title: "Tentes", value: "Tentes" },
+          { title: "Built-in BBQ", value: "Built-in BBQ" },
+          { title: "View", value: "View" },
+          { title: "Access for America", value: "Access for America" },
+          { title: "Corner", value: "Corner" },
         ],
       },
     }),
@@ -90,19 +94,19 @@ export default defineType({
     // Construction
     defineField({
       name: "construction",
-      title: "Κατάσταση / Κατασκευή",
+      title: "Construction",
       type: "array",
       of: [{ type: "string" }],
       options: {
         layout: "list",
         list: [
-          { title: "Ημιτελές", value: "Semi-finished" },
-          { title: "Ρετιρέ", value: "Ceiling apartment" },
-          { title: "Ανακαινισμένο", value: "Renovated" },
-          { title: "Χρήζει ανακαίνισης", value: "It swells renovation" },
-          { title: "Νεοκλασικό", value: "Neoclassic" },
-          { title: "Καλοδιατηρημένο", value: "Maintain" },
-          { title: "Υπόγειο", value: "Subzafos" },
+          { title: "Semi-finished", value: "Semi-finished" },
+          { title: "Ceiling apartment", value: "Ceiling apartment" },
+          { title: "Renovated", value: "Renovated" },
+          { title: "It swells renovation", value: "It swells renovation" },
+          { title: "Neoclassic", value: "Neoclassic" },
+          { title: "Maintain", value: "Maintain" },
+          { title: "Subzafos", value: "Subzafos" },
         ],
       },
     }),
@@ -110,18 +114,18 @@ export default defineType({
     // Suitable For
     defineField({
       name: "suitableFor",
-      title: "Κατάλληλο για",
+      title: "Suitable For",
       type: "array",
       of: [{ type: "string" }],
       options: {
         layout: "list",
         list: [
-          { title: "Εξοχική κατοικία", value: "Holiday" },
-          { title: "Επένδυση", value: "Investment" },
-          { title: "Τουριστική μίσθωση", value: "Tourist rental" },
-          { title: "Φοιτητική κατοικία", value: "Student" },
-          { title: "Επαγγελματική χρήση", value: "Professional use" },
-          { title: "Ιατρείο / Κλινική", value: "Clinic" },
+          { title: "Holiday", value: "Holiday" },
+          { title: "Investment", value: "Investment" },
+          { title: "Tourist rental", value: "Tourist rental" },
+          { title: "Student", value: "Student" },
+          { title: "Professional use", value: "Professional use" },
+          { title: "Clinic", value: "Clinic" },
         ],
       },
     }),
@@ -129,16 +133,16 @@ export default defineType({
     // Price and Currency
     defineField({
       name: "price",
-      title: "Τιμή",
+      title: "Price",
       type: "number",
       validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
       name: "currency",
-      title: "Νόμισμα",
+      title: "Currency",
       type: "string",
       options: {
-        list: [{ title: "EUR - Ευρώ", value: "EUR" }],
+        list: [{ title: "EUR - Euro", value: "EUR" }],
       },
       initialValue: "EUR",
       validation: (Rule) => Rule.required(),
@@ -147,19 +151,19 @@ export default defineType({
     // Beds, Baths, Sqft
     defineField({
       name: "beds",
-      title: "Υπνοδωμάτια",
+      title: "Bedrooms",
       type: "number",
       validation: (Rule) => Rule.required().min(0).max(20),
     }),
     defineField({
       name: "baths",
-      title: "Μπάνια",
+      title: "Bathrooms",
       type: "number",
       validation: (Rule) => Rule.required().min(0).max(20),
     }),
     defineField({
       name: "sqft",
-      title: "Τετραγωνικά μέτρα",
+      title: "Square Meters",
       type: "number",
       validation: (Rule) => Rule.required().min(1),
     }),
@@ -167,29 +171,29 @@ export default defineType({
     // Type/Status
     defineField({
       name: "propertyType",
-      title: "Τύπος ακινήτου",
+      title: "Property Type",
       type: "string",
       options: {
         list: [
-          { title: "Διαμέρισμα", value: "Apartment" },
-          { title: "Μεζονέτα", value: "Maisonette" },
-          { title: "Επαγγελματικό", value: "Commercial" },
-          { title: "Οικόπεδο / Γη", value: "Land" },
-          { title: "Υπηρεσία ενοικίασης", value: "Rent" },
+          { title: "Apartment", value: "Apartment" },
+          { title: "Maisonette", value: "Maisonette" },
+          { title: "Commercial", value: "Commercial" },
+          { title: "Land", value: "Land" },
+          { title: "Rental Service", value: "Rental Service" },
         ],
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "status",
-      title: "Κατάσταση",
+      title: "Status",
       type: "string",
       options: {
         list: [
-          { title: "Προς πώληση", value: "For Sale" },
-          { title: "Προς ενοικίαση", value: "For Rent" },
-          { title: "Πωλημένο", value: "Sold" },
-          { title: "Ενοικιασμένο", value: "Rented" },
+          { title: "For Sale", value: "For Sale" },
+          { title: "For Rent", value: "For Rent" },
+          { title: "Sold", value: "Sold" },
+          { title: "Rented", value: "Rented" },
         ],
       },
       initialValue: "For Sale",
@@ -199,29 +203,31 @@ export default defineType({
     // Flags
     defineField({
       name: "featured",
-      title: "Προβεβλημένο (Featured section)",
+      title: "Featured Section",
       type: "boolean",
       initialValue: false,
-      description: "Επιλέξτε το αν θέλετε να εμφανίζεται στην προβεβλημένη ενότητα.",
+      description: "Tick if property should be shown in featured section.",
     }),
     defineField({
       name: "carousel",
-      title: "Carousel στην αρχική",
+      title: "Carousel Section",
       type: "boolean",
       initialValue: false,
-      description: "Επιλέξτε το αν θέλετε να εμφανίζεται στο carousel της αρχικής σελίδας.",
+      description: "Tick if property should be shown in homepage carousel.",
     }),
 
     // Property Images — bulk upload & ordering!
     defineField({
       name: "images",
-      title: "Φωτογραφίες ακινήτου",
+      title: "Property Images",
       type: "array",
       of: [
         {
           type: "image",
           options: { hotspot: true },
-          fields: [{ name: "alt", type: "string", title: "Εναλλακτικό κείμενο (ALT)" }],
+          fields: [
+            { name: "alt", type: "string", title: "Alternative Text" },
+          ],
         },
       ],
       options: { sortable: true },
@@ -231,17 +237,19 @@ export default defineType({
     // Main Image (legacy/preview only)
     defineField({
       name: "mainImage",
-      title: "Κεντρική φωτογραφία",
+      title: "Main Image",
       type: "image",
       options: { hotspot: true },
-      fields: [{ name: "alt", type: "string", title: "Εναλλακτικό κείμενο (ALT)" }],
+      fields: [
+        { name: "alt", type: "string", title: "Alternative Text" },
+      ],
       validation: (Rule) => Rule.required(),
     }),
 
     // Videos Section — direct file upload (not Mux)
     defineField({
       name: "videos",
-      title: "Βίντεο ακινήτου",
+      title: "Property Videos",
       type: "array",
       of: [
         {
@@ -254,92 +262,93 @@ export default defineType({
     // Address object
     defineField({
       name: "address",
-      title: "Διεύθυνση",
+      title: "Address",
       type: "object",
       fields: [
-        { name: "street", title: "Οδός", type: "string" },
+        { name: "street", title: "Street Address", type: "string" },
         {
           name: "city",
-          title: "Πόλη",
+          title: "City",
           type: "string",
           validation: (Rule) => Rule.required(),
         },
         {
           name: "region",
-          title: "Περιοχή / Νομός",
+          title: "Region/State",
           type: "string",
           validation: (Rule) => Rule.required(),
         },
         {
           name: "country",
-          title: "Χώρα",
+          title: "Country",
           type: "string",
           initialValue: "Greece",
           validation: (Rule) => Rule.required(),
         },
-        { name: "postalCode", title: "Τ.Κ.", type: "string" },
+        { name: "postalCode", title: "Postal Code", type: "string" },
       ],
       validation: (Rule) => Rule.required(),
     }),
 
+    // Coordinates for maps
     defineField({
       name: "latitude",
-      title: "Γεωγραφικό πλάτος (Latitude)",
+      title: "Latitude",
       type: "number",
-      description: "Π.χ. 40.0523",
+      description: "e.g. 40.0523",
       validation: (Rule) => Rule.min(-90).max(90),
     }),
     defineField({
       name: "longitude",
-      title: "Γεωγραφικό μήκος (Longitude)",
+      title: "Longitude",
       type: "number",
-      description: "Π.χ. 23.4567",
+      description: "e.g. 23.4567",
       validation: (Rule) => Rule.min(-180).max(180),
     }),
 
     // Description
     defineField({
       name: "description",
-      title: "Περιγραφή",
+      title: "Description",
       type: "text",
       rows: 4,
     }),
     defineField({
       name: "features",
-      title: "Χαρακτηριστικά",
+      title: "Features",
       type: "array",
       of: [{ type: "string" }],
       options: { layout: "tags" },
     }),
     defineField({
       name: "amenities",
-      title: "Παροχές",
+      title: "Amenities",
       type: "array",
       of: [{ type: "string" }],
       options: { layout: "tags" },
     }),
     defineField({
       name: "yearBuilt",
-      title: "Έτος κατασκευής",
+      title: "Year Built",
       type: "number",
       validation: (Rule) => Rule.min(1800).max(new Date().getFullYear() + 2),
     }),
     defineField({
       name: "lotSize",
-      title: "Εμβαδόν οικοπέδου (τ.μ.)",
+      title: "Lot Size (sq meters)",
       type: "number",
       validation: (Rule) => Rule.min(0),
     }),
     defineField({
       name: "agent",
-      title: "Μεσίτης / Υπεύθυνος αγγελίας",
+      title: "Listing Agent",
       type: "reference",
       to: [{ type: "agent" }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "publishedAt",
-      title: "Ημερομηνία δημοσίευσης",
+      title: "Published At",
       type: "datetime",
       initialValue: () => new Date().toISOString(),
     }),
@@ -363,22 +372,22 @@ export default defineType({
   },
   orderings: [
     {
-      title: "Ημερομηνία δημοσίευσης (Νεότερα)",
+      title: "Published Date, New",
       name: "publishedAtDesc",
       by: [{ field: "publishedAt", direction: "desc" }],
     },
     {
-      title: "Ημερομηνία δημοσίευσης (Παλαιότερα)",
+      title: "Published Date, Old",
       name: "publishedAtAsc",
       by: [{ field: "publishedAt", direction: "asc" }],
     },
     {
-      title: "Τιμή (Υψηλότερη προς χαμηλότερη)",
+      title: "Price, High to Low",
       name: "priceDesc",
       by: [{ field: "price", direction: "desc" }],
     },
     {
-      title: "Τιμή (Χαμηλότερη προς υψηλότερη)",
+      title: "Price, Low to High",
       name: "priceAsc",
       by: [{ field: "price", direction: "asc" }],
     },
