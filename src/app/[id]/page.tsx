@@ -528,43 +528,43 @@ export default function PropertyDetailsPage() {
                     </address>
                   </div>
 
-                  <div className="mt-2 relative h-[420px]">
-                    <MapContainer
-                      center={
-                        property.latitude && property.longitude
-                          ? [property.latitude, property.longitude]
-                          : [51.505, -0.09]
-                      }
-                      zoom={14}
-                      scrollWheelZoom={false}
-                      className="h-full w-full z-10"
-                      attributionControl={false}>
-                      <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                      <AttributionControl position="bottomright" prefix={false} />
-                      <Marker
-                        position={
-                          property.latitude && property.longitude
-                            ? [property.latitude, property.longitude]
-                            : [51.505, -0.09]
-                        }
-                        icon={
-                          new Icon({
-                            iconUrl:
-                              typeof markerIconPng === "string" ? markerIconPng : markerIconPng.src,
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                            popupAnchor: [0, -41],
-                          })
-                        }>
-                        <Popup>
-                          {property.title},{property.address?.city}
-                        </Popup>
-                      </Marker>
-                    </MapContainer>
-                  </div>
+                  {property.latitude && property.longitude && (
+                    <div className="mt-2 relative h-[420px]">
+                      <MapContainer
+                        center={[property.latitude, property.longitude]}
+                        zoom={14}
+                        scrollWheelZoom={false}
+                        className="h-full w-full z-10"
+                        attributionControl={false}>
+                        <TileLayer
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <AttributionControl position="bottomright" prefix={false} />
+                        <Marker
+                          position={
+                            property.latitude && property.longitude
+                              ? [property.latitude, property.longitude]
+                              : [51.505, -0.09]
+                          }
+                          icon={
+                            new Icon({
+                              iconUrl:
+                                typeof markerIconPng === "string"
+                                  ? markerIconPng
+                                  : markerIconPng.src,
+                              iconSize: [25, 41],
+                              iconAnchor: [12, 41],
+                              popupAnchor: [0, -41],
+                            })
+                          }>
+                          <Popup>
+                            {property.title},{property.address?.city}
+                          </Popup>
+                        </Marker>
+                      </MapContainer>
+                    </div>
+                  )}
                 </div>
               </div>
 
