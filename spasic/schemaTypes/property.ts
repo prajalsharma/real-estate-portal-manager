@@ -40,9 +40,7 @@ export default defineType({
           { title: "Internal staircase", value: "Internal staircase" },
           { title: "Air conditioning", value: "Air conditioning" },
           { title: "Solar water heater", value: "Solar water heater" },
-          { title: "Floor type: Plaque", value: "Floor type: Plaque" },
           { title: "Security door", value: "Security door" },
-          { title: "Buffets: Aluminum", value: "Buffets: Aluminum" },
           { title: "Double glassboard", value: "Double glassboard" },
           { title: "Sites", value: "Sites" },
           { title: "Bright", value: "Bright" },
@@ -65,6 +63,34 @@ export default defineType({
       },
     }),
 
+    // Floor Type (NEW)
+    defineField({
+      name: "floorType",
+      title: "Floor Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Wood", value: "Wood" },
+          { title: "Mosaic", value: "Mosaic" },
+          { title: "Granite", value: "Granite" },
+        ],
+      },
+    }),
+
+    // Frames (formerly Buffets)
+    defineField({
+      name: "frames",
+      title: "Frames",
+      type: "string",
+      options: {
+        list: [
+          { title: "Synthetic", value: "Synthetic" },
+          { title: "Wood", value: "Wood" },
+          { title: "Aluminum", value: "Aluminum" },
+        ],
+      },
+    }),
+
     // External Features
     defineField({
       name: "externalFeatures",
@@ -74,13 +100,10 @@ export default defineType({
       options: {
         layout: "list",
         list: [
-          { title: "Veranda (5sq.m.)", value: "Veranda (5sq.m.)" },
+          { title: "Balcony", value: "Balcony" },
           { title: "Private Garden", value: "Private Garden" },
           { title: "Swimming pool", value: "Swimming pool" },
           { title: "Careful", value: "Careful" },
-          { title: "Orientation: Western-famous", value: "Orientation: Western-famous" },
-          { title: "Access from: asphalt", value: "Access from: asphalt" },
-          { title: "Agricultural zone", value: "Agricultural zone" },
           { title: "Parking", value: "Parking" },
           { title: "Tentes", value: "Tentes" },
           { title: "Built-in BBQ", value: "Built-in BBQ" },
@@ -89,6 +112,58 @@ export default defineType({
           { title: "Corner", value: "Corner" },
         ],
       },
+    }),
+
+    // Floor Level (NEW)
+    defineField({
+      name: "floorLevel",
+      title: "Floor Level",
+      type: "string",
+      options: {
+        list: [
+          { title: "Underground", value: "Underground" },
+          { title: "Basement", value: "Basement" },
+          { title: "Ground Floor", value: "Ground Floor" },
+          { title: "1st Floor", value: "1st Floor" },
+          { title: "2nd Floor", value: "2nd Floor" },
+          { title: "3rd Floor", value: "3rd Floor" },
+          { title: "4th Floor", value: "4th Floor" },
+          { title: "5th Floor", value: "5th Floor" },
+          { title: "6th Floor", value: "6th Floor" },
+          { title: "7th Floor", value: "7th Floor" },
+          { title: "8th Floor", value: "8th Floor" },
+          { title: "9th Floor", value: "9th Floor" },
+          { title: "10th Floor", value: "10th Floor" },
+        ],
+      },
+    }),
+
+    // Orientation (NEW)
+    defineField({
+      name: "orientation",
+      title: "Orientation",
+      type: "string",
+      options: {
+        list: [
+          { title: "North", value: "North" },
+          { title: "East", value: "East" },
+          { title: "West", value: "West" },
+          { title: "South", value: "South" },
+          { title: "Northeast", value: "Northeast" },
+          { title: "Northwest", value: "Northwest" },
+          { title: "Southeast", value: "Southeast" },
+          { title: "Southwest", value: "Southwest" },
+        ],
+      },
+    }),
+
+    // Distance from Sea (NEW)
+    defineField({
+      name: "distanceFromSea",
+      title: "Distance from the Sea (meters)",
+      type: "number",
+      validation: (Rule) => Rule.min(0),
+      description: "Distance to the nearest sea/beach in meters",
     }),
 
     // Construction
@@ -107,6 +182,8 @@ export default defineType({
           { title: "Neoclassic", value: "Neoclassic" },
           { title: "Maintain", value: "Maintain" },
           { title: "Subzafos", value: "Subzafos" },
+          { title: "Need renovation", value: "Need renovation" },
+          { title: "Under construction", value: "Under construction" },
         ],
       },
     }),
@@ -148,19 +225,46 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // Beds, Baths, Sqft
+    // Rooms Details (NEW)
     defineField({
-      name: "beds",
+      name: "bedrooms",
       title: "Bedrooms",
       type: "number",
       validation: (Rule) => Rule.required().min(0).max(20),
     }),
     defineField({
-      name: "baths",
+      name: "bathrooms",
       title: "Bathrooms",
       type: "number",
       validation: (Rule) => Rule.required().min(0).max(20),
     }),
+    defineField({
+      name: "livingRooms",
+      title: "Living Rooms",
+      type: "number",
+      validation: (Rule) => Rule.min(0).max(10),
+    }),
+    defineField({
+      name: "kitchens",
+      title: "Kitchens",
+      type: "number",
+      validation: (Rule) => Rule.min(0).max(10),
+    }),
+
+    // Legacy (kept for compatibility)
+    defineField({
+      name: "beds",
+      title: "Beds (Legacy - use Bedrooms)",
+      type: "number",
+      validation: (Rule) => Rule.min(0).max(20),
+    }),
+    defineField({
+      name: "baths",
+      title: "Baths (Legacy - use Bathrooms)",
+      type: "number",
+      validation: (Rule) => Rule.min(0).max(20),
+    }),
+
     defineField({
       name: "sqft",
       title: "Square Meters",
@@ -177,6 +281,9 @@ export default defineType({
         list: [
           { title: "Apartment", value: "Apartment" },
           { title: "Maisonette", value: "Maisonette" },
+          { title: "Building", value: "Building" },
+          { title: "Hotel", value: "Hotel" },
+          { title: "Complex", value: "Complex" },
           { title: "Commercial", value: "Commercial" },
           { title: "Land", value: "Land" },
           { title: "Rental Service", value: "Rental Service" },
