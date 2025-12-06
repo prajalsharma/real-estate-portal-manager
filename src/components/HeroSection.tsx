@@ -166,8 +166,6 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
   const [currentIdx, setCurrentIdx] = React.useState(0);
   const featured = featuredProperties[currentIdx];
 
-  console.log("Featured Properties:", featuredProperties);
-
   const videoRef = React.useRef<HTMLVideoElement>(null);
   React.useEffect(() => {
     if (videoRef.current) {
@@ -202,11 +200,14 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
   async function handleSearch(e?: React.FormEvent) {
     e?.preventDefault();
-    
+
     // Validate at least one filter is selected
     if (!location && !type && !beds && !minPrice && !maxPrice) {
       toast.error(t("forms.validation.required", "Required fields missing"), {
-        description: t("forms.validation.selectFilter", "Please select at least one search criterion")
+        description: t(
+          "forms.validation.selectFilter",
+          "Please select at least one search criterion"
+        ),
       });
       return;
     }
@@ -222,8 +223,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     try {
       // Call the search API
       const results = await searchProperties(filters);
-      
-      console.log('🔍 Search completed:', { total: results.total, filters });
+
+      console.log("🔍 Search completed:", { total: results.total, filters });
 
       // Dispatch custom event for PropertyExplorer component
       if (typeof window !== "undefined") {
@@ -232,8 +233,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
             detail: {
               filters,
               results: results.properties,
-              total: results.total
-            }
+              total: results.total,
+            },
           })
         );
       }
@@ -246,23 +247,22 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
 
       // Show success toast
       toast.success(t("actions.searchSubmitted", "Search completed"), {
-        description: `Found ${results.total} ${results.total === 1 ? 'property' : 'properties'}${
-          filters.location ? ` in ${filters.location}` : ''
+        description: `Found ${results.total} ${results.total === 1 ? "property" : "properties"}${
+          filters.location ? ` in ${filters.location}` : ""
         }`,
       });
 
       // Scroll to results section
       setTimeout(() => {
-        document.getElementById('property-results')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        document.getElementById("property-results")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
       }, 500);
-
     } catch (error) {
-      console.error('❌ Search error:', error);
+      console.error("❌ Search error:", error);
       toast.error(t("errors.searchFailed", "Search failed"), {
-        description: searchError || "Please try again later"
+        description: searchError || "Please try again later",
       });
     }
   }
@@ -656,7 +656,9 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                   disabled={searching || loading}
                   aria-label={t("aria.searchProperties", "Search properties")}>
                   <SearchCheck className="mr-2 h-4.5 w-4.5" aria-hidden="true" />
-                  {searching ? t("actions.searching", "Searching...") : t("actions.search", "Search")}
+                  {searching
+                    ? t("actions.searching", "Searching...")
+                    : t("actions.search", "Search")}
                 </Button>
                 <Button
                   type="button"

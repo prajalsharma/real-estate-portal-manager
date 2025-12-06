@@ -98,11 +98,11 @@ export default function SanityAllProperties({
           <p>
             {t("messages.noResults", "No properties found. Add some properties in the Studio!")}
           </p>
-          <a
+          <Link
             href="/studio"
             className="mt-4 inline-flex items-center justify-center rounded-md bg-gold text-white px-4 py-2 text-sm font-medium hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             Open Sanity Studio
-          </a>
+          </Link>
         </div>
       )}
 

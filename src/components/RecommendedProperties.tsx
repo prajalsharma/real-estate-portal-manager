@@ -156,11 +156,11 @@ export default function RecommendedProperties({
           </div>
           <div className="rounded-lg border bg-popover p-6 text-center text-muted-foreground">
             <p>No featured properties yet. Mark some properties as featured in the Studio!</p>
-            <a
+            <Link
               href="/studio"
               className="mt-4 inline-flex items-center justify-center rounded-md bg-gold text-white px-4 py-2 text-sm font-medium hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               Open Sanity Studio
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -189,12 +189,18 @@ export default function RecommendedProperties({
           {properties.map((p) => {
             // Get numeric price in EUR (from stored value or parse from string)
             const priceInEur = (p as any).priceInEur || Number(p.price?.replace(/[^\d]/g, "")) || 0;
-            
+
             // Convert and format price based on selected currency
-            const convertedPrice = (typeof convert === "function" && priceInEur > 0) ? convert(priceInEur, currency) : priceInEur;
-            const priceDisplay = !ratesLoading && (typeof convert === "function") && priceInEur > 0
-              ? formatter(language, currency).format(convertedPrice).replace(/(\p{Sc})\s?/u, "$1\u00A0")
-              : p.price; // Fallback to original price string
+            const convertedPrice =
+              typeof convert === "function" && priceInEur > 0
+                ? convert(priceInEur, currency)
+                : priceInEur;
+            const priceDisplay =
+              !ratesLoading && typeof convert === "function" && priceInEur > 0
+                ? formatter(language, currency)
+                    .format(convertedPrice)
+                    .replace(/(\p{Sc})\s?/u, "$1\u00A0")
+                : p.price; // Fallback to original price string
             return (
               <article
                 key={p.id}
