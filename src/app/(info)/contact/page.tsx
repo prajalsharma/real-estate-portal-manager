@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
-import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +10,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 
 import { useT } from "@/lib/i18n";
 import { Toaster } from "@/components/ui/sonner";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = React.useState({
@@ -18,31 +19,68 @@ export default function ContactPage() {
     phone: "",
     message: "",
   });
+  const [formErrors, setFormErrors] = React.useState({
+    name: false,
+    email: false,
+    phone: false,
+    message: false,
+  });
+
   const [loading, setLoading] = React.useState(false);
   const t = useT();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    toast.success("Message sent successfully!", {
-      description: "We'll get back to you within 24 hours.",
-    });
-
-    setFormData({ name: "", email: "", phone: "", message: "" });
-    setLoading(false);
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
-  const handleWhatsAppClick = () => {
-    // Replace with your actual WhatsApp number
-    const phoneNumber = "306912345678"; // Example Greek number
-    const message = encodeURIComponent(
-      "Hello! I'm interested in learning more about your properties in Halkidiki."
-    );
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  const validatePhoneNumber = (phone: string) => {
+    const phoneRegex = /^\+?[0-9]{10,15}$/; // Allows optional '+' and 10-15 digits
+    return phoneRegex.test(phone);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const errors = {
+      name: !formData.name.trim(),
+      email: !validateEmail(formData.email),
+      phone: !validatePhoneNumber(formData.phone),
+      message: !formData.message.trim(),
+    };
+
+    setFormErrors(errors);
+
+    if (Object.values(errors).some((error) => error)) {
+      return;
+    }
+
+    const text = `New Contact Message:
+    Name: ${formData.name}
+    Email: ${formData.email}
+    Phone: ${formData.phone}
+    Message: ${formData.message}`;
+
+    const encodedText = encodeURIComponent(text);
+
+    const whatsappUrl = `https://wa.me/306988588118?text=${encodedText}`;
+
+    setLoading(true);
+
+    window.open(whatsappUrl, "_blank");
+    setLoading(false);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+    setFormErrors({
+      name: false,
+      email: false,
+      phone: false,
+      message: false,
+    });
   };
 
   return (
@@ -236,12 +274,14 @@ export default function ContactPage() {
               </Card>
 
               {/* WhatsApp Button */}
-              <Button
-                onClick={handleWhatsAppClick}
-                className="w-full h-14 text-lg font-bold bg-green-500 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all">
+              <Link
+                href="https://wa.me/306988588118"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex justify-center items-center rounded-sm w-full h-14 text-lg font-bold bg-green-500 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all">
                 <MessageCircle className="mr-2 h-5 w-5" />
                 {t("contact.whatsapp", "Chat on WhatsApp")}
-              </Button>
+              </Link>
             </div>
           </div>
 
