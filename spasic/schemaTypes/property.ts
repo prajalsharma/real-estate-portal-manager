@@ -333,6 +333,7 @@ export default defineType({
       type: "image",
       options: {
         hotspot: true,
+        metadata: ["blurhash", "palette"],
       },
       fields: [
         {
@@ -340,6 +341,7 @@ export default defineType({
           type: "string",
           title: "Alternative Text",
           description: "Describe what is shown in the image",
+          validation: (Rule) => Rule.required(),
         },
         {
           name: "caption",
@@ -353,11 +355,12 @@ export default defineType({
   options: {
     sortable: true,
     layout: "grid",
-    editModal: "fullscreen",
+    imageInlineEditingMaxWidth: 800,
   },
   validation: (Rule) => Rule.min(1).max(50),
-  description: "📸 Drag multiple image files here to upload them all at once. Drag thumbnails to reorder.",
+  description: "📸 Click 'Add' → 'Upload' → select multiple image files at once (Ctrl+click or Cmd+click) → all upload together. Drag to reorder.",
 }),
+
 
 
     // Main Image (legacy/preview only)
