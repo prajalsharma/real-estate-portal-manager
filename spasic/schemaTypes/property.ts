@@ -340,7 +340,6 @@ export default defineType({
           type: "string",
           title: "Alternative Text",
           description: "Describe what is shown in the image",
-          validation: (Rule) => Rule.required(),
         },
         {
           name: "caption",
