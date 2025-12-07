@@ -31,6 +31,8 @@ import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { useRates } from "@/lib/hooks/use-rates";
 import { formatter } from "@/lib/priceFormatter";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function PropertyDetailsPage() {
   const pathname = usePathname();
@@ -45,16 +47,56 @@ export default function PropertyDetailsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const [contactOpen, setContactOpen] = useState(false);
-  const [sidebarMessage, setSidebarMessage] = useState("");
+  const [contactDetails, setContactDetails] = useState({ name: "", email: "", message: "" });
+  const [formErrors, setFormErrors] = useState({ name: false, email: false, message: false });
 
   const t = useT();
 
   const inquiryPlaceholder = t("contact.placeholder", "e.g., I'd like to schedule a viewing.");
-  const defaultInquiryMessage = t(
-    "contact.defaultMessage",
-    "I'm interested in this property and would like more information."
-  );
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleWhatsAppSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const errors = {
+      name: !contactDetails.name.trim(),
+      email: !validateEmail(contactDetails.email),
+      message: !contactDetails.message.trim(),
+    };
+
+    setFormErrors(errors);
+
+    if (Object.values(errors).some((error) => error)) {
+      return;
+    }
+
+    const agentPhone = property?.agent?.phone || "";
+
+    if (!agentPhone) {
+      alert("Agent phone number not available");
+      return;
+    }
+
+    const text = `New Property Enquiry: \n
+        Property: ${property?.title} \n
+        Name: ${contactDetails.name} \n
+        Email: ${contactDetails.email} \n
+        Message: ${contactDetails.message}`;
+
+    const encodedText = encodeURIComponent(text);
+
+    const cleanPhone = agentPhone.replace(/[^0-9]/g, "");
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    setContactDetails({ name: "", email: "", message: "" });
+    setFormErrors({ name: false, email: false, message: false });
+  };
 
   const priceDisplay = useMemo(() => {
     if (!property) return null;
@@ -569,58 +611,86 @@ export default function PropertyDetailsPage() {
               </div>
 
               <div className="h-full">
-                <div className="sticky top-20 bg-white p-6 border rounded-lg shadow-lg">
-                  <h2 className="text-xl font-semibold mb-6">Interested in this property?</h2>
-
+                <form
+                  onSubmit={handleWhatsAppSubmit}
+                  className="sticky top-20 bg-white px-4 py-6 border rounded-lg shadow-lg">
+                  <h2 className="text-xl font-semibold mb-3">Interested in this property?</h2>
                   <div className="mb-4">
-                    <p className="text-sm mb-2">
-                      Send us a message and we'll get back to you shortly.
-                    </p>
-                    <label htmlFor="sidebar-message" className="sr-only">
-                      {inquiryPlaceholder}
-                    </label>
+                    <Label htmlFor="name" className="mb-0.5">
+                      Name
+                    </Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      className={`rounded-sm ${formErrors.name ? "border-red-500 focus-visible:ring-red-500" : ""}`}
+                      required
+                      value={contactDetails.name}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setContactDetails({ ...contactDetails, name: e.target.value });
+                        setFormErrors({ ...formErrors, name: false });
+                      }}
+                    />
+                    {formErrors.name && (
+                      <p className="text-red-500 text-xs mt-1">Name is required</p>
+                    )}
+                    <Label htmlFor="email" className="mt-4 mb-0.5">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      className={`rounded-sm ${formErrors.email ? "border-red-500 focus-visible:ring-red-500" : ""}`}
+                      value={contactDetails.email}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setContactDetails({ ...contactDetails, email: e.target.value });
+                        setFormErrors({ ...formErrors, email: false });
+                      }}
+                    />
+                    {formErrors.email && (
+                      <p className="text-red-500 text-xs mt-1">Email is required</p>
+                    )}
+                  </div>
+                  <div className="mb-6">
+                    <Label htmlFor="sidebar-message" className="mb-0.5">
+                      Your Message
+                    </Label>
                     <Textarea
                       id="sidebar-message"
-                      className="w-full text-sm bg-white"
+                      className={`w-full text-sm bg-white ${formErrors.message ? "border-red-500 focus-visible:ring-red-500" : ""}`}
                       rows={4}
                       placeholder={inquiryPlaceholder}
-                      value={sidebarMessage}
-                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                        setSidebarMessage(e.target.value)
-                      }
+                      value={contactDetails.message}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                        setContactDetails({ ...contactDetails, message: e.target.value });
+                        setFormErrors({ ...formErrors, message: false });
+                      }}
                     />
+                    {formErrors.message && (
+                      <p className="text-red-500 text-xs mt-1">Message is required</p>
+                    )}
                   </div>
                   <div className="space-y-3">
                     <button
-                      onClick={() => setContactOpen(true)}
+                      type="submit"
                       className="w-full bg-gold hover:bg-gold/80 text-white font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2">
                       <span className="flex gap-2 items-center">
-                        <Send className="size-4 text-white" /> Send Message
+                        <Send className="size-4 text-white" /> Send via WhatsApp
                       </span>
                     </button>
                     <a
-                      href="tel:+1234567890" //
+                      href={`tel:${property?.agent?.phone || "+1234567890"}`}
                       className="w-full bg-white hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2 border border-gray-300">
                       <Phone className="size-4 text-gold" />
                       <span>Call Us</span>
                     </a>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <ContactModal
-        open={contactOpen}
-        onOpenChange={setContactOpen}
-        lang={language}
-        defaultProperty={property._id}
-        propertyOptions={[{ value: property._id, label: property.title }]}
-        defaultMessage={sidebarMessage.trim() || defaultInquiryMessage}
-        onSubmit={async () => {}}
-      />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="min-w-[70vw] h-[90vh] max-h-[90vh] p-0 bg-black">
