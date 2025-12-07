@@ -325,48 +325,38 @@ export default defineType({
 
     // Property Images — BULK UPLOAD with improved UX
     defineField({
-      name: "images",
-      title: "Property Images",
-      type: "array",
-      of: [
+  name: "images",
+  title: "Property Images",
+  type: "array",
+  of: [
+    {
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      fields: [
         {
-          type: "image",
-          options: {
-            hotspot: true,
-            sources: [
-              {
-                name: "upload",
-                title: "Upload",
-              },
-              {
-                name: "url",
-                title: "From URL",
-              },
-            ],
-          },
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alternative Text",
-              description: "Describe what is shown in the image",
-            },
-            {
-              name: "caption",
-              type: "string",
-              title: "Caption",
-              description: "Optional caption for the image",
-            },
-          ],
+          name: "alt",
+          type: "string",
+          title: "Alternative Text",
+          description: "Describe what is shown in the image",
+        },
+        {
+          name: "caption",
+          type: "string",
+          title: "Caption",
+          description: "Optional caption for the image",
         },
       ],
-      options: {
-        sortable: true,
-        layout: "grid",
-      },
-      validation: (Rule) => Rule.min(1).max(50),
-      description: "📸 Upload multiple images at once by dragging and dropping them here. You can reorder them by dragging.",
-    }),
+    },
+  ],
+  options: {
+    sortable: true,
+    layout: "grid",
+  },
+  validation: (Rule) => Rule.min(1).max(50),
+  description: "📸 Upload multiple images at once. You can reorder them by dragging.",
+}),
 
     // Main Image (legacy/preview only)
     defineField({
