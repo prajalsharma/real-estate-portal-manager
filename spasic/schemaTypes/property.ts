@@ -63,7 +63,7 @@ export default defineType({
       },
     }),
 
-    // Floor Type (NEW)
+    // Floor Type
     defineField({
       name: "floorType",
       title: "Floor Type",
@@ -114,7 +114,7 @@ export default defineType({
       },
     }),
 
-    // Floor Level (NEW)
+    // Floor Level
     defineField({
       name: "floorLevel",
       title: "Floor Level",
@@ -138,7 +138,7 @@ export default defineType({
       },
     }),
 
-    // Orientation (NEW)
+    // Orientation
     defineField({
       name: "orientation",
       title: "Orientation",
@@ -157,7 +157,7 @@ export default defineType({
       },
     }),
 
-    // Distance from Sea (NEW)
+    // Distance from Sea
     defineField({
       name: "distanceFromSea",
       title: "Distance from the Sea (meters)",
@@ -225,7 +225,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // Rooms Details (NEW)
+    // Rooms Details
     defineField({
       name: "bedrooms",
       title: "Bedrooms",
@@ -323,7 +323,7 @@ export default defineType({
       description: "Tick if property should be shown in homepage carousel.",
     }),
 
-    // Property Images — bulk upload & ordering!
+    // Property Images — BULK UPLOAD with improved UX
     defineField({
       name: "images",
       title: "Property Images",
@@ -331,14 +331,41 @@ export default defineType({
       of: [
         {
           type: "image",
-          options: { hotspot: true },
+          options: {
+            hotspot: true,
+            sources: [
+              {
+                name: "upload",
+                title: "Upload",
+              },
+              {
+                name: "url",
+                title: "From URL",
+              },
+            ],
+          },
           fields: [
-            { name: "alt", type: "string", title: "Alternative Text" },
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative Text",
+              description: "Describe what is shown in the image",
+            },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+              description: "Optional caption for the image",
+            },
           ],
         },
       ],
-      options: { sortable: true },
-      validation: (Rule) => Rule.min(1).max(20),
+      options: {
+        sortable: true,
+        layout: "grid",
+      },
+      validation: (Rule) => Rule.min(1).max(50),
+      description: "📸 Upload multiple images at once by dragging and dropping them here. You can reorder them by dragging.",
     }),
 
     // Main Image (legacy/preview only)
