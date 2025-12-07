@@ -324,7 +324,7 @@ export default defineType({
     }),
 
     // Property Images — BULK UPLOAD with improved UX
-    defineField({
+   defineField({
   name: "images",
   title: "Property Images",
   type: "array",
@@ -333,7 +333,6 @@ export default defineType({
       type: "image",
       options: {
         hotspot: true,
-        metadata: ["blurhash", "palette"],
       },
       fields: [
         {
@@ -355,11 +354,11 @@ export default defineType({
   options: {
     sortable: true,
     layout: "grid",
-    imageInlineEditingMaxWidth: 800,
   },
   validation: (Rule) => Rule.min(1).max(50),
-  description: "📸 Click 'Add' → 'Upload' → select multiple image files at once (Ctrl+click or Cmd+click) → all upload together. Drag to reorder.",
+  description: "📸 Click 'Add' → 'Upload' → select multiple image files at once (hold Ctrl/Cmd and click each file) → click 'Open' to upload all together. Drag thumbnails to reorder.",
 }),
+
 
 
 
