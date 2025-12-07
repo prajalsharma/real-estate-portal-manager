@@ -353,10 +353,12 @@ export default defineType({
   options: {
     sortable: true,
     layout: "grid",
+    editModal: "fullscreen",
   },
   validation: (Rule) => Rule.min(1).max(50),
-  description: "📸 Upload multiple images at once. You can reorder them by dragging.",
+  description: "📸 Drag multiple image files here to upload them all at once. Drag thumbnails to reorder.",
 }),
+
 
     // Main Image (legacy/preview only)
     defineField({
