@@ -4,7 +4,7 @@ import { client } from "@/lib/sanity/client";
 export default async function ApartmentsPage() {
   const properties = await client.fetch(
     `*[_type == "property" && propertyType == "Apartment"]{
-      _id, title, slug, price, mainImage { asset->{url}, alt }, beds, baths, sqft, address { city, region }
+      _id, title, slug, price, mainImage { asset, alt }, beds, baths, sqft, address { city, region }
     }`
   );
 

@@ -4,7 +4,7 @@ import { client } from "@/lib/sanity/client";
 export default async function LandPage() {
   const properties = await client.fetch(
     `*[_type == "property" && propertyType == "Land"]{
-      _id, title, slug, price, mainImage { asset->{url}, alt }, address { city, region }
+      _id, title, slug, price, mainImage { asset, alt }, address { city, region }
     }`
   );
 

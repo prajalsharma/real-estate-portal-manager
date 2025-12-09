@@ -6,7 +6,7 @@ import { Bed, MapPin, Proportions, ShowerHead } from "lucide-react";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { useT } from "@/lib/i18n";
 import { useRates } from "@/lib/hooks/use-rates";
-import { PropertyQueryResult } from "@/lib/sanity/types";
+import { PropertyQueryResult, SanityImage } from "@/lib/sanity/types";
 import { safeImageUrl } from "@/lib/sanity/image";
 import { formatter } from "@/lib/priceFormatter";
 import Link from "next/link";
@@ -24,6 +24,7 @@ export default function PropertyGrid({ properties, onSelectProperty }: PropertyG
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {properties.map((p) => {
+        console.log("Rendering property:", p.mainImage);
         const price = `€${p.price.toLocaleString()}`;
         const eur = Number(price.replace(/[^\d]/g, "")) || 0;
         const priceDisplay =
@@ -38,10 +39,7 @@ export default function PropertyGrid({ properties, onSelectProperty }: PropertyG
             <div className="relative w-full overflow-hidden">
               <div className="relative h-44 sm:h-48 md:h-56 w-full">
                 <Image
-                  src={
-                    safeImageUrl(p.mainImage) ||
-                    "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=400&h=300&q=80"
-                  }
+                  src={safeImageUrl(p.mainImage as SanityImage)}
                   alt={p.mainImage?.alt || p.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

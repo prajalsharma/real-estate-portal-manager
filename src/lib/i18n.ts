@@ -3,6 +3,20 @@ import { SupportedLanguage, useAppPrefs } from "./prefs-context";
 // Minimal dictionary. Extend as needed.
 const dict: Record<SupportedLanguage, Record<string, string>> = {
   en: {
+    "breadcrumbs.home": "Home",
+
+    "apartments.title": "Apartments in Greece",
+    "apartments.description": "Explore modern apartments across Greece.",
+    "maisonettes.title": "Maisonettes in Greece",
+    "maisonettes.description": "Find stylish maisonettes for every lifestyle.",
+    "commercial.title": "Commercial Properties in Greece",
+    "commercial.description":
+      "Explore commercial real estate opportunities including offices, retail spaces, and warehouses.",
+    "land.title": "Land in Greece",
+    "land.description": "Browse available land in Greece.",
+    "rentalService.title": "Rental Services in Greece",
+    "rentalService.description": "Browse available rental properties and services.",
+
     // Navigation
     "nav.condos": "Condos",
     "nav.houses": "Houses",
@@ -16,6 +30,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "nav.rentalService": "Rental Service",
     "nav.aboutUs": "About Us",
     "nav.contactUs": "Contact Us",
+    "nav.properties": "Properties",
 
     // Actions
     "actions.viewAll": "View all",
@@ -189,7 +204,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "contact.callUs": "Call Us",
 
     // Footer
-    "footer.description": "Trusted real estate partner in Greece. Discover condos, houses, and commercial properties to buy or rent, with expert guidance at every step.",
+    "footer.description":
+      "Trusted real estate partner in Greece. Discover condos, houses, and commercial properties to buy or rent, with expert guidance at every step.",
     "footer.licensed": "Licensed • Since 2012",
     "footer.menu": "Menu",
     "footer.help": "Help",
@@ -206,6 +222,20 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "footer.terms": "Terms",
   },
   el: {
+    "breadcrumbs.home": "Αρχική",
+
+    "apartments.title": "Διαμερίσματα στην Ελλάδα",
+    "apartments.description": "Εξερευνήστε σύγχρονα διαμερίσματα σε όλη την Ελλάδα.",
+    "maisonettes.title": "Μεζονέτες στην Ελλάδα",
+    "maisonettes.description": "Βρείτε στυλάτες μεζονέτες για κάθε τρόπο ζωής.",
+    "commercial.title": "Επαγγελματικά Ακίνητα στην Ελλάδα",
+    "commercial.description":
+      "Εξερευνήστε ευκαιρίες επαγγελματικών ακινήτων, συμπεριλαμβανομένων γραφείων, εμπορικών χώρων και αποθηκών.",
+    "land.title": "Οικόπεδα στην Ελλάδα",
+    "land.description": "Περιηγηθείτε στα διαθέσιμα οικόπεδα στην Ελλάδα.",
+    "rentalService.title": "Υπηρεσίες Ενοικίασης στην Ελλάδα",
+    "rentalService.description": "Περιηγηθείτε στα διαθέσιμα ακίνητα και υπηρεσίες ενοικίασης.",
+
     // Navigation
     "nav.condos": "Διαμερίσματα",
     "nav.houses": "Κατοικίες",
@@ -219,6 +249,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "nav.rentalService": "Υπηρεσίες Ενοικίασης",
     "nav.aboutUs": "Σχετικά με εμάς",
     "nav.contactUs": "Επικοινωνήστε μαζί μας",
+    "nav.properties": "Ακίνητα",
 
     // Actions
     "actions.viewAll": "Δείτε όλα",
@@ -392,7 +423,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "contact.callUs": "Καλέστε μας",
 
     // Footer
-    "footer.description": "Αξιόπιστος συνεργάτης ακινήτων στην Ελλάδα. Ανακαλύψτε διαμερίσματα, κατοικίες και επαγγελματικά ακίνητα προς αγορά ή ενοικίαση, με ειδική καθοδήγηση σε κάθε βήμα.",
+    "footer.description":
+      "Αξιόπιστος συνεργάτης ακινήτων στην Ελλάδα. Ανακαλύψτε διαμερίσματα, κατοικίες και επαγγελματικά ακίνητα προς αγορά ή ενοικίαση, με ειδική καθοδήγηση σε κάθε βήμα.",
     "footer.licensed": "Άδεια • Από το 2012",
     "footer.menu": "Μενού",
     "footer.help": "Βοήθεια",
@@ -409,6 +441,19 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "footer.terms": "Όροι",
   },
   sr: {
+    "breadcrumbs.home": "Почетна",
+    "apartments.title": "Станови у Грчкој",
+    "apartments.description": "Истражите модерне станове широм Грчке.",
+    "maisonettes.title": "Мезонете у Грчкој",
+    "maisonettes.description": "Пронађите стилске мезонете за сваки начин живота.",
+    "commercial.title": "Пословни простори у Грчкој",
+    "commercial.description":
+      "Истражите могућности пословних некретнина укључујући канцеларије, трговачке просторе и складишта.",
+    "land.title": "Земљишта у Грчкој",
+    "land.description": "Прегледајте доступна земљишта у Грчкој.",
+    "rentalService.title": "Услуге изнајмљивања у Грчкој",
+    "rentalService.description": "Прегледајте доступне некретнине и услуге изнајмљивања.",
+
     // Navigation
     "nav.condos": "Кондо",
     "nav.houses": "Куће",
@@ -422,6 +467,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "nav.rentalService": "Услуге изнајмљивања",
     "nav.aboutUs": "О нама",
     "nav.contactUs": "Контактирајте нас",
+    "nav.properties": "Некретнине",
 
     // Actions
     "actions.viewAll": "Погледај све",
@@ -595,7 +641,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "contact.callUs": "Позовите нас",
 
     // Footer
-    "footer.description": "Поуздан партнер за некретнине у Грчкој. Откријте станове, куће и пословне просторе за куповину или изнајмљивање, са стручном подршком на сваком кораку.",
+    "footer.description":
+      "Поуздан партнер за некретнине у Грчкој. Откријте станове, куће и пословне просторе за куповину или изнајмљивање, са стручном подршком на сваком кораку.",
     "footer.licensed": "Лиценцирано • Од 2012",
     "footer.menu": "Мени",
     "footer.help": "Помоћ",
@@ -612,6 +659,20 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "footer.terms": "Услови",
   },
   ru: {
+    "breadcrumbs.home": "Главная",
+
+    "apartments.title": "Квартиры в Греции",
+    "apartments.description": "Исследуйте современные квартиры по всей Греции.",
+    "maisonettes.title": "Мезонеты в Греции",
+    "maisonettes.description": "Найдите стильные мезонеты для любого образа жизни.",
+    "commercial.title": "Коммерческая недвижимость в Греции",
+    "commercial.description":
+      "Исследуйте возможности коммерческой недвижимости, включая офисы, торговые площади и склады.",
+    "land.title": "Земельные участки в Греции",
+    "land.description": "Просмотрите доступные земельные участки в Греции.",
+    "rentalService.title": "Услуги аренды в Греции",
+    "rentalService.description": "Просмотрите доступные объекты недвижимости и услуги аренды.",
+
     // Navigation
     "nav.condos": "Кондоминиумы",
     "nav.houses": "Дома",
@@ -625,6 +686,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "nav.rentalService": "Услуги аренды",
     "nav.aboutUs": "О нас",
     "nav.contactUs": "Свяжитесь с нами",
+    "nav.properties": "Недвижимость",
 
     // Actions
     "actions.viewAll": "Смотреть все",
@@ -798,7 +860,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "contact.callUs": "Позвоните нам",
 
     // Footer
-    "footer.description": "Надежный партнер по недвижимости в Греции. Откройте для себя кондоминиумы, дома и коммерческую недвижимость для покупки или аренды с экспертным руководством на каждом шаге.",
+    "footer.description":
+      "Надежный партнер по недвижимости в Греции. Откройте для себя кондоминиумы, дома и коммерческую недвижимость для покупки или аренды с экспертным руководством на каждом шаге.",
     "footer.licensed": "Лицензировано • С 2012",
     "footer.menu": "Меню",
     "footer.help": "Помощь",
@@ -815,6 +878,20 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "footer.terms": "Условия",
   },
   bg: {
+    "breadcrumbs.home": "Начало",
+
+    "apartments.title": "Апартаменти в Гърция",
+    "apartments.description": "Разгледайте модерни апартаменти из цяла Гърция.",
+    "maisonettes.title": "Мезонети в Гърция",
+    "maisonettes.description": "Намерете стилни мезонети за всеки начин на живот.",
+    "commercial.title": "Търговски имоти в Гърция",
+    "commercial.description":
+      "Разгледайте възможности за търговски имоти, включително офиси, търговски площи и складове.",
+    "land.title": "Земи в Гърция",
+    "land.description": "Прегледайте наличните земи в Гърция.",
+    "rentalService.title": "Услуги под наем в Гърция",
+    "rentalService.description": "Прегледайте наличните имоти и услуги под наем.",
+
     // Navigation
     "nav.condos": "Апартаменти",
     "nav.houses": "Къщи",
@@ -828,6 +905,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "nav.rentalService": "Услуги под наем",
     "nav.aboutUs": "За нас",
     "nav.contactUs": "Свържете се с нас",
+    "nav.properties": "Имоти",
 
     // Actions
     "actions.viewAll": "Виж всички",
@@ -1001,7 +1079,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "contact.callUs": "Обадете ни се",
 
     // Footer
-    "footer.description": "Доверен партньор за недвижими имоти в Гърция. Открийте апартаменти, къщи и търговски имоти за покупка или наем, с експертна подкрепа на всяка стъпка.",
+    "footer.description":
+      "Доверен партньор за недвижими имоти в Гърция. Открийте апартаменти, къщи и търговски имоти за покупка или наем, с експертна подкрепа на всяка стъпка.",
     "footer.licensed": "Лицензирано • От 2012",
     "footer.menu": "Меню",
     "footer.help": "Помощ",
