@@ -64,6 +64,85 @@ export default function PropertyDetailsPage() {
 
   const inquiryPlaceholder = t("contact.placeholder", "e.g., I'd like to schedule a viewing.");
 
+  // Helper function to translate feature names and status values
+  const translateFeature = (featureName: string): string => {
+    // Map feature names to translation keys
+    const featureMap: Record<string, string> = {
+      // Status
+      "For Sale": "status.forSale",
+      "For Rent": "status.forRent",
+      "Sold": "status.sold",
+      "Rented": "status.rented",
+      // Interior Features
+      "Internal staircase": "features.internalStaircase",
+      "Air conditioning": "features.airConditioning",
+      "Solar water heater": "features.solarWaterHeater",
+      "Security door": "features.securityDoor",
+      "Double glassboard": "features.doubleGlassboard",
+      "Sites": "features.sites",
+      "Bright": "features.bright",
+      "Diaspora": "features.diaspora",
+      "Stained": "features.stained",
+      "Asan elevator": "features.asanElevator",
+      "Furnished": "features.furnished",
+      "Fireplace": "features.fireplace",
+      "Intra-deposits heating": "features.intraDepositsHeating",
+      "Night current": "features.nightCurrent",
+      "Warehouse": "features.warehouse",
+      "Sofa": "features.sofa",
+      "Playroom": "features.playroom",
+      "Satellite antenna": "features.satelliteAntenna",
+      "Alarm": "features.alarm",
+      "Reception with a doorman": "features.receptionWithDoorman",
+      "Electric car charging facilities": "features.electricCarCharging",
+      "Luxurious": "features.luxurious",
+      // External Features
+      "Balcony": "features.balcony",
+      "Private Garden": "features.privateGarden",
+      "Swimming pool": "features.swimmingPool",
+      "Careful": "features.careful",
+      "Parking": "features.parking",
+      "Tentes": "features.tentes",
+      "Built-in BBQ": "features.builtInBBQ",
+      "View": "features.view",
+      "Access for America": "features.accessForAmerica",
+      "Corner": "features.corner",
+      // Construction Features
+      "Semi-finished": "features.semiFinished",
+      "Ceiling apartment": "features.ceilingApartment",
+      "Renovated": "features.renovated",
+      "It swells renovation": "features.itSwellsRenovation",
+      "Neoclassic": "features.neoclassic",
+      "Maintain": "features.maintain",
+      "Subzafos": "features.subzafos",
+      "Need renovation": "features.needRenovation",
+      "Under construction": "features.underConstruction",
+      // Suitable For
+      "Holiday": "suitableFor.holiday",
+      "Investment": "suitableFor.investment",
+      "Tourist rental": "suitableFor.touristRental",
+      "Student": "suitableFor.student",
+      "Professional use": "suitableFor.professionalUse",
+      "Clinic": "suitableFor.clinic",
+      // Property Types
+      "Apartment": "propertyTypes.apartment",
+      "Maisonette": "propertyTypes.maisonette",
+      "Commercial": "propertyTypes.commercial",
+      "Land": "propertyTypes.land",
+      "Rental Service": "propertyTypes.rental",
+      "Building": "propertyTypes.building",
+      "Hotel": "propertyTypes.hotel",
+      "Complex": "propertyTypes.complex",
+    };
+
+    const translationKey = featureMap[featureName];
+    if (translationKey) {
+      return t(translationKey, featureName);
+    }
+    // Fallback to original if no translation found
+    return featureName;
+  };
+
   // Translate property description based on selected language
   const { translatedText: translatedDescription, loading: translationLoading } = useTranslation(
     property?.description || null,
@@ -564,7 +643,7 @@ export default function PropertyDetailsPage() {
                         property.lotSize > 0 && (
                           <FeatureDetail label={t("property.plotSize")} value={`${property.lotSize} sq.m.`} />
                         )}
-                      <FeatureDetail label={t("property.propertyType")} value={property.propertyType} />
+                      <FeatureDetail label={t("property.propertyType")} value={translateFeature(property.propertyType)} />
                       <FeatureDetail label={t("property.bedrooms")} value={property.beds} />
                       <FeatureDetail label={t("property.bathrooms")} value={property.baths} />
                       {property.yearBuilt ? (
@@ -572,7 +651,7 @@ export default function PropertyDetailsPage() {
                       ) : (
                         <FeatureDetail label={t("property.yearBuilt")} value={t("property.underConstruction")} />
                       )}
-                      <FeatureDetail label={t("property.status")} value={property.status} />
+                      <FeatureDetail label={t("property.status")} value={translateFeature(property.status)} />
                       <FeatureDetail
                         label={t("property.lastUpdated")}
                         value={updatedAt.toLocaleDateString("en-GB", {
@@ -585,10 +664,10 @@ export default function PropertyDetailsPage() {
                   </div>
                 </div>
 
-                <FeatureBlock title={t("property.interior")} items={property.interiorFeatures || []} />
-                <FeatureBlock title={t("property.externalFeatures")} items={property.externalFeatures || []} />
-                <FeatureBlock title={t("property.construction")} items={property.construction || []} />
-                <FeatureBlock title={t("property.suitableFor")} items={property.suitableFor || []} />
+                <FeatureBlock title={t("property.interior")} items={property.interiorFeatures || []} translateFeature={translateFeature} />
+                <FeatureBlock title={t("property.externalFeatures")} items={property.externalFeatures || []} translateFeature={translateFeature} />
+                <FeatureBlock title={t("property.construction")} items={property.construction || []} translateFeature={translateFeature} />
+                <FeatureBlock title={t("property.suitableFor")} items={property.suitableFor || []} translateFeature={translateFeature} />
 
                 <div className="mt-8">
                   <h2 className="text-xl font-semibold">{t("property.location")}</h2>
@@ -790,7 +869,7 @@ function FeatureDetail({ label, value }: { label: string; value: string | number
   );
 }
 
-function FeatureBlock({ title, items }: { title: string; items: string[] }) {
+function FeatureBlock({ title, items, translateFeature }: { title: string; items: string[]; translateFeature: (feature: string) => string }) {
   return (
     <div className="mt-8">
       <h2 className="text-xl font-semibold mb-6">{title}</h2>
@@ -798,9 +877,9 @@ function FeatureBlock({ title, items }: { title: string; items: string[] }) {
         {items.map((feature, index) => (
           <div
             key={index}
-            className={`flex items-center gap-2 rounded py-2 ${title === "Suitable for" ? "border border-gray-300 justify-center" : ""}`}>
-            {title !== "Suitable for" && <Diamond className="size-5 text-gold shrink-0" />}
-            <span className="text-gray-700">{feature}</span>
+            className={`flex items-center gap-2 rounded py-2 ${title.includes("Suitable") ? "border border-gray-300 justify-center" : ""}`}>
+            {!title.includes("Suitable") && <Diamond className="size-5 text-gold shrink-0" />}
+            <span className="text-gray-700">{translateFeature(feature)}</span>
           </div>
         ))}
       </div>

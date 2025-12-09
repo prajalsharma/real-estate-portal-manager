@@ -28,6 +28,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.search": "Search",
     "actions.moreFilters": "More filters",
     "actions.searchSubmitted": "Search submitted",
+    "actions.viewDetails": "View details",
 
     // Labels & units
     "labels.bed": "bd",
@@ -58,6 +59,70 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "propertyTypes.commercial": "Commercial",
     "propertyTypes.land": "Land",
     "propertyTypes.rental": "Rental Services",
+    "propertyTypes.building": "Building",
+    "propertyTypes.hotel": "Hotel",
+    "propertyTypes.complex": "Complex",
+
+    // Property Status
+    "status.forSale": "For Sale",
+    "status.forRent": "For Rent",
+    "status.sold": "Sold",
+    "status.rented": "Rented",
+
+    // Interior Features
+    "features.internalStaircase": "Internal staircase",
+    "features.airConditioning": "Air conditioning",
+    "features.solarWaterHeater": "Solar water heater",
+    "features.securityDoor": "Security door",
+    "features.doubleGlassboard": "Double glassboard",
+    "features.sites": "Sites",
+    "features.bright": "Bright",
+    "features.diaspora": "Diaspora",
+    "features.stained": "Stained",
+    "features.asanElevator": "Asan elevator",
+    "features.furnished": "Furnished",
+    "features.fireplace": "Fireplace",
+    "features.intraDepositsHeating": "Intra-deposits heating",
+    "features.nightCurrent": "Night current",
+    "features.warehouse": "Warehouse",
+    "features.sofa": "Sofa",
+    "features.playroom": "Playroom",
+    "features.satelliteAntenna": "Satellite antenna",
+    "features.alarm": "Alarm",
+    "features.receptionWithDoorman": "Reception with a doorman",
+    "features.electricCarCharging": "Electric car charging facilities",
+    "features.luxurious": "Luxurious",
+
+    // External Features
+    "features.balcony": "Balcony",
+    "features.privateGarden": "Private Garden",
+    "features.swimmingPool": "Swimming pool",
+    "features.careful": "Careful",
+    "features.parking": "Parking",
+    "features.tentes": "Tentes",
+    "features.builtInBBQ": "Built-in BBQ",
+    "features.view": "View",
+    "features.accessForAmerica": "Access for America",
+    "features.corner": "Corner",
+
+    // Construction Features
+    "features.semiFinished": "Semi-finished",
+    "features.ceilingApartment": "Ceiling apartment",
+    "features.renovated": "Renovated",
+    "features.itSwellsRenovation": "It swells renovation",
+    "features.neoclassic": "Neoclassic",
+    "features.maintain": "Maintain",
+    "features.subzafos": "Subzafos",
+    "features.needRenovation": "Need renovation",
+    "features.underConstruction": "Under construction",
+
+    // Suitable For
+    "suitableFor.holiday": "Holiday",
+    "suitableFor.investment": "Investment",
+    "suitableFor.touristRental": "Tourist rental",
+    "suitableFor.student": "Student",
+    "suitableFor.professionalUse": "Professional use",
+    "suitableFor.clinic": "Clinic",
 
     // Hero & sections
     "hero.title": "Real estate for living and investments",
@@ -166,6 +231,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.search": "Αναζήτηση",
     "actions.moreFilters": "Περισσότερα φίλτρα",
     "actions.searchSubmitted": "Η αναζήτηση στάλθηκε",
+    "actions.viewDetails": "Δείτε λεπτομέρειες",
 
     // Labels & units
     "labels.bed": "υπν",
@@ -196,6 +262,70 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "propertyTypes.commercial": "Επαγγελματικό",
     "propertyTypes.land": "Οικόπεδο",
     "propertyTypes.rental": "Υπηρεσίες ενοικίασης",
+    "propertyTypes.building": "Κτίριο",
+    "propertyTypes.hotel": "Ξενοδοχείο",
+    "propertyTypes.complex": "Συγκρότημα",
+
+    // Property Status
+    "status.forSale": "Προς πώληση",
+    "status.forRent": "Προς ενοικίαση",
+    "status.sold": "Πωλήθηκε",
+    "status.rented": "Ενοικιάστηκε",
+
+    // Interior Features
+    "features.internalStaircase": "Εσωτερική σκάλα",
+    "features.airConditioning": "Κλιματισμός",
+    "features.solarWaterHeater": "Ηλιακός θερμοσίφωνας",
+    "features.securityDoor": "Ασφαλής πόρτα",
+    "features.doubleGlassboard": "Διπλό τζάμι",
+    "features.sites": "Σάιτες",
+    "features.bright": "Φωτεινό",
+    "features.diaspora": "Διασπορά",
+    "features.stained": "Βαμμένο",
+    "features.asanElevator": "Ασανσέρ",
+    "features.furnished": "Επιπλωμένο",
+    "features.fireplace": "Τζάκι",
+    "features.intraDepositsHeating": "Θέρμανση εντός καταθέσεων",
+    "features.nightCurrent": "Νυχτερινό ρεύμα",
+    "features.warehouse": "Αποθήκη",
+    "features.sofa": "Σοφά",
+    "features.playroom": "Δωμάτιο παιχνιδιών",
+    "features.satelliteAntenna": "Δορυφορική κεραία",
+    "features.alarm": "Συναγερμός",
+    "features.receptionWithDoorman": "Ρεσεψιόν με θυρωρό",
+    "features.electricCarCharging": "Εγκαταστάσεις φόρτισης ηλεκτρικών αυτοκινήτων",
+    "features.luxurious": "Πολυτελές",
+
+    // External Features
+    "features.balcony": "Μπαλκόνι",
+    "features.privateGarden": "Ιδιωτικός κήπος",
+    "features.swimmingPool": "Πισίνα",
+    "features.careful": "Προσεγμένο",
+    "features.parking": "Στάθμευση",
+    "features.tentes": "Τέντες",
+    "features.builtInBBQ": "Ενσωματωμένο μπάρμπεκιου",
+    "features.view": "Θέα",
+    "features.accessForAmerica": "Πρόσβαση για Αμερική",
+    "features.corner": "Γωνία",
+
+    // Construction Features
+    "features.semiFinished": "Ημιτελές",
+    "features.ceilingApartment": "Οροφοδιαμέρισμα",
+    "features.renovated": "Ανακαινισμένο",
+    "features.itSwellsRenovation": "Ανακαίνιση που φουσκώνει",
+    "features.neoclassic": "Νεοκλασικό",
+    "features.maintain": "Συντήρηση",
+    "features.subzafos": "Υπόζαφος",
+    "features.needRenovation": "Χρειάζεται ανακαίνιση",
+    "features.underConstruction": "Υπό κατασκευή",
+
+    // Suitable For
+    "suitableFor.holiday": "Διακοπές",
+    "suitableFor.investment": "Επένδυση",
+    "suitableFor.touristRental": "Τουριστική ενοικίαση",
+    "suitableFor.student": "Φοιτητής",
+    "suitableFor.professionalUse": "Επαγγελματική χρήση",
+    "suitableFor.clinic": "Κλινική",
 
     // Hero & sections
     "hero.title": "Ακίνητα για κατοικία και επένδυση",
@@ -304,6 +434,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.search": "Претрага",
     "actions.moreFilters": "Више филтера",
     "actions.searchSubmitted": "Претрага послата",
+    "actions.viewDetails": "Погледај детаље",
 
     // Labels & units
     "labels.bed": "кр",
@@ -334,6 +465,70 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "propertyTypes.commercial": "Пословни простор",
     "propertyTypes.land": "Земљиште",
     "propertyTypes.rental": "Услуге изнајмљивања",
+    "propertyTypes.building": "Зграда",
+    "propertyTypes.hotel": "Хотел",
+    "propertyTypes.complex": "Комплекс",
+
+    // Property Status
+    "status.forSale": "На продају",
+    "status.forRent": "На изнајмљивање",
+    "status.sold": "Продато",
+    "status.rented": "Изнајмљено",
+
+    // Interior Features
+    "features.internalStaircase": "Унутрашње степенице",
+    "features.airConditioning": "Климатизација",
+    "features.solarWaterHeater": "Соларни бојлер",
+    "features.securityDoor": "Сигурносна врата",
+    "features.doubleGlassboard": "Двоструки стаклени панели",
+    "features.sites": "Сајтови",
+    "features.bright": "Светло",
+    "features.diaspora": "Дијаспора",
+    "features.stained": "Обојено",
+    "features.asanElevator": "Лифт",
+    "features.furnished": "Намештено",
+    "features.fireplace": "Камин",
+    "features.intraDepositsHeating": "Грејање унутар депозита",
+    "features.nightCurrent": "Ноћна струја",
+    "features.warehouse": "Складиште",
+    "features.sofa": "Кауч",
+    "features.playroom": "Играоница",
+    "features.satelliteAntenna": "Сателитска антена",
+    "features.alarm": "Аларм",
+    "features.receptionWithDoorman": "Рецепција са портиром",
+    "features.electricCarCharging": "Уређаји за пуњење електромобила",
+    "features.luxurious": "Луксузно",
+
+    // External Features
+    "features.balcony": "Балкон",
+    "features.privateGarden": "Приватна башта",
+    "features.swimmingPool": "Базен",
+    "features.careful": "Пажљиво",
+    "features.parking": "Паркирање",
+    "features.tentes": "Тенте",
+    "features.builtInBBQ": "Уграђени роштиљ",
+    "features.view": "Поглед",
+    "features.accessForAmerica": "Приступ за Америку",
+    "features.corner": "Угао",
+
+    // Construction Features
+    "features.semiFinished": "Полузавршено",
+    "features.ceilingApartment": "Поткровни стан",
+    "features.renovated": "Реновирано",
+    "features.itSwellsRenovation": "Реновација која набуја",
+    "features.neoclassic": "Неокласично",
+    "features.maintain": "Одржавање",
+    "features.subzafos": "Подзафос",
+    "features.needRenovation": "Потребна реновација",
+    "features.underConstruction": "У изградњи",
+
+    // Suitable For
+    "suitableFor.holiday": "Одмор",
+    "suitableFor.investment": "Инвестиција",
+    "suitableFor.touristRental": "Туристички изнајмљивање",
+    "suitableFor.student": "Студент",
+    "suitableFor.professionalUse": "Стручна употреба",
+    "suitableFor.clinic": "Клиника",
 
     // Hero & sections
     "hero.title": "Непокретности за живот и инвестиције",
@@ -442,6 +637,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.search": "Поиск",
     "actions.moreFilters": "Больше фильтров",
     "actions.searchSubmitted": "Поиск отправлен",
+    "actions.viewDetails": "Посмотреть детали",
 
     // Labels & units
     "labels.bed": "сп",
@@ -472,6 +668,70 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "propertyTypes.commercial": "Коммерческая",
     "propertyTypes.land": "Земельный участок",
     "propertyTypes.rental": "Услуги аренды",
+    "propertyTypes.building": "Здание",
+    "propertyTypes.hotel": "Отель",
+    "propertyTypes.complex": "Комплекс",
+
+    // Property Status
+    "status.forSale": "На продажу",
+    "status.forRent": "В аренду",
+    "status.sold": "Продано",
+    "status.rented": "Сдано в аренду",
+
+    // Interior Features
+    "features.internalStaircase": "Внутренняя лестница",
+    "features.airConditioning": "Кондиционер",
+    "features.solarWaterHeater": "Солнечный водонагреватель",
+    "features.securityDoor": "Бронированная дверь",
+    "features.doubleGlassboard": "Двойное остекление",
+    "features.sites": "Сайты",
+    "features.bright": "Светлый",
+    "features.diaspora": "Диаспора",
+    "features.stained": "Окрашенный",
+    "features.asanElevator": "Лифт",
+    "features.furnished": "Меблированный",
+    "features.fireplace": "Камин",
+    "features.intraDepositsHeating": "Отопление внутри депозитов",
+    "features.nightCurrent": "Ночной тариф",
+    "features.warehouse": "Склад",
+    "features.sofa": "Диван",
+    "features.playroom": "Игровая комната",
+    "features.satelliteAntenna": "Спутниковая антенна",
+    "features.alarm": "Сигнализация",
+    "features.receptionWithDoorman": "Ресепшн с консьержем",
+    "features.electricCarCharging": "Зарядка для электромобилей",
+    "features.luxurious": "Роскошный",
+
+    // External Features
+    "features.balcony": "Балкон",
+    "features.privateGarden": "Частный сад",
+    "features.swimmingPool": "Бассейн",
+    "features.careful": "Аккуратный",
+    "features.parking": "Парковка",
+    "features.tentes": "Тенты",
+    "features.builtInBBQ": "Встроенный барбекю",
+    "features.view": "Вид",
+    "features.accessForAmerica": "Доступ для Америки",
+    "features.corner": "Угол",
+
+    // Construction Features
+    "features.semiFinished": "Полуготовый",
+    "features.ceilingApartment": "Мансардная квартира",
+    "features.renovated": "Отремонтированный",
+    "features.itSwellsRenovation": "Ремонт с набуханием",
+    "features.neoclassic": "Неоклассический",
+    "features.maintain": "Поддерживать",
+    "features.subzafos": "Субзафос",
+    "features.needRenovation": "Требуется ремонт",
+    "features.underConstruction": "В стадии строительства",
+
+    // Suitable For
+    "suitableFor.holiday": "Отдых",
+    "suitableFor.investment": "Инвестиции",
+    "suitableFor.touristRental": "Туристическая аренда",
+    "suitableFor.student": "Студент",
+    "suitableFor.professionalUse": "Профессиональное использование",
+    "suitableFor.clinic": "Клиника",
 
     // Hero & sections
     "hero.title": "Недвижимость для жизни и инвестиций",
@@ -580,6 +840,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.search": "Търсене",
     "actions.moreFilters": "Още филтри",
     "actions.searchSubmitted": "Търсенето е изпратено",
+    "actions.viewDetails": "Виж детайли",
 
     // Labels & units
     "labels.bed": "сп",
@@ -610,6 +871,70 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "propertyTypes.commercial": "Търговски",
     "propertyTypes.land": "Земя",
     "propertyTypes.rental": "Услуги под наем",
+    "propertyTypes.building": "Сграда",
+    "propertyTypes.hotel": "Хотел",
+    "propertyTypes.complex": "Комплекс",
+
+    // Property Status
+    "status.forSale": "На продажба",
+    "status.forRent": "Под наем",
+    "status.sold": "Продадено",
+    "status.rented": "Наето",
+
+    // Interior Features
+    "features.internalStaircase": "Вътрешна стълба",
+    "features.airConditioning": "Климатизация",
+    "features.solarWaterHeater": "Слънчев бойлер",
+    "features.securityDoor": "Сигурна врата",
+    "features.doubleGlassboard": "Двоен стъклопакет",
+    "features.sites": "Сайтове",
+    "features.bright": "Светло",
+    "features.diaspora": "Диаспора",
+    "features.stained": "Боядисано",
+    "features.asanElevator": "Асансьор",
+    "features.furnished": "Обзаведено",
+    "features.fireplace": "Камина",
+    "features.intraDepositsHeating": "Отопление в депозити",
+    "features.nightCurrent": "Нощна ток",
+    "features.warehouse": "Склад",
+    "features.sofa": "Диван",
+    "features.playroom": "Игрална стая",
+    "features.satelliteAntenna": "Сателитна антена",
+    "features.alarm": "Аларма",
+    "features.receptionWithDoorman": "Рецепция с портиер",
+    "features.electricCarCharging": "Зарядни станции за електромобили",
+    "features.luxurious": "Луксозно",
+
+    // External Features
+    "features.balcony": "Балкон",
+    "features.privateGarden": "Частна градина",
+    "features.swimmingPool": "Басейн",
+    "features.careful": "Внимателно",
+    "features.parking": "Паркиране",
+    "features.tentes": "Тенти",
+    "features.builtInBBQ": "Вградено барбекю",
+    "features.view": "Гледка",
+    "features.accessForAmerica": "Достъп за Америка",
+    "features.corner": "Ъгъл",
+
+    // Construction Features
+    "features.semiFinished": "Полузавършено",
+    "features.ceilingApartment": "Тавански апартамент",
+    "features.renovated": "Реновирано",
+    "features.itSwellsRenovation": "Реновация която набъбва",
+    "features.neoclassic": "Неокласическо",
+    "features.maintain": "Поддръжка",
+    "features.subzafos": "Субзафос",
+    "features.needRenovation": "Нуждае се от реновация",
+    "features.underConstruction": "В процес на строителство",
+
+    // Suitable For
+    "suitableFor.holiday": "Почивка",
+    "suitableFor.investment": "Инвестиция",
+    "suitableFor.touristRental": "Туристически наем",
+    "suitableFor.student": "Студент",
+    "suitableFor.professionalUse": "Професионална употреба",
+    "suitableFor.clinic": "Клиника",
 
     // Hero & sections
     "hero.title": "Недвижими имоти за живот и инвестиции",
