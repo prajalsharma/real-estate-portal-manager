@@ -154,6 +154,9 @@ export default function PropertyDetailsPage() {
     return emailRegex.test(email);
   };
 
+  const agentPhone = property?.agent?.phone || "";
+  const cleanPhone = agentPhone.replace(/[^0-9]/g, "");
+
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -169,22 +172,19 @@ export default function PropertyDetailsPage() {
       return;
     }
 
-    const agentPhone = property?.agent?.phone || "";
-
     if (!agentPhone) {
       alert("Agent phone number not available");
       return;
     }
 
-    const text = `New Property Enquiry: \n
-        Property: ${property?.title} \n
+    const text = `
         Name: ${contactDetails.name} \n
         Email: ${contactDetails.email} \n
+        Property: ${property?.title} \n
         Message: ${contactDetails.message}`;
 
     const encodedText = encodeURIComponent(text);
 
-    const cleanPhone = agentPhone.replace(/[^0-9]/g, "");
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
 
     if (typeof window !== "undefined") {
@@ -828,7 +828,8 @@ export default function PropertyDetailsPage() {
                       </span>
                     </button>
                     <a
-                      href={`tel:${property?.agent?.phone || "+1234567890"}`}
+                      href={`https://wa.me/${cleanPhone}`}
+                      target="_blank"
                       className="w-full bg-white hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2 border border-gray-300">
                       <Phone className="size-4 text-gold" />
                       <span>{t("contact.callUs")}</span>
