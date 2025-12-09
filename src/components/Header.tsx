@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -20,6 +20,12 @@ import {
   SheetTitle,
   SheetClose,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { useT } from "@/lib/i18n";
@@ -32,15 +38,20 @@ type HeaderProps = {
   onLanguageChange?: (value: string) => void;
 };
 
-const NAV_ITEMS = [
+const PROPERTY_TYPES = [
   { label: "nav.apartments", href: "/apartments" },
   { label: "nav.maisonettes", href: "/maisonettes" },
   { label: "nav.commercial", href: "/commercial" },
   { label: "nav.land", href: "/land" },
   { label: "nav.rentalService", href: "/rent" },
+];
+
+const INFO_NAV_ITEMS = [
   { label: "nav.aboutUs", href: "/about" },
   { label: "nav.contactUs", href: "/contact" },
 ];
+
+const NAV_ITEMS = [...PROPERTY_TYPES, ...INFO_NAV_ITEMS];
 
 const LANGUAGES: { label: string; value: HeaderProps["initialLanguage"] }[] = [
   { label: "English", value: "en" },
@@ -130,15 +141,41 @@ export default function Header({
         </div>
 
         {/* Center: Navigation (desktop) */}
-        <nav className="hidden lg:flex items-center gap-5 lg:ml-20" aria-label="Primary navigation">
-          {NAV_ITEMS.map((item) => {
+        <nav
+          className="hidden lg:flex items-center gap-3 xl:gap-5 lg:ml-12 xl:ml-20"
+          aria-label="Primary navigation">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="text-sm xl:text-base font-medium text-foreground/80 hover:text-gold rounded-md px-2 py-1 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background whitespace-nowrap">
+              {t("nav.properties", "Properties")}
+              <ChevronDown className="size-5" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="bg-popover">
+              {PROPERTY_TYPES.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "cursor-pointer font-medium text-foreground/80 hover:bg-accent/60 hover:text-gold rounded-md p-4 block whitespace-nowrap text-lg mb-1",
+                        isActive && "bg-accent text-gold font-semibold"
+                      )}>
+                      {t(item.label)}
+                    </Link>
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {INFO_NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "text-base relative font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold transition-colors",
+                  "text-sm xl:text-base relative font-medium text-foreground/80 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md cursor-pointer hover:text-gold transition-colors px-2 py-1 whitespace-nowrap",
                   isActive && "bg-accent/80 text-gold font-semibold"
                 )}>
                 <span className="truncate">{t(item.label)}</span>
