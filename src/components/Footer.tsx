@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Facebook, ContactRound, Building2, Mail, House } from "lucide-react";
 import { cn } from "@/lib/utils";
 import * as React from "react";
+import { useT } from "@/lib/i18n";
 
 export interface FooterProps {
   className?: string;
@@ -47,6 +48,8 @@ function Logo() {
 }
 
 export default function Footer({ className }: FooterProps) {
+  const t = useT();
+  
   return (
     <footer className={cn("w-full bg-white text-foreground container", className)}>
       <div className="w-full py-6 sm:py-4">
@@ -55,73 +58,72 @@ export default function Footer({ className }: FooterProps) {
             <div className="w-full shrink-0 sm:max-w-70">
               <Logo />
               <p className={cn(mutedText, "mt-2.5 max-w-prose wrap-break-word")}>
-                Trusted real estate partner in Greece. Discover condos, houses, and commercial
-                properties to buy or rent, with expert guidance at every step.
+                {t("footer.description")}
               </p>
               <div className="mt-2.5 flex items-center gap-2 text-[--muted-foreground]">
                 <Building2 className="h-4 w-4" aria-hidden="true" />
-                <span className="text-xs sm:text-sm">Licensed • Since 2012</span>
+                <span className="text-xs sm:text-sm">{t("footer.licensed")}</span>
               </div>
             </div>
 
             <div className="flex-1 pt-1 sm:pt-3 md:pt-5">
               <div className="flex flex-col md:flex-row gap-5 sm:gap-7 justify-around">
-                <Column title="Menu">
+                <Column title={t("footer.menu")}>
                   <ul className="flex gap-2 flex-col">
                     <li className="min-w-0">
                       <Link href="/about" className={linkBase}>
-                        About
+                        {t("nav.about")}
                       </Link>
                     </li>
                     <li className="min-w-0">
-                      <Link href="/condos" className={linkBase}>
-                        Condos
+                      <Link href="/apartments" className={linkBase}>
+                        {t("nav.apartments")}
                       </Link>
                     </li>
                     <li className="min-w-0">
-                      <Link href="/houses" className={linkBase}>
-                        Houses
+                      <Link href="/maisonettes" className={linkBase}>
+                        {t("nav.maisonettes")}
                       </Link>
                     </li>
                     <li className="min-w-0">
                       <Link href="/commercial" className={linkBase}>
-                        Commercial
+                        {t("nav.commercial")}
                       </Link>
                     </li>
                     <li className="min-w-0">
                       <Link href="/rent" className={linkBase}>
-                        For rent
+                        {t("nav.rent")}
                       </Link>
                     </li>
                   </ul>
                 </Column>
 
-                <Column title="Help">
+                <Column title={t("footer.help")}>
                   <ul className="flex gap-2 flex-col">
                     <li className="min-w-0">
                       <span className={linkBase} role="link" tabIndex={0}>
-                        Support
+                        {t("footer.support")}
                       </span>
                     </li>
                     <li className="min-w-0">
                       <span className={linkBase} role="link" tabIndex={0}>
-                        Real estate valuation
+                        {t("footer.realEstateValuation")}
                       </span>
                     </li>
                     <li className="min-w-0">
                       <span className={linkBase} role="link" tabIndex={0}>
-                        Legal support
+                        {t("footer.legalSupport")}
                       </span>
                     </li>
                     <li className="min-w-0">
                       <span className={linkBase} role="link" tabIndex={0}>
-                        Rent and sale
+                        {t("footer.rentAndSale")}
                       </span>
                     </li>
                   </ul>
                 </Column>
 
-                <Column title="Contacts">
+                <Column title={t("footer.contacts")}>
                   <ul className="grid grid-cols-1 gap-2">
                     <li className="flex items-start gap-2">
                       <ContactRound
@@ -130,7 +132,7 @@ export default function Footer({ className }: FooterProps) {
                       />
                       <div className="min-w-0">
                         <p className="text-sm text-foreground">+30 21 0000 0000</p>
-                        <p className={mutedText}>Mon–Fri, 9:00–18:00 EET</p>
+                        <p className={mutedText}>{t("footer.workingHours")}</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
@@ -139,14 +141,14 @@ export default function Footer({ className }: FooterProps) {
                         <p className="text-sm text-foreground wrap-break-word">
                           hello@realestate.gr
                         </p>
-                        <p className={mutedText}>Email us anytime</p>
+                        <p className={mutedText}>{t("footer.emailUsAnytime")}</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
                       <House className="mt-0.5 h-4 w-4 text-[--color-red]" aria-hidden="true" />
                       <div className="min-w-0">
                         <p className="text-sm text-foreground">12 Ermou St, Athens 105 63</p>
-                        <p className={mutedText}>Greece</p>
+                        <p className={mutedText}>{t("footer.greece")}</p>
                       </div>
                     </li>
                   </ul>
@@ -159,21 +161,21 @@ export default function Footer({ className }: FooterProps) {
 
           <div className="flex flex-col-reverse gap-3 sm:flex-row items-center sm:justify-between">
             <p className="text-xs text-[--muted-foreground]">
-              © {new Date().getFullYear()} RealEstate. All rights reserved.
+              © {new Date().getFullYear()} RealEstate. {t("footer.copyright")}
             </p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <Link
                 href="/about"
                 className="text-xs text-foreground/80 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] focus-visible:ring-offset-2 focus-visible:ring-offset-[--background]">
-                About
+                {t("nav.about")}
               </Link>
               <Link
                 href="/contact"
                 className="text-xs text-foreground/80 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] focus-visible:ring-offset-2 focus-visible:ring-offset-[--background]">
-                Contact
+                {t("nav.contact")}
               </Link>
-              <span className="text-xs text-[--muted-foreground]">Privacy</span>
-              <span className="text-xs text-[--muted-foreground]">Terms</span>
+              <span className="text-xs text-[--muted-foreground]">{t("footer.privacy")}</span>
+              <span className="text-xs text-[--muted-foreground]">{t("footer.terms")}</span>
             </div>
           </div>
         </div>

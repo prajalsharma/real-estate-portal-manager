@@ -309,7 +309,7 @@ export default function PropertyDetailsPage() {
     return (
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl">
-          <h1 className="text-3xl font-bold mb-4 text-destructive">Property Not Found</h1>
+          <h1 className="text-3xl font-bold mb-4 text-destructive">{t("property.notFound")}</h1>
           <p className="text-muted-foreground">
             {error || `The property with slug "${propertySlug}" could not be found.`}
           </p>
@@ -320,7 +320,7 @@ export default function PropertyDetailsPage() {
               }
             }}
             className="mt-4 px-4 py-2 bg-gold text-white rounded hover:bg-gold/90">
-            Go Back
+            {t("property.goBack")}
           </button>
         </div>
       </section>
@@ -423,10 +423,10 @@ export default function PropertyDetailsPage() {
                     <DialogContent className="max-w-3xl p-0">
                       <DialogTitle className="sr-only">Share the property</DialogTitle>
                       <div className="p-6">
-                        <h2 className="text-xl font-semibold mb-6">Share this property</h2>
+                        <h2 className="text-xl font-semibold mb-6">{t("property.share")}</h2>
                         <div className="mb-6">
                           <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Property Link
+                            {t("property.propertyLink")}
                           </label>
                           <div className="flex gap-2">
                             <input
@@ -536,11 +536,11 @@ export default function PropertyDetailsPage() {
                 </div>
                 {(translatedDescription || property.description) && (
                   <div className="mt-8">
-                    <h2 className="text-xl font-semibold mb-3">Description</h2>
+                    <h2 className="text-xl font-semibold mb-3">{t("property.description")}</h2>
                     {translationLoading ? (
                       <div className="flex items-center gap-2">
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gold"></div>
-                        <p className="text-gray-500 text-sm">Translating...</p>
+                        <p className="text-gray-500 text-sm">{t("property.translating")}</p>
                       </div>
                     ) : (
                       <p className="text-gray-700 leading-relaxed">
@@ -551,30 +551,30 @@ export default function PropertyDetailsPage() {
                 )}
 
                 <div className="mt-8">
-                  <h2 className="text-xl font-semibold mb-6">Features</h2>
+                  <h2 className="text-xl font-semibold mb-6">{t("property.features")}</h2>
                   <div className="bg-gray-50 rounded-lg border">
                     <div className="grid">
-                      {priceDisplay && <FeatureDetail label="Price" value={priceDisplay} />}
+                      {priceDisplay && <FeatureDetail label={t("property.price")} value={priceDisplay} />}
                       {pricePerSqftDisplay && (
-                        <FeatureDetail label="Price per sq m." value={pricePerSqftDisplay} />
+                        <FeatureDetail label={t("property.pricePerSqM")} value={pricePerSqftDisplay} />
                       )}
-                      <FeatureDetail label="Area" value={`${property.sqft} sq.m.`} />
+                      <FeatureDetail label={t("property.area")} value={`${property.sqft} sq.m.`} />
                       {property.lotSize !== null &&
                         property.lotSize !== undefined &&
                         property.lotSize > 0 && (
-                          <FeatureDetail label="Plot Size" value={`${property.lotSize} sq.m.`} />
+                          <FeatureDetail label={t("property.plotSize")} value={`${property.lotSize} sq.m.`} />
                         )}
-                      <FeatureDetail label="Property Type" value={property.propertyType} />
-                      <FeatureDetail label="Bedrooms" value={property.beds} />
-                      <FeatureDetail label="Bathrooms" value={property.baths} />
+                      <FeatureDetail label={t("property.propertyType")} value={property.propertyType} />
+                      <FeatureDetail label={t("property.bedrooms")} value={property.beds} />
+                      <FeatureDetail label={t("property.bathrooms")} value={property.baths} />
                       {property.yearBuilt ? (
-                        <FeatureDetail label="Year of construction" value={property.yearBuilt} />
+                        <FeatureDetail label={t("property.yearBuilt")} value={property.yearBuilt} />
                       ) : (
-                        <FeatureDetail label="Year of construction" value="Under construction" />
+                        <FeatureDetail label={t("property.yearBuilt")} value={t("property.underConstruction")} />
                       )}
-                      <FeatureDetail label="Status" value={property.status} />
+                      <FeatureDetail label={t("property.status")} value={property.status} />
                       <FeatureDetail
-                        label="Last Updated"
+                        label={t("property.lastUpdated")}
                         value={updatedAt.toLocaleDateString("en-GB", {
                           year: "numeric",
                           month: "numeric",
@@ -585,13 +585,13 @@ export default function PropertyDetailsPage() {
                   </div>
                 </div>
 
-                <FeatureBlock title="Interior" items={property.interiorFeatures || []} />
-                <FeatureBlock title="External Features" items={property.externalFeatures || []} />
-                <FeatureBlock title="Construction" items={property.construction || []} />
-                <FeatureBlock title="Suitable for" items={property.suitableFor || []} />
+                <FeatureBlock title={t("property.interior")} items={property.interiorFeatures || []} />
+                <FeatureBlock title={t("property.externalFeatures")} items={property.externalFeatures || []} />
+                <FeatureBlock title={t("property.construction")} items={property.construction || []} />
+                <FeatureBlock title={t("property.suitableFor")} items={property.suitableFor || []} />
 
                 <div className="mt-8">
-                  <h2 className="text-xl font-semibold">Location</h2>
+                  <h2 className="text-xl font-semibold">{t("property.location")}</h2>
                   <div className="mb-4">
                     <address className="not-italic flex flex-col text-base">
                       <span>
@@ -647,10 +647,10 @@ export default function PropertyDetailsPage() {
                 <form
                   onSubmit={handleWhatsAppSubmit}
                   className="sticky top-20 bg-white px-4 py-6 border rounded-lg shadow-lg">
-                  <h2 className="text-xl font-semibold mb-3">Interested in this property?</h2>
+                  <h2 className="text-xl font-semibold mb-3">{t("property.interested")}</h2>
                   <div className="mb-4">
                     <Label htmlFor="name" className="mb-0.5">
-                      Name
+                      {t("contact.name")}
                     </Label>
                     <Input
                       id="name"
@@ -664,10 +664,10 @@ export default function PropertyDetailsPage() {
                       }}
                     />
                     {formErrors.name && (
-                      <p className="text-red-500 text-xs mt-1">Name is required</p>
+                      <p className="text-red-500 text-xs mt-1">{t("contact.nameRequired")}</p>
                     )}
                     <Label htmlFor="email" className="mt-4 mb-0.5">
-                      Email
+                      {t("contact.email")}
                     </Label>
                     <Input
                       id="email"
@@ -681,12 +681,12 @@ export default function PropertyDetailsPage() {
                       }}
                     />
                     {formErrors.email && (
-                      <p className="text-red-500 text-xs mt-1">Email is required</p>
+                      <p className="text-red-500 text-xs mt-1">{t("contact.emailRequired")}</p>
                     )}
                   </div>
                   <div className="mb-6">
                     <Label htmlFor="sidebar-message" className="mb-0.5">
-                      Your Message
+                      {t("contact.message")}
                     </Label>
                     <Textarea
                       id="sidebar-message"
@@ -700,7 +700,7 @@ export default function PropertyDetailsPage() {
                       }}
                     />
                     {formErrors.message && (
-                      <p className="text-red-500 text-xs mt-1">Message is required</p>
+                      <p className="text-red-500 text-xs mt-1">{t("contact.messageRequired")}</p>
                     )}
                   </div>
                   <div className="space-y-3">
@@ -708,14 +708,14 @@ export default function PropertyDetailsPage() {
                       type="submit"
                       className="w-full bg-gold hover:bg-gold/80 text-white font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2">
                       <span className="flex gap-2 items-center">
-                        <Send className="size-4 text-white" /> Send via WhatsApp
+                        <Send className="size-4 text-white" /> {t("contact.sendWhatsApp")}
                       </span>
                     </button>
                     <a
                       href={`tel:${property?.agent?.phone || "+1234567890"}`}
                       className="w-full bg-white hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2 border border-gray-300">
                       <Phone className="size-4 text-gold" />
-                      <span>Call Us</span>
+                      <span>{t("contact.callUs")}</span>
                     </a>
                   </div>
                 </form>
