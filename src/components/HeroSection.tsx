@@ -267,30 +267,30 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     }
   }
 
-  function handleTourRequest() {
-    // Open details modal with this featured property and auto-open contact form
-    const numericPrice = Number(String(featured.price).replace(/[^\d.]/g, "")) || 0;
-    const property = {
-      id: featured.title,
-      title: featured.title,
-      address: featured.address,
-      price: numericPrice,
-      beds: featured.beds,
-      baths: featured.baths,
-      sqft: featured.sqft,
-      type: "Featured",
-      imageUrl: featured.imageUrl,
-      images: [featured.imageUrl],
-      agent: featured.agent
-        ? { id: "agent-1", name: featured.agent.name, avatarUrl: featured.agent.avatarUrl }
-        : undefined,
-    };
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("app:open-property", { detail: { property, autoContact: true } })
-      );
-    }
-  }
+  // function handleTourRequest() {
+  //   // Open details modal with this featured property and auto-open contact form
+  //   const numericPrice = Number(String(featured.price).replace(/[^\d.]/g, "")) || 0;
+  //   const property = {
+  //     id: featured.title,
+  //     title: featured.title,
+  //     address: featured.address,
+  //     price: numericPrice,
+  //     beds: featured.beds,
+  //     baths: featured.baths,
+  //     sqft: featured.sqft,
+  //     type: "Featured",
+  //     imageUrl: featured.imageUrl,
+  //     images: [featured.imageUrl],
+  //     agent: featured.agent
+  //       ? { id: "agent-1", name: featured.agent.name, avatarUrl: featured.agent.avatarUrl }
+  //       : undefined,
+  //   };
+  //   if (typeof window !== "undefined") {
+  //     window.dispatchEvent(
+  //       new CustomEvent("app:open-property", { detail: { property, autoContact: true } })
+  //     );
+  //   }
+  // }
 
   function handleClear() {
     setLocation("");
@@ -336,7 +336,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
         {/* Content Container */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex flex-col lg:flex-row lg:items-center">
           <div className="w-full max-w-7xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
-            <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10 max-w-7xl mx-auto justify-center">
+            <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10 max-w-7xl mx-auto justify-center items-center">
               <div className="w-full text-center lg:text-left">
                 <h1
                   id="hero-heading"
@@ -365,8 +365,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                     exit={{ opacity: 0, x: -40 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                     className="w-full">
-                    <Card className="overflow-hidden bg-white/95 backdrop-blur-2xl border-white/80 shadow-sm ring-1 ring-black/10 py-0 border-none gap-2">
-                      <div className="relative w-full overflow-hidden group px-5 pb-5 pt-20 h-70 flex flex-col justify-end">
+                    <Card className="overflow-hidden bg-white/95 backdrop-blur-2xl border-white/80 shadow-sm ring-1 ring-black/10 py-0 border-none gap-2 w-3/4 mx-auto">
+                      <CardContent className="relative w-full overflow-hidden group px-5 pb-5 pt-20 h-80 flex flex-col justify-end">
                         <Image
                           src={featured.imageUrl}
                           alt={featured.title}
@@ -377,16 +377,16 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
-                        <div className="flex flex-col items-start justify-between gap-2">
+                        <div className="flex flex-col items-start justify-between gap-1.5">
                           <div className="inline-block rounded-full bg-gold px-5 py-2.5 text-base sm:text-lg font-bold shadow-xl ring-2 ring-white/30 text-white z-10">
                             {priceDisplay}
                           </div>
-                          <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-white drop-shadow-2xl leading-tight">
+                          <h3 className="text-xl sm:text-2xl font-heading font-bold text-white drop-shadow-2xl leading-tight">
                             {featured.title}
                           </h3>
 
-                          <div className="flex items-center justify-between w-full">
-                            <p className="text-sm sm:text-base text-white/95 flex items-center gap-2 mt-2 drop-shadow-lg font-medium">
+                          <div className="flex items-start justify-end w-full flex-col gap-1">
+                            <p className="text-sm sm:text-base text-white/95 flex items-center gap-2 drop-shadow-lg font-medium">
                               <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
                               <span className="truncate">{featured.address}</span>
                             </p>
@@ -406,13 +406,19 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                                 {featured.sqft.toLocaleString()} {t("labels.area", "m²")}
                               </span>
                             </div>
+                            <div className="w-full z-20 text-center">
+                              <Link
+                                href={`/${featured.slug}`}
+                                className="inline-flex bg-gold text-white hover:bg-gold/90 py-2 w-full sm:w-auto rounded shadow-lg hover:shadow-xl text-base px-6 font-semibold cursor-pointer transition-all duration-300 hover:scale-105 ring-2 ring-gold/30 hover:ring-gold/50 mt-2">
+                                {t("actions.viewDetails")}
+                              </Link>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </CardContent>
 
-                      <CardContent className="py-5 px-5 sm:px-6">
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                          <div className="flex items-center gap-3 min-w-0">
+                      {/* <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"> */}
+                      {/* <div className="flex items-center gap-3 min-w-0">
                             <Avatar className="h-12 w-12 ring-2 ring-gold/40 shadow-lg shrink-0">
                               <AvatarImage
                                 src={featured.agent.avatarUrl}
@@ -435,16 +441,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                                 {featured.agent.title ?? t("labels.agent", "Listing Agent")}
                               </p>
                             </div>
-                          </div>
-                          <div className="w-full sm:w-auto">
-                            <Link
-                              href={`/${featured.slug}`}
-                              className="inline-flex bg-gold text-white hover:bg-gold/90 py-2 w-full sm:w-auto rounded shadow-lg hover:shadow-xl text-base px-6 font-semibold cursor-pointer transition-all duration-300 hover:scale-105 ring-2 ring-gold/30 hover:ring-gold/50">
-                              View Details
-                            </Link>
-                          </div>
-                        </div>
-                      </CardContent>
+                          </div> */}
+                      {/* </div> */}
 
                       <CardFooter className="pt-0 px-5 sm:px-6 pb-5 md:hidden">
                         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm  font-semibold">
@@ -665,23 +663,15 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                   variant="ghost"
                   onClick={handleClear}
                   className="h-11 px-4 rounded text-base font-semibold hover:bg-white/20 transition-all cursor-pointer ring-2 ring-gold w-full"
-                  aria-label={t("actions.clearFilters", "Clear filters")}>
-                  <span className="hidden sm:inline">Clear</span>
-                  <span className="sm:hidden">Clear</span>
+                  aria-label={t("actions.clear", "Clear filters")}>
+                  <span className="hidden sm:inline">{t("actions.clear", "Clear")}</span>
+                  <span className="sm:hidden">{t("actions.clear", "Clear")}</span>
                 </Button>
               </div>
             </form>
           </CardContent>
         </Card>
       </div>
-
-      {/* <PropertyDetailsModal
-        gallery={detailsProperty?.images ?? []}
-        open={detailsOpen}
-        onOpenChange={setDetailsOpen}
-        property={detailsProperty}
-        autoOpenContact={autoOpenContact}
-      /> */}
     </>
   );
 }
