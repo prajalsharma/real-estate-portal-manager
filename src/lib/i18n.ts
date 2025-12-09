@@ -44,6 +44,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.moreFilters": "More filters",
     "actions.searchSubmitted": "Search submitted",
     "actions.viewDetails": "View details",
+    "actions.clear": "Clear",
 
     // Labels & units
     "labels.bed": "bd",
@@ -194,14 +195,30 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.goBack": "Go Back",
 
     // Contact Form
-    "contact.name": "Name",
-    "contact.email": "Email",
-    "contact.message": "Your Message",
-    "contact.nameRequired": "Name is required",
-    "contact.emailRequired": "Email is required",
-    "contact.messageRequired": "Message is required",
+    "contact.form.name": "Full Name",
+    "contact.form.email": "Email Address",
+    "contact.form.phone": "Phone Number",
+    "contact.form.message": "Your Message",
+    "contact.form.messagePlaceholder": "Tell us about your requirements...",
+    "contact.form.nameRequired": "Name is required",
+    "contact.form.emailRequired": "Email is required",
+    "contact.form.messageRequired": "Message is required",
     "contact.sendWhatsApp": "Send via WhatsApp",
     "contact.callUs": "Call Us",
+    "contact.title": "Get in Touch",
+    "contact.subtitle":
+      "Have questions about our properties? We're here to help you find your dream home in Halkidiki.",
+    "contact.form.title": "Send Us a Message",
+    "contact.form.description": "Fill out the form below and we'll respond as soon as possible.",
+    "contact.form.submit": "Submit",
+    "contact.info.title": "Contact Information",
+    "contact.info.description": "Reach out to us directly through any of these channels.",
+    "contact.info.phone": "Phone",
+    "contact.info.address": "Office Address",
+    "contact.info.hours": "Business Hours",
+    "contact.whatsapp": "Chat with us on WhatsApp",
+    "contact.map.title": "Find Us Here",
+    "contact.map.description": "Visit our office in beautiful Halkidiki, Greece.",
 
     // Footer
     "footer.description":
@@ -263,6 +280,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.moreFilters": "Περισσότερα φίλτρα",
     "actions.searchSubmitted": "Η αναζήτηση στάλθηκε",
     "actions.viewDetails": "Δείτε λεπτομέρειες",
+    "actions.clear": "Καθαρισμός",
 
     // Labels & units
     "labels.bed": "υπν",
@@ -413,14 +431,32 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.goBack": "Επιστροφή",
 
     // Contact Form
-    "contact.name": "Όνομα",
-    "contact.email": "Email",
-    "contact.message": "Το μήνυμά σας",
-    "contact.nameRequired": "Το όνομά είναι υποχρεωτικό",
-    "contact.emailRequired": "Το email είναι υποχρεωτικό",
-    "contact.messageRequired": "Το μήνυμα είναι υποχρεωτικό",
+    "contact.form.name": "Πλήρες όνομα",
+    "contact.form.email": "Διεύθυνση email",
+    "contact.form.phone": "Αριθμός τηλεφώνου",
+    "contact.form.message": "Το μήνυμά σας",
+    "contact.form.messagePlaceholder": "Πείτε μας για τις απαιτήσεις σας...",
+    "contact.form.nameRequired": "Το όνομα είναι υποχρεωτικό",
+    "contact.form.emailRequired": "Το email είναι υποχρεωτικό",
+    "contact.form.messageRequired": "Το μήνυμα είναι υποχρεωτικό",
     "contact.sendWhatsApp": "Αποστολή μέσω WhatsApp",
     "contact.callUs": "Καλέστε μας",
+    "contact.title": "Επικοινωνήστε μαζί μας",
+    "contact.subtitle":
+      "Έχετε ερωτήσεις σχετικά με τα ακίνητά μας; Είμαστε εδώ για να σας βοηθήσουμε να βρείτε το σπίτι των ονείρων σας στη Χαλκιδική.",
+    "contact.form.title": "Στείλτε μας ένα μήνυμα",
+    "contact.form.description":
+      "Συμπληρώστε τη φόρμα παρακάτω και θα απαντήσουμε το συντομότερο δυνατό.",
+    "contact.form.submit": "Υποβολή",
+    "contact.info.title": "Στοιχεία Επικοινωνίας",
+    "contact.info.description":
+      "Επικοινωνήστε απευθείας μαζί μας μέσω οποιουδήποτε από αυτά τα κανάλια.",
+    "contact.info.phone": "Τηλέφωνο",
+    "contact.info.address": "Διεύθυνση Γραφείου",
+    "contact.info.hours": "Ώρες λειτουργίας",
+    "contact.whatsapp": "Συνομιλήστε μαζί μας στο WhatsApp",
+    "contact.map.title": "Βρείτε μας εδώ",
+    "contact.map.description": "Επισκεφθείτε το γραφείο μας στην όμορφη Χαλκιδική, Ελλάδα.",
 
     // Footer
     "footer.description":
@@ -481,6 +517,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.moreFilters": "Више филтера",
     "actions.searchSubmitted": "Претрага послата",
     "actions.viewDetails": "Погледај детаље",
+    "actions.clear": "Очисти",
 
     // Labels & units
     "labels.bed": "кр",
@@ -631,14 +668,30 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.goBack": "Назад",
 
     // Contact Form
-    "contact.name": "Име",
-    "contact.email": "Email",
-    "contact.message": "Ваша порука",
-    "contact.nameRequired": "Име је обавезно",
-    "contact.emailRequired": "Email је обавезан",
-    "contact.messageRequired": "Порука је обавезна",
-    "contact.sendWhatsApp": "Пошаљи преко WhatsApp",
+    "contact.form.name": "Пуно име",
+    "contact.form.email": "Адреса е-поште",
+    "contact.form.phone": "Број телефона",
+    "contact.form.message": "Ваша порука",
+    "contact.form.messagePlaceholder": "Реците нам о вашим захтевима...",
+    "contact.form.nameRequired": "Име је обавезно",
+    "contact.form.emailRequired": "Е-пошта је обавезна",
+    "contact.form.messageRequired": "Порука је обавезна",
+    "contact.sendWhatsApp": "Пошаљи преко WhatsApp-а",
     "contact.callUs": "Позовите нас",
+    "contact.title": "Контактирајте нас",
+    "contact.subtitle":
+      "Имате питања о нашим некретнинама? Овде смо да вам помогнемо да пронађете дом из снова у Халкидикију.",
+    "contact.form.title": "Пошаљите нам поруку",
+    "contact.form.description": "Попуните доњу форму и одговорићемо вам што је пре могуће.",
+    "contact.form.submit": "Пошаљи",
+    "contact.info.title": "Контакт информације",
+    "contact.info.description": "Контактирајте нас директно путем било ког од ових канала.",
+    "contact.info.phone": "Телефон",
+    "contact.info.address": "Адреса канцеларије",
+    "contact.info.hours": "Радно време",
+    "contact.whatsapp": "Ћаскајте са нама на WhatsApp-у",
+    "contact.map.title": "Пронађите нас овде",
+    "contact.map.description": "Посетите нашу канцеларију у прелепом Халкидикију, Грчка.",
 
     // Footer
     "footer.description":
@@ -700,6 +753,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.moreFilters": "Больше фильтров",
     "actions.searchSubmitted": "Поиск отправлен",
     "actions.viewDetails": "Посмотреть детали",
+    "actions.clear": "Очистить",
 
     // Labels & units
     "labels.bed": "сп",
@@ -850,14 +904,30 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.goBack": "Назад",
 
     // Contact Form
-    "contact.name": "Имя",
-    "contact.email": "Email",
-    "contact.message": "Ваше сообщение",
-    "contact.nameRequired": "Имя обязательно",
-    "contact.emailRequired": "Email обязателен",
-    "contact.messageRequired": "Сообщение обязательно",
+    "contact.form.name": "Полное имя",
+    "contact.form.email": "Адрес электронной почты",
+    "contact.form.phone": "Номер телефона",
+    "contact.form.message": "Ваше сообщение",
+    "contact.form.messagePlaceholder": "Расскажите нам о ваших требованиях...",
+    "contact.form.nameRequired": "Имя обязательно",
+    "contact.form.emailRequired": "Электронная почта обязательна",
+    "contact.form.messageRequired": "Сообщение обязательно",
     "contact.sendWhatsApp": "Отправить через WhatsApp",
     "contact.callUs": "Позвоните нам",
+    "contact.title": "Свяжитесь с нами",
+    "contact.subtitle":
+      "Есть вопросы о нашей недвижимости? Мы здесь, чтобы помочь вам найти дом вашей мечты в Халкидики.",
+    "contact.form.title": "Отправьте нам сообщение",
+    "contact.form.description": "Заполните форму ниже, и мы ответим вам как можно скорее.",
+    "contact.form.submit": "Отправить",
+    "contact.info.title": "Контактная информация",
+    "contact.info.description": "Свяжитесь с нами напрямую через любой из этих каналов.",
+    "contact.info.phone": "Телефон",
+    "contact.info.address": "Адрес офиса",
+    "contact.info.hours": "Часы работы",
+    "contact.whatsapp": "Чат с нами в WhatsApp",
+    "contact.map.title": "Найдите нас здесь",
+    "contact.map.description": "Посетите наш офис в прекрасном Халкидики, Греция.",
 
     // Footer
     "footer.description":
@@ -919,6 +989,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "actions.moreFilters": "Още филтри",
     "actions.searchSubmitted": "Търсенето е изпратено",
     "actions.viewDetails": "Виж детайли",
+    "actions.clear": "Изчисти",
 
     // Labels & units
     "labels.bed": "сп",
@@ -1069,14 +1140,31 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.goBack": "Назад",
 
     // Contact Form
-    "contact.name": "Име",
-    "contact.email": "Email",
-    "contact.message": "Вашето съобщение",
-    "contact.nameRequired": "Името е задължително",
-    "contact.emailRequired": "Email е задължителен",
-    "contact.messageRequired": "Съобщението е задължително",
+    "contact.form.name": "Пълно име",
+    "contact.form.email": "Имейл адрес",
+    "contact.form.phone": "Телефонен номер",
+    "contact.form.message": "Вашето съобщение",
+    "contact.form.messagePlaceholder": "Разкажете ни за вашите изисквания...",
+    "contact.form.nameRequired": "Името е задължително",
+    "contact.form.emailRequired": "Имейлът е задължителен",
+    "contact.form.messageRequired": "Съобщението е задължително",
     "contact.sendWhatsApp": "Изпрати чрез WhatsApp",
     "contact.callUs": "Обадете ни се",
+    "contact.title": "Свържете се с нас",
+    "contact.subtitle":
+      "Имате въпроси относно нашите имоти? Тук сме, за да ви помогнем да намерите дома на мечтите си в Халкидики.",
+    "contact.form.title": "Изпратете ни съобщение",
+    "contact.form.description":
+      "Попълнете формата по-долу и ние ще ви отговорим възможно най-скоро.",
+    "contact.form.submit": "Изпрати",
+    "contact.info.title": "Контактна информация",
+    "contact.info.description": "Свържете се с нас директно чрез някой от тези канали.",
+    "contact.info.phone": "Телефон",
+    "contact.info.address": "Адрес на офиса",
+    "contact.info.hours": "Работно време",
+    "contact.whatsapp": "Чат с нас в WhatsApp",
+    "contact.map.title": "Намерете ни тук",
+    "contact.map.description": "Посетете нашия офис в красивия Халкидики, Гърция.",
 
     // Footer
     "footer.description":

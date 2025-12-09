@@ -227,7 +227,7 @@ export default function ContactPage() {
                     </div>
                     <div className="min-w-0">
                       <h3 className="font-bold text-foreground mb-1">
-                        {t("contact.info.email", "Email")}
+                        {t("contact.form.email", "Email")}
                       </h3>
                       <a
                         href="mailto:info@spasicrealestate.com"
