@@ -33,6 +33,7 @@ import { useRates } from "@/lib/hooks/use-rates";
 import { formatter } from "@/lib/priceFormatter";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export default function PropertyDetailsPage() {
   const pathname = usePathname();
@@ -50,9 +51,24 @@ export default function PropertyDetailsPage() {
   const [contactDetails, setContactDetails] = useState({ name: "", email: "", message: "" });
   const [formErrors, setFormErrors] = useState({ name: false, email: false, message: false });
 
+  // Get current URL for sharing (client-side only)
+  const [currentUrl, setCurrentUrl] = useState<string>("");
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
   const t = useT();
 
   const inquiryPlaceholder = t("contact.placeholder", "e.g., I'd like to schedule a viewing.");
+
+  // Translate property description based on selected language
+  const { translatedText: translatedDescription, loading: translationLoading } = useTranslation(
+    property?.description || null,
+    language
+  );
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -92,7 +108,9 @@ export default function PropertyDetailsPage() {
     const cleanPhone = agentPhone.replace(/[^0-9]/g, "");
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
 
-    window.open(whatsappUrl, "_blank");
+    if (typeof window !== "undefined") {
+      window.open(whatsappUrl, "_blank");
+    }
 
     setContactDetails({ name: "", email: "", message: "" });
     setFormErrors({ name: false, email: false, message: false });
@@ -296,7 +314,11 @@ export default function PropertyDetailsPage() {
             {error || `The property with slug "${propertySlug}" could not be found.`}
           </p>
           <button
-            onClick={() => window.history.back()}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.history.back();
+              }
+            }}
             className="mt-4 px-4 py-2 bg-gold text-white rounded hover:bg-gold/90">
             Go Back
           </button>
@@ -409,13 +431,15 @@ export default function PropertyDetailsPage() {
                           <div className="flex gap-2">
                             <input
                               type="text"
-                              value={window.location.href}
+                              value={currentUrl}
                               readOnly
                               className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm"
                             />
                             <button
                               onClick={() => {
-                                navigator.clipboard.writeText(window.location.href);
+                                if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+                                  navigator.clipboard.writeText(currentUrl);
+                                }
                               }}
                               className="px-4 py-2 bg-gold text-white rounded hover:bg-gold/80 transition-colors text-sm font-medium">
                               <Clipboard className="size-4" aria-hidden="true" />
@@ -425,7 +449,7 @@ export default function PropertyDetailsPage() {
 
                         <div className="grid grid-cols-2 gap-2">
                           <Link
-                            href={`https://wa.me/?text=Check out this property: ${property.title} - ${window.location.href}`}
+                            href={`https://wa.me/?text=Check out this property: ${property.title} - ${currentUrl || ""}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
@@ -438,7 +462,7 @@ export default function PropertyDetailsPage() {
                           </Link>
 
                           <Link
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl || "")}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
@@ -451,7 +475,7 @@ export default function PropertyDetailsPage() {
                           </Link>
 
                           <Link
-                            href={`https://twitter.com/intent/tweet?text=Check out this property: ${property.title}&url=${encodeURIComponent(window.location.href)}`}
+                            href={`https://twitter.com/intent/tweet?text=Check out this property: ${property.title}&url=${encodeURIComponent(currentUrl || "")}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-4 px-5 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
@@ -464,7 +488,7 @@ export default function PropertyDetailsPage() {
                           </Link>
 
                           <Link
-                            href={`mailto:?subject=Property: ${property.title}&body=I found this property that might interest you: ${window.location.href}`}
+                            href={`mailto:?subject=Property: ${property.title}&body=I found this property that might interest you: ${currentUrl || ""}`}
                             className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm hover:bg-gray-200 transition-colors">
                             <div className="size-8 rounded-full flex items-center justify-center">
                               <Mail className="text-black size-full" aria-hidden="true" />
@@ -510,10 +534,19 @@ export default function PropertyDetailsPage() {
                     </div>
                   </div>
                 </div>
-                {property.description && (
+                {(translatedDescription || property.description) && (
                   <div className="mt-8">
                     <h2 className="text-xl font-semibold mb-3">Description</h2>
-                    <p className="text-gray-700 leading-relaxed">{property.description}</p>
+                    {translationLoading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gold"></div>
+                        <p className="text-gray-500 text-sm">Translating...</p>
+                      </div>
+                    ) : (
+                      <p className="text-gray-700 leading-relaxed">
+                        {translatedDescription || property.description}
+                      </p>
+                    )}
                   </div>
                 )}
 
