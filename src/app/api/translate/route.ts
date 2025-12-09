@@ -58,7 +58,7 @@ async function translateWithOpenAI(
         messages: [
           {
             role: "system",
-            content: `You are a professional translator. Translate the following real estate property description to ${targetLanguageName}. Maintain the same tone and format. Only return the translated text, no explanations.`,
+            content: `You are a professional translator. Translate the following real estate property description to ${targetLanguageName}. The text may be in any language - detect the source language and translate it to ${targetLanguageName}. Maintain the same tone, format, and structure. Only return the translated text, no explanations or additional text.`,
           },
           {
             role: "user",
@@ -130,25 +130,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // If target language is English, return original text
-    if (targetLanguage === "en") {
-      const result = {
-        translation: text,
-        cached: false,
-        language: targetLanguage,
-      };
-
-      // Cache the result
-      translationCache[cacheKey] = {
-        translation: text,
-        timestamp: Date.now(),
-        expiresAt: Date.now() + CACHE_TTL_MS,
-      };
-
-      return NextResponse.json(result);
-    }
-
-    // Translate using OpenAI
+    // Always translate using OpenAI, even for English
+    // This ensures text in other languages (like Serbian) gets translated to English
     const translation = await translateWithOpenAI(text, targetLanguage);
 
     // Cache the result

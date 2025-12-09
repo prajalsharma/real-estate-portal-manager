@@ -35,11 +35,7 @@ export function useTranslation(text: string | null | undefined, language: Suppor
         return;
       }
 
-      // If language is English, return original text
-      if (targetLang === "en") {
-        setTranslatedText(textToTranslate);
-        return;
-      }
+      // Always translate, even for English, since the source text might be in another language
 
       // Check client-side cache first
       const cacheKey = getCacheKey(textToTranslate, targetLang);
