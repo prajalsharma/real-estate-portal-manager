@@ -33,6 +33,7 @@ import { useRates } from "@/lib/hooks/use-rates";
 import { formatter } from "@/lib/priceFormatter";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/hooks/use-translation";
 
 export default function PropertyDetailsPage() {
   const pathname = usePathname();
@@ -50,9 +51,103 @@ export default function PropertyDetailsPage() {
   const [contactDetails, setContactDetails] = useState({ name: "", email: "", message: "" });
   const [formErrors, setFormErrors] = useState({ name: false, email: false, message: false });
 
+  // Get current URL for sharing (client-side only)
+  const [currentUrl, setCurrentUrl] = useState<string>("");
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
   const t = useT();
 
   const inquiryPlaceholder = t("contact.placeholder", "e.g., I'd like to schedule a viewing.");
+
+  // Helper function to translate feature names and status values
+  const translateFeature = (featureName: string): string => {
+    // Map feature names to translation keys
+    const featureMap: Record<string, string> = {
+      // Status
+      "For Sale": "status.forSale",
+      "For Rent": "status.forRent",
+      "Sold": "status.sold",
+      "Rented": "status.rented",
+      // Interior Features
+      "Internal staircase": "features.internalStaircase",
+      "Air conditioning": "features.airConditioning",
+      "Solar water heater": "features.solarWaterHeater",
+      "Security door": "features.securityDoor",
+      "Double glassboard": "features.doubleGlassboard",
+      "Sites": "features.sites",
+      "Bright": "features.bright",
+      "Diaspora": "features.diaspora",
+      "Stained": "features.stained",
+      "Asan elevator": "features.asanElevator",
+      "Furnished": "features.furnished",
+      "Fireplace": "features.fireplace",
+      "Intra-deposits heating": "features.intraDepositsHeating",
+      "Night current": "features.nightCurrent",
+      "Warehouse": "features.warehouse",
+      "Sofa": "features.sofa",
+      "Playroom": "features.playroom",
+      "Satellite antenna": "features.satelliteAntenna",
+      "Alarm": "features.alarm",
+      "Reception with a doorman": "features.receptionWithDoorman",
+      "Electric car charging facilities": "features.electricCarCharging",
+      "Luxurious": "features.luxurious",
+      // External Features
+      "Balcony": "features.balcony",
+      "Private Garden": "features.privateGarden",
+      "Swimming pool": "features.swimmingPool",
+      "Careful": "features.careful",
+      "Parking": "features.parking",
+      "Tentes": "features.tentes",
+      "Built-in BBQ": "features.builtInBBQ",
+      "View": "features.view",
+      "Access for America": "features.accessForAmerica",
+      "Corner": "features.corner",
+      // Construction Features
+      "Semi-finished": "features.semiFinished",
+      "Ceiling apartment": "features.ceilingApartment",
+      "Renovated": "features.renovated",
+      "It swells renovation": "features.itSwellsRenovation",
+      "Neoclassic": "features.neoclassic",
+      "Maintain": "features.maintain",
+      "Subzafos": "features.subzafos",
+      "Need renovation": "features.needRenovation",
+      "Under construction": "features.underConstruction",
+      // Suitable For
+      "Holiday": "suitableFor.holiday",
+      "Investment": "suitableFor.investment",
+      "Tourist rental": "suitableFor.touristRental",
+      "Student": "suitableFor.student",
+      "Professional use": "suitableFor.professionalUse",
+      "Clinic": "suitableFor.clinic",
+      // Property Types
+      "Apartment": "propertyTypes.apartment",
+      "Maisonette": "propertyTypes.maisonette",
+      "Commercial": "propertyTypes.commercial",
+      "Land": "propertyTypes.land",
+      "Rental Service": "propertyTypes.rental",
+      "Building": "propertyTypes.building",
+      "Hotel": "propertyTypes.hotel",
+      "Complex": "propertyTypes.complex",
+    };
+
+    const translationKey = featureMap[featureName];
+    if (translationKey) {
+      return t(translationKey, featureName);
+    }
+    // Fallback to original if no translation found
+    return featureName;
+  };
+
+  // Translate property description based on selected language
+  const { translatedText: translatedDescription, loading: translationLoading } = useTranslation(
+    property?.description || null,
+    language
+  );
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -92,7 +187,9 @@ export default function PropertyDetailsPage() {
     const cleanPhone = agentPhone.replace(/[^0-9]/g, "");
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
 
-    window.open(whatsappUrl, "_blank");
+    if (typeof window !== "undefined") {
+      window.open(whatsappUrl, "_blank");
+    }
 
     setContactDetails({ name: "", email: "", message: "" });
     setFormErrors({ name: false, email: false, message: false });
@@ -291,14 +388,18 @@ export default function PropertyDetailsPage() {
     return (
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl">
-          <h1 className="text-3xl font-bold mb-4 text-destructive">Property Not Found</h1>
+          <h1 className="text-3xl font-bold mb-4 text-destructive">{t("property.notFound")}</h1>
           <p className="text-muted-foreground">
             {error || `The property with slug "${propertySlug}" could not be found.`}
           </p>
           <button
-            onClick={() => window.history.back()}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.history.back();
+              }
+            }}
             className="mt-4 px-4 py-2 bg-gold text-white rounded hover:bg-gold/90">
-            Go Back
+            {t("property.goBack")}
           </button>
         </div>
       </section>
@@ -401,21 +502,23 @@ export default function PropertyDetailsPage() {
                     <DialogContent className="max-w-3xl p-0">
                       <DialogTitle className="sr-only">Share the property</DialogTitle>
                       <div className="p-6">
-                        <h2 className="text-xl font-semibold mb-6">Share this property</h2>
+                        <h2 className="text-xl font-semibold mb-6">{t("property.share")}</h2>
                         <div className="mb-6">
                           <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Property Link
+                            {t("property.propertyLink")}
                           </label>
                           <div className="flex gap-2">
                             <input
                               type="text"
-                              value={window.location.href}
+                              value={currentUrl}
                               readOnly
                               className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm"
                             />
                             <button
                               onClick={() => {
-                                navigator.clipboard.writeText(window.location.href);
+                                if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+                                  navigator.clipboard.writeText(currentUrl);
+                                }
                               }}
                               className="px-4 py-2 bg-gold text-white rounded hover:bg-gold/80 transition-colors text-sm font-medium">
                               <Clipboard className="size-4" aria-hidden="true" />
@@ -425,7 +528,7 @@ export default function PropertyDetailsPage() {
 
                         <div className="grid grid-cols-2 gap-2">
                           <Link
-                            href={`https://wa.me/?text=Check out this property: ${property.title} - ${window.location.href}`}
+                            href={`https://wa.me/?text=Check out this property: ${property.title} - ${currentUrl || ""}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
@@ -438,7 +541,7 @@ export default function PropertyDetailsPage() {
                           </Link>
 
                           <Link
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl || "")}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
@@ -451,7 +554,7 @@ export default function PropertyDetailsPage() {
                           </Link>
 
                           <Link
-                            href={`https://twitter.com/intent/tweet?text=Check out this property: ${property.title}&url=${encodeURIComponent(window.location.href)}`}
+                            href={`https://twitter.com/intent/tweet?text=Check out this property: ${property.title}&url=${encodeURIComponent(currentUrl || "")}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-4 px-5 py-2 border border-gray-200 rounded-sm transition-colors hover:bg-gray-200">
@@ -464,7 +567,7 @@ export default function PropertyDetailsPage() {
                           </Link>
 
                           <Link
-                            href={`mailto:?subject=Property: ${property.title}&body=I found this property that might interest you: ${window.location.href}`}
+                            href={`mailto:?subject=Property: ${property.title}&body=I found this property that might interest you: ${currentUrl || ""}`}
                             className="flex items-center gap-3 px-4 py-2 border border-gray-200 rounded-sm hover:bg-gray-200 transition-colors">
                             <div className="size-8 rounded-full flex items-center justify-center">
                               <Mail className="text-black size-full" aria-hidden="true" />
@@ -510,38 +613,47 @@ export default function PropertyDetailsPage() {
                     </div>
                   </div>
                 </div>
-                {property.description && (
+                {(translatedDescription || property.description) && (
                   <div className="mt-8">
-                    <h2 className="text-xl font-semibold mb-3">Description</h2>
-                    <p className="text-gray-700 leading-relaxed">{property.description}</p>
+                    <h2 className="text-xl font-semibold mb-3">{t("property.description")}</h2>
+                    {translationLoading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gold"></div>
+                        <p className="text-gray-500 text-sm">{t("property.translating")}</p>
+                      </div>
+                    ) : (
+                      <p className="text-gray-700 leading-relaxed">
+                        {translatedDescription || property.description}
+                      </p>
+                    )}
                   </div>
                 )}
 
                 <div className="mt-8">
-                  <h2 className="text-xl font-semibold mb-6">Features</h2>
+                  <h2 className="text-xl font-semibold mb-6">{t("property.features")}</h2>
                   <div className="bg-gray-50 rounded-lg border">
                     <div className="grid">
-                      {priceDisplay && <FeatureDetail label="Price" value={priceDisplay} />}
+                      {priceDisplay && <FeatureDetail label={t("property.price")} value={priceDisplay} />}
                       {pricePerSqftDisplay && (
-                        <FeatureDetail label="Price per sq m." value={pricePerSqftDisplay} />
+                        <FeatureDetail label={t("property.pricePerSqM")} value={pricePerSqftDisplay} />
                       )}
-                      <FeatureDetail label="Area" value={`${property.sqft} sq.m.`} />
+                      <FeatureDetail label={t("property.area")} value={`${property.sqft} sq.m.`} />
                       {property.lotSize !== null &&
                         property.lotSize !== undefined &&
                         property.lotSize > 0 && (
-                          <FeatureDetail label="Plot Size" value={`${property.lotSize} sq.m.`} />
+                          <FeatureDetail label={t("property.plotSize")} value={`${property.lotSize} sq.m.`} />
                         )}
-                      <FeatureDetail label="Property Type" value={property.propertyType} />
-                      <FeatureDetail label="Bedrooms" value={property.beds} />
-                      <FeatureDetail label="Bathrooms" value={property.baths} />
+                      <FeatureDetail label={t("property.propertyType")} value={translateFeature(property.propertyType)} />
+                      <FeatureDetail label={t("property.bedrooms")} value={property.beds} />
+                      <FeatureDetail label={t("property.bathrooms")} value={property.baths} />
                       {property.yearBuilt ? (
-                        <FeatureDetail label="Year of construction" value={property.yearBuilt} />
+                        <FeatureDetail label={t("property.yearBuilt")} value={property.yearBuilt} />
                       ) : (
-                        <FeatureDetail label="Year of construction" value="Under construction" />
+                        <FeatureDetail label={t("property.yearBuilt")} value={t("property.underConstruction")} />
                       )}
-                      <FeatureDetail label="Status" value={property.status} />
+                      <FeatureDetail label={t("property.status")} value={translateFeature(property.status)} />
                       <FeatureDetail
-                        label="Last Updated"
+                        label={t("property.lastUpdated")}
                         value={updatedAt.toLocaleDateString("en-GB", {
                           year: "numeric",
                           month: "numeric",
@@ -552,13 +664,13 @@ export default function PropertyDetailsPage() {
                   </div>
                 </div>
 
-                <FeatureBlock title="Interior" items={property.interiorFeatures || []} />
-                <FeatureBlock title="External Features" items={property.externalFeatures || []} />
-                <FeatureBlock title="Construction" items={property.construction || []} />
-                <FeatureBlock title="Suitable for" items={property.suitableFor || []} />
+                <FeatureBlock title={t("property.interior")} items={property.interiorFeatures || []} translateFeature={translateFeature} />
+                <FeatureBlock title={t("property.externalFeatures")} items={property.externalFeatures || []} translateFeature={translateFeature} />
+                <FeatureBlock title={t("property.construction")} items={property.construction || []} translateFeature={translateFeature} />
+                <FeatureBlock title={t("property.suitableFor")} items={property.suitableFor || []} translateFeature={translateFeature} />
 
                 <div className="mt-8">
-                  <h2 className="text-xl font-semibold">Location</h2>
+                  <h2 className="text-xl font-semibold">{t("property.location")}</h2>
                   <div className="mb-4">
                     <address className="not-italic flex flex-col text-base">
                       <span>
@@ -614,10 +726,10 @@ export default function PropertyDetailsPage() {
                 <form
                   onSubmit={handleWhatsAppSubmit}
                   className="sticky top-20 bg-white px-4 py-6 border rounded-lg shadow-lg">
-                  <h2 className="text-xl font-semibold mb-3">Interested in this property?</h2>
+                  <h2 className="text-xl font-semibold mb-3">{t("property.interested")}</h2>
                   <div className="mb-4">
                     <Label htmlFor="name" className="mb-0.5">
-                      Name
+                      {t("contact.name")}
                     </Label>
                     <Input
                       id="name"
@@ -631,10 +743,10 @@ export default function PropertyDetailsPage() {
                       }}
                     />
                     {formErrors.name && (
-                      <p className="text-red-500 text-xs mt-1">Name is required</p>
+                      <p className="text-red-500 text-xs mt-1">{t("contact.nameRequired")}</p>
                     )}
                     <Label htmlFor="email" className="mt-4 mb-0.5">
-                      Email
+                      {t("contact.email")}
                     </Label>
                     <Input
                       id="email"
@@ -648,12 +760,12 @@ export default function PropertyDetailsPage() {
                       }}
                     />
                     {formErrors.email && (
-                      <p className="text-red-500 text-xs mt-1">Email is required</p>
+                      <p className="text-red-500 text-xs mt-1">{t("contact.emailRequired")}</p>
                     )}
                   </div>
                   <div className="mb-6">
                     <Label htmlFor="sidebar-message" className="mb-0.5">
-                      Your Message
+                      {t("contact.message")}
                     </Label>
                     <Textarea
                       id="sidebar-message"
@@ -667,7 +779,7 @@ export default function PropertyDetailsPage() {
                       }}
                     />
                     {formErrors.message && (
-                      <p className="text-red-500 text-xs mt-1">Message is required</p>
+                      <p className="text-red-500 text-xs mt-1">{t("contact.messageRequired")}</p>
                     )}
                   </div>
                   <div className="space-y-3">
@@ -675,14 +787,14 @@ export default function PropertyDetailsPage() {
                       type="submit"
                       className="w-full bg-gold hover:bg-gold/80 text-white font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2">
                       <span className="flex gap-2 items-center">
-                        <Send className="size-4 text-white" /> Send via WhatsApp
+                        <Send className="size-4 text-white" /> {t("contact.sendWhatsApp")}
                       </span>
                     </button>
                     <a
                       href={`tel:${property?.agent?.phone || "+1234567890"}`}
                       className="w-full bg-white hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2 border border-gray-300">
                       <Phone className="size-4 text-gold" />
-                      <span>Call Us</span>
+                      <span>{t("contact.callUs")}</span>
                     </a>
                   </div>
                 </form>
@@ -757,7 +869,7 @@ function FeatureDetail({ label, value }: { label: string; value: string | number
   );
 }
 
-function FeatureBlock({ title, items }: { title: string; items: string[] }) {
+function FeatureBlock({ title, items, translateFeature }: { title: string; items: string[]; translateFeature: (feature: string) => string }) {
   return (
     <div className="mt-8">
       <h2 className="text-xl font-semibold mb-6">{title}</h2>
@@ -765,9 +877,9 @@ function FeatureBlock({ title, items }: { title: string; items: string[] }) {
         {items.map((feature, index) => (
           <div
             key={index}
-            className={`flex items-center gap-2 rounded py-2 ${title === "Suitable for" ? "border border-gray-300 justify-center" : ""}`}>
-            {title !== "Suitable for" && <Diamond className="size-5 text-gold shrink-0" />}
-            <span className="text-gray-700">{feature}</span>
+            className={`flex items-center gap-2 rounded py-2 ${title.includes("Suitable") ? "border border-gray-300 justify-center" : ""}`}>
+            {!title.includes("Suitable") && <Diamond className="size-5 text-gold shrink-0" />}
+            <span className="text-gray-700">{translateFeature(feature)}</span>
           </div>
         ))}
       </div>

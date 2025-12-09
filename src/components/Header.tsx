@@ -33,15 +33,13 @@ type HeaderProps = {
 };
 
 const NAV_ITEMS = [
- 
- { label: "Apartments", href: "/apartments" },
-  { label: "Maisonettes", href: "/maisonettes" },
-  { label: "Commercial", href: "/commercial" },
-  { label: "Land", href: "/land" },
-  { label: "Rental Service", href: "/rent" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" }
-
+  { label: "nav.apartments", href: "/apartments" },
+  { label: "nav.maisonettes", href: "/maisonettes" },
+  { label: "nav.commercial", href: "/commercial" },
+  { label: "nav.land", href: "/land" },
+  { label: "nav.rentalService", href: "/rent" },
+  { label: "nav.aboutUs", href: "/about" },
+  { label: "nav.contactUs", href: "/contact" },
 ];
 
 const LANGUAGES: { label: string; value: HeaderProps["initialLanguage"] }[] = [

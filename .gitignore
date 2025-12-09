@@ -3,6 +3,7 @@
 
 .env.local
 .env
+.env.local.example
 
 # dependencies
 /node_modules
