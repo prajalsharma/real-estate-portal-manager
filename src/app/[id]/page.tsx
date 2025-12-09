@@ -53,7 +53,7 @@ export default function PropertyDetailsPage() {
 
   // Get current URL for sharing (client-side only)
   const [currentUrl, setCurrentUrl] = useState<string>("");
-  
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setCurrentUrl(window.location.href);
@@ -71,68 +71,68 @@ export default function PropertyDetailsPage() {
       // Status
       "For Sale": "status.forSale",
       "For Rent": "status.forRent",
-      "Sold": "status.sold",
-      "Rented": "status.rented",
+      Sold: "status.sold",
+      Rented: "status.rented",
       // Interior Features
       "Internal staircase": "features.internalStaircase",
       "Air conditioning": "features.airConditioning",
       "Solar water heater": "features.solarWaterHeater",
       "Security door": "features.securityDoor",
       "Double glassboard": "features.doubleGlassboard",
-      "Sites": "features.sites",
-      "Bright": "features.bright",
-      "Diaspora": "features.diaspora",
-      "Stained": "features.stained",
+      Sites: "features.sites",
+      Bright: "features.bright",
+      Diaspora: "features.diaspora",
+      Stained: "features.stained",
       "Asan elevator": "features.asanElevator",
-      "Furnished": "features.furnished",
-      "Fireplace": "features.fireplace",
+      Furnished: "features.furnished",
+      Fireplace: "features.fireplace",
       "Intra-deposits heating": "features.intraDepositsHeating",
       "Night current": "features.nightCurrent",
-      "Warehouse": "features.warehouse",
-      "Sofa": "features.sofa",
-      "Playroom": "features.playroom",
+      Warehouse: "features.warehouse",
+      Sofa: "features.sofa",
+      Playroom: "features.playroom",
       "Satellite antenna": "features.satelliteAntenna",
-      "Alarm": "features.alarm",
+      Alarm: "features.alarm",
       "Reception with a doorman": "features.receptionWithDoorman",
       "Electric car charging facilities": "features.electricCarCharging",
-      "Luxurious": "features.luxurious",
+      Luxurious: "features.luxurious",
       // External Features
-      "Balcony": "features.balcony",
+      Balcony: "features.balcony",
       "Private Garden": "features.privateGarden",
       "Swimming pool": "features.swimmingPool",
-      "Careful": "features.careful",
-      "Parking": "features.parking",
-      "Tentes": "features.tentes",
+      Careful: "features.careful",
+      Parking: "features.parking",
+      Tentes: "features.tentes",
       "Built-in BBQ": "features.builtInBBQ",
-      "View": "features.view",
+      View: "features.view",
       "Access for America": "features.accessForAmerica",
-      "Corner": "features.corner",
+      Corner: "features.corner",
       // Construction Features
       "Semi-finished": "features.semiFinished",
       "Ceiling apartment": "features.ceilingApartment",
-      "Renovated": "features.renovated",
+      Renovated: "features.renovated",
       "It swells renovation": "features.itSwellsRenovation",
-      "Neoclassic": "features.neoclassic",
-      "Maintain": "features.maintain",
-      "Subzafos": "features.subzafos",
+      Neoclassic: "features.neoclassic",
+      Maintain: "features.maintain",
+      Subzafos: "features.subzafos",
       "Need renovation": "features.needRenovation",
       "Under construction": "features.underConstruction",
       // Suitable For
-      "Holiday": "suitableFor.holiday",
-      "Investment": "suitableFor.investment",
+      Holiday: "suitableFor.holiday",
+      Investment: "suitableFor.investment",
       "Tourist rental": "suitableFor.touristRental",
-      "Student": "suitableFor.student",
+      Student: "suitableFor.student",
       "Professional use": "suitableFor.professionalUse",
-      "Clinic": "suitableFor.clinic",
+      Clinic: "suitableFor.clinic",
       // Property Types
-      "Apartment": "propertyTypes.apartment",
-      "Maisonette": "propertyTypes.maisonette",
-      "Commercial": "propertyTypes.commercial",
-      "Land": "propertyTypes.land",
+      Apartment: "propertyTypes.apartment",
+      Maisonette: "propertyTypes.maisonette",
+      Commercial: "propertyTypes.commercial",
+      Land: "propertyTypes.land",
       "Rental Service": "propertyTypes.rental",
-      "Building": "propertyTypes.building",
-      "Hotel": "propertyTypes.hotel",
-      "Complex": "propertyTypes.complex",
+      Building: "propertyTypes.building",
+      Hotel: "propertyTypes.hotel",
+      Complex: "propertyTypes.complex",
     };
 
     const translationKey = featureMap[featureName];
@@ -516,7 +516,10 @@ export default function PropertyDetailsPage() {
                             />
                             <button
                               onClick={() => {
-                                if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+                                if (
+                                  typeof window !== "undefined" &&
+                                  typeof navigator !== "undefined"
+                                ) {
                                   navigator.clipboard.writeText(currentUrl);
                                 }
                               }}
@@ -633,25 +636,42 @@ export default function PropertyDetailsPage() {
                   <h2 className="text-xl font-semibold mb-6">{t("property.features")}</h2>
                   <div className="bg-gray-50 rounded-lg border">
                     <div className="grid">
-                      {priceDisplay && <FeatureDetail label={t("property.price")} value={priceDisplay} />}
+                      {priceDisplay && (
+                        <FeatureDetail label={t("property.price")} value={priceDisplay} />
+                      )}
                       {pricePerSqftDisplay && (
-                        <FeatureDetail label={t("property.pricePerSqM")} value={pricePerSqftDisplay} />
+                        <FeatureDetail
+                          label={t("property.pricePerSqM")}
+                          value={pricePerSqftDisplay}
+                        />
                       )}
                       <FeatureDetail label={t("property.area")} value={`${property.sqft} sq.m.`} />
                       {property.lotSize !== null &&
                         property.lotSize !== undefined &&
                         property.lotSize > 0 && (
-                          <FeatureDetail label={t("property.plotSize")} value={`${property.lotSize} sq.m.`} />
+                          <FeatureDetail
+                            label={t("property.plotSize")}
+                            value={`${property.lotSize} sq.m.`}
+                          />
                         )}
-                      <FeatureDetail label={t("property.propertyType")} value={translateFeature(property.propertyType)} />
+                      <FeatureDetail
+                        label={t("property.propertyType")}
+                        value={translateFeature(property.propertyType)}
+                      />
                       <FeatureDetail label={t("property.bedrooms")} value={property.beds} />
                       <FeatureDetail label={t("property.bathrooms")} value={property.baths} />
                       {property.yearBuilt ? (
                         <FeatureDetail label={t("property.yearBuilt")} value={property.yearBuilt} />
                       ) : (
-                        <FeatureDetail label={t("property.yearBuilt")} value={t("property.underConstruction")} />
+                        <FeatureDetail
+                          label={t("property.yearBuilt")}
+                          value={t("property.underConstruction")}
+                        />
                       )}
-                      <FeatureDetail label={t("property.status")} value={translateFeature(property.status)} />
+                      <FeatureDetail
+                        label={t("property.status")}
+                        value={translateFeature(property.status)}
+                      />
                       <FeatureDetail
                         label={t("property.lastUpdated")}
                         value={updatedAt.toLocaleDateString("en-GB", {
@@ -664,10 +684,26 @@ export default function PropertyDetailsPage() {
                   </div>
                 </div>
 
-                <FeatureBlock title={t("property.interior")} items={property.interiorFeatures || []} translateFeature={translateFeature} />
-                <FeatureBlock title={t("property.externalFeatures")} items={property.externalFeatures || []} translateFeature={translateFeature} />
-                <FeatureBlock title={t("property.construction")} items={property.construction || []} translateFeature={translateFeature} />
-                <FeatureBlock title={t("property.suitableFor")} items={property.suitableFor || []} translateFeature={translateFeature} />
+                <FeatureBlock
+                  title={t("property.interior")}
+                  items={property.interiorFeatures || []}
+                  translateFeature={translateFeature}
+                />
+                <FeatureBlock
+                  title={t("property.externalFeatures")}
+                  items={property.externalFeatures || []}
+                  translateFeature={translateFeature}
+                />
+                <FeatureBlock
+                  title={t("property.construction")}
+                  items={property.construction || []}
+                  translateFeature={translateFeature}
+                />
+                <FeatureBlock
+                  title={t("property.suitableFor")}
+                  items={property.suitableFor || []}
+                  translateFeature={translateFeature}
+                />
 
                 <div className="mt-8">
                   <h2 className="text-xl font-semibold">{t("property.location")}</h2>
@@ -787,7 +823,8 @@ export default function PropertyDetailsPage() {
                       type="submit"
                       className="w-full bg-gold hover:bg-gold/80 text-white font-semibold py-3 px-4 rounded transition-colors cursor-pointer flex items-center justify-center gap-2">
                       <span className="flex gap-2 items-center">
-                        <Send className="size-4 text-white" /> {t("contact.sendWhatsApp")}
+                        <img src="/whatsapp.svg" alt="" className="size-6 invert-100" />{" "}
+                        {t("contact.sendWhatsApp")}
                       </span>
                     </button>
                     <a
@@ -869,7 +906,15 @@ function FeatureDetail({ label, value }: { label: string; value: string | number
   );
 }
 
-function FeatureBlock({ title, items, translateFeature }: { title: string; items: string[]; translateFeature: (feature: string) => string }) {
+function FeatureBlock({
+  title,
+  items,
+  translateFeature,
+}: {
+  title: string;
+  items: string[];
+  translateFeature: (feature: string) => string;
+}) {
   return (
     <div className="mt-8">
       <h2 className="text-xl font-semibold mb-6">{title}</h2>

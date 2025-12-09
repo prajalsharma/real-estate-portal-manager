@@ -278,8 +278,8 @@ export default function ContactPage() {
                 href="https://wa.me/306988588118"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex justify-center items-center rounded-sm w-full h-14 text-lg font-bold bg-green-500 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all">
-                <MessageCircle className="mr-2 h-5 w-5" />
+                className="flex justify-center items-center rounded-sm w-full h-14 text-lg font-bold bg-green-500 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all gap-2">
+                <img src="/whatsapp.svg" alt="" className="size-7 invert-100" />
                 {t("contact.whatsapp", "Chat on WhatsApp")}
               </Link>
             </div>
