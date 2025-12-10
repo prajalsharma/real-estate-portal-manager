@@ -341,7 +341,7 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                 <h1
                   id="hero-heading"
                   className={cn(
-                    "hero-heading tracking-tight leading-[1.1] text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] mb-4 sm:mb-5 font-bold wrap-break-word"
+                    "hero-heading tracking-tight leading-[1.1] text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[86px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] mb-4 sm:mb-5 font-bold"
                   )}>
                   {t("hero.title", "Real estate for living and investments")}
                 </h1>
