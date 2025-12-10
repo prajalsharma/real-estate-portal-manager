@@ -19,11 +19,7 @@ export default defineType({
       options: {
         source: "title",
         maxLength: 96,
-        slugify: (input) =>
-          input
-            .toLowerCase()
-            .replace(/\s+/g, "-")
-            .slice(0, 96),
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -251,19 +247,19 @@ export default defineType({
       validation: (Rule) => Rule.min(0).max(10),
     }),
 
-    // Legacy (kept for compatibility)
-    defineField({
-      name: "beds",
-      title: "Beds (Legacy - use Bedrooms)",
-      type: "number",
-      validation: (Rule) => Rule.min(0).max(20),
-    }),
-    defineField({
-      name: "baths",
-      title: "Baths (Legacy - use Bathrooms)",
-      type: "number",
-      validation: (Rule) => Rule.min(0).max(20),
-    }),
+    // // Legacy (kept for compatibility)
+    // defineField({
+    //   name: "beds",
+    //   title: "Beds (Legacy - use Bedrooms)",
+    //   type: "number",
+    //   validation: (Rule) => Rule.min(0).max(20),
+    // }),
+    // defineField({
+    //   name: "baths",
+    //   title: "Baths (Legacy - use Bathrooms)",
+    //   type: "number",
+    //   validation: (Rule) => Rule.min(0).max(20),
+    // }),
 
     defineField({
       name: "sqft",
@@ -324,42 +320,40 @@ export default defineType({
     }),
 
     // Property Images — BULK UPLOAD with improved UX
-   defineField({
-  name: "images",
-  title: "Property Images",
-  type: "array",
-  of: [
-    {
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
+    defineField({
+      name: "images",
+      title: "Property Images",
+      type: "array",
+      of: [
         {
-          name: "alt",
-          type: "string",
-          title: "Alternative Text",
-          description: "Describe what is shown in the image",
-        },
-        {
-          name: "caption",
-          type: "string",
-          title: "Caption",
-          description: "Optional caption for the image",
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative Text",
+              description: "Describe what is shown in the image",
+            },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+              description: "Optional caption for the image",
+            },
+          ],
         },
       ],
-    },
-  ],
-  options: {
-    sortable: true,
-    layout: "grid",
-  },
-  validation: (Rule) => Rule.min(1).max(50),
-  description: "📸 Click 'Add' → 'Upload' → select multiple image files at once (hold Ctrl/Cmd and click each file) → click 'Open' to upload all together. Drag thumbnails to reorder.",
-}),
-
-
-
+      options: {
+        sortable: true,
+        layout: "grid",
+      },
+      validation: (Rule) => Rule.min(1).max(50),
+      description:
+        "📸 Click 'Add' → 'Upload' → select multiple image files at once (hold Ctrl/Cmd and click each file) → click 'Open' to upload all together. Drag thumbnails to reorder.",
+    }),
 
     // Main Image (legacy/preview only)
     defineField({
@@ -367,9 +361,7 @@ export default defineType({
       title: "Main Image",
       type: "image",
       options: { hotspot: true },
-      fields: [
-        { name: "alt", type: "string", title: "Alternative Text" },
-      ],
+      fields: [{ name: "alt", type: "string", title: "Alternative Text" }],
       validation: (Rule) => Rule.required(),
     }),
 

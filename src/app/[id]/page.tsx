@@ -278,8 +278,10 @@ export default function PropertyDetailsPage() {
           description,
           price,
           currency,
-          beds,
-          baths,
+          bedrooms,
+          bathrooms,
+          livingRooms,
+          kitchens,
           sqft,
           propertyType,
           status,
@@ -601,12 +603,12 @@ export default function PropertyDetailsPage() {
                   <div className="flex flex-wrap items-center gap-5 text-lg text-black">
                     <div className="flex items-center gap-1.5">
                       <Bed className="size-8 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{property.beds}</span>
+                      <span className="font-medium">{property.bedrooms}</span>
                       <span className="text-black">{t("labels.bed")}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <ShowerHead className="size-8 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{property.baths}</span>
+                      <span className="font-medium">{property.bathrooms}</span>
                       <span className="text-black">{t("labels.bath")}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -658,8 +660,13 @@ export default function PropertyDetailsPage() {
                         label={t("property.propertyType")}
                         value={translateFeature(property.propertyType)}
                       />
-                      <FeatureDetail label={t("property.bedrooms")} value={property.beds} />
-                      <FeatureDetail label={t("property.bathrooms")} value={property.baths} />
+                      <FeatureDetail label={t("property.bedrooms")} value={property.bedrooms} />
+                      <FeatureDetail label={t("property.bathrooms")} value={property.bathrooms} />
+                      <FeatureDetail
+                        label={t("property.livingRooms")}
+                        value={property.livingRooms}
+                      />
+                      <FeatureDetail label={t("property.kitchens")} value={property.kitchens} />
                       {property.yearBuilt ? (
                         <FeatureDetail label={t("property.yearBuilt")} value={property.yearBuilt} />
                       ) : (

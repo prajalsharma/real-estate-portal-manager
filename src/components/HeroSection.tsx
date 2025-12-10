@@ -37,8 +37,6 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import PropertyDetailsModal from "@/components/PropertyDetailsModal";
 import { useT } from "@/lib/i18n";
 import { useCarouselProperties } from "@/lib/sanity/hooks";
 import { safeImageUrl } from "@/lib/sanity/image";
@@ -60,8 +58,8 @@ type FeaturedProperty = {
   title: string;
   address: string;
   price: string;
-  beds: number;
-  baths: number;
+  bedrooms: number;
+  bathrooms: number;
   sqft: number;
   slug?: {
     current: string;
@@ -94,8 +92,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
       title: "Elegant Seaside Apartment",
       address: "Glyfada, Athens",
       price: "€520,000",
-      beds: 3,
-      baths: 2,
+      bedrooms: 3,
+      bathrooms: 2,
       sqft: 1150,
       agent: {
         name: "Eleni Papadopoulou",
@@ -110,8 +108,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
       title: "Luxury Villa with Pool",
       address: "Kassandra, Halkidiki",
       price: "€1,200,000",
-      beds: 5,
-      baths: 4,
+      bedrooms: 5,
+      bathrooms: 4,
       sqft: 3200,
       agent: {
         name: "Nikos Georgiou",
@@ -126,8 +124,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
       title: "Modern City Loft",
       address: "Thessaloniki Center",
       price: "€350,000",
-      beds: 2,
-      baths: 1,
+      bedrooms: 2,
+      bathrooms: 1,
       sqft: 900,
       agent: {
         name: "Maria Kotsou",
@@ -146,8 +144,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     title: prop.title,
     address: `${prop.address?.city || ""}${prop.address?.region ? ", " + prop.address.region : ""}`,
     price: `€${prop.price?.toLocaleString() || "0"}`,
-    beds: prop.beds || 0,
-    baths: prop.baths || 0,
+    bedrooms: prop.bedrooms || 0,
+    bathrooms: prop.bathrooms || 0,
     sqft: prop.sqft || 0,
     slug: prop.slug,
     agent: {
@@ -267,31 +265,6 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
     }
   }
 
-  // function handleTourRequest() {
-  //   // Open details modal with this featured property and auto-open contact form
-  //   const numericPrice = Number(String(featured.price).replace(/[^\d.]/g, "")) || 0;
-  //   const property = {
-  //     id: featured.title,
-  //     title: featured.title,
-  //     address: featured.address,
-  //     price: numericPrice,
-  //     beds: featured.beds,
-  //     baths: featured.baths,
-  //     sqft: featured.sqft,
-  //     type: "Featured",
-  //     imageUrl: featured.imageUrl,
-  //     images: [featured.imageUrl],
-  //     agent: featured.agent
-  //       ? { id: "agent-1", name: featured.agent.name, avatarUrl: featured.agent.avatarUrl }
-  //       : undefined,
-  //   };
-  //   if (typeof window !== "undefined") {
-  //     window.dispatchEvent(
-  //       new CustomEvent("app:open-property", { detail: { property, autoContact: true } })
-  //     );
-  //   }
-  // }
-
   function handleClear() {
     setLocation("");
     setType("");
@@ -391,17 +364,17 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                               <span className="truncate">{featured.address}</span>
                             </p>
                             <div className="hidden md:flex items-center gap-4 rounded-full bg-white/95 backdrop-blur-sm px-5 py-3 shadow-xl shrink-0">
-                              <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                              <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
                                 <Bed className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
-                                {featured.beds} {t("labels.bed", "bd")}
+                                {featured.bedrooms} {t("labels.bed", "bd")}
                               </span>
                               <span className="text-sm text-foreground/60">•</span>
-                              <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                              <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
                                 <ShowerHead className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
-                                {featured.baths} {t("labels.bath", "ba")}
+                                {featured.bathrooms} {t("labels.bath", "ba")}
                               </span>
                               <span className="text-sm text-foreground/60">•</span>
-                              <span className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                              <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
                                 <LandPlot className="h-4.5 w-4.5 text-gold" aria-hidden="true" />
                                 {featured.sqft.toLocaleString()} {t("labels.area", "m²")}
                               </span>
@@ -449,13 +422,13 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                           <div className="flex items-center gap-1.5">
                             <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
                             <span className="min-w-0">
-                              {t("labels.bed")} {featured.beds}
+                              {t("labels.bed")} {featured.bedrooms}
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5">
                             <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
                             <span className="min-w-0">
-                              {t("labels.bath")} {featured.baths}
+                              {t("labels.bath")} {featured.bathrooms}
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5">

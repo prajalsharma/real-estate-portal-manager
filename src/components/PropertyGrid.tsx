@@ -24,7 +24,6 @@ export default function PropertyGrid({ properties, onSelectProperty }: PropertyG
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {properties.map((p) => {
-        console.log("Rendering property:", p.mainImage);
         const price = `€${p.price.toLocaleString()}`;
         const eur = Number(price.replace(/[^\d]/g, "")) || 0;
         const priceDisplay =
@@ -61,13 +60,13 @@ export default function PropertyGrid({ properties, onSelectProperty }: PropertyG
               <div className="flex items-center gap-4 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
                 <div className="flex items-center gap-1.5">
                   <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
-                  <span className="font-medium">{p.beds}</span>
+                  <span className="font-medium">{p.bedrooms}</span>
                   <span className="text-muted-foreground">{t("labels.bed")}</span>
                 </div>
                 <div className="h-4 w-px bg-border" aria-hidden="true" />
                 <div className="flex items-center gap-1.5">
                   <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
-                  <span className="font-medium">{p.baths}</span>
+                  <span className="font-medium">{p.bathrooms}</span>
                   <span className="text-muted-foreground">{t("labels.bath")}</span>
                 </div>
                 <div className="h-4 w-px bg-border" aria-hidden="true" />

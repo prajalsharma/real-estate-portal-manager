@@ -17,33 +17,22 @@ export type SanityAllPropertiesProps = {
   className?: string;
   title?: string;
   subtitle?: string;
-  limit?: number;
-  properties?: PropertyQueryResult[];
-  onSelectProperty?: (property: PropertyQueryResult) => void;
+  properties: PropertyQueryResult[];
+  loading?: boolean;
+  error?: string | null;
 };
 
 export default function SanityAllProperties({
   className,
   title = "Latest in your area",
   subtitle = "Curated homes across Greece — fresh listings picked for you",
-  limit = 12,
-  properties: propProperties = [],
-  onSelectProperty,
+  properties = [],
+  loading = false,
+  error = null,
 }: SanityAllPropertiesProps) {
   const t = useT();
   const { currency, language } = useAppPrefs();
   const { convert, loading: ratesLoading } = useRates();
-
-  const {
-    properties: sanityProperties,
-    total,
-    hasMore,
-    loading,
-    error,
-  } = useAllProperties(undefined, 1, limit);
-
-  // Use properties from props if provided, otherwise use fetched properties
-  const properties = propProperties.length > 0 ? propProperties : sanityProperties;
 
   if (loading) {
     return (
@@ -52,7 +41,7 @@ export default function SanityAllProperties({
           <div className="h-8 bg-muted rounded w-64 mb-2"></div>
           <div className="h-4 bg-muted rounded w-96 mb-6"></div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {Array.from({ length: limit }).map((_, i) => (
+            {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="rounded-xl border bg-white">
                 <div className="h-48 bg-muted rounded-t-xl"></div>
                 <div className="p-4 space-y-3">
@@ -76,13 +65,9 @@ export default function SanityAllProperties({
     <section className={clsx("w-full max-w-full", className)} aria-label="Featured properties">
       <div className="flex w-full items-end justify-between gap-4">
         <div className="min-w-0">
-          <h2 className="font-semibold text-3xl tracking-tight text-foreground">
-            {t("featured.title", title)}
-          </h2>
+          <h2 className="font-semibold text-3xl tracking-tight text-foreground">{title}</h2>
           {subtitle ? (
-            <p className="mt-1 text-sm sm:text-base text-muted-foreground">
-              {t("featured.subtitle", subtitle)}
-            </p>
+            <p className="mt-1 text-sm sm:text-base text-muted-foreground">{subtitle}</p>
           ) : null}
         </div>
       </div>
@@ -93,24 +78,6 @@ export default function SanityAllProperties({
         </div>
       )}
 
-      {properties.length === 0 && !loading && !error && (
-        <div className="mt-6 rounded-lg border bg-popover p-6 text-center text-muted-foreground">
-          <p>
-            {t("messages.noResults", "No properties found. Add some properties in the Studio!")}
-          </p>
-          <Link
-            href="/studio"
-            className="mt-4 inline-flex items-center justify-center rounded-md bg-gold text-white px-4 py-2 text-sm font-medium hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            Open Sanity Studio
-          </Link>
-        </div>
-      )}
-
-      {total > 0 && !loading && (
-        <p className="mt-2 text-sm text-muted-foreground">
-          Showing {properties.length} of {total} properties
-        </p>
-      )}
       <div className="w-full">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {properties.map((p) => {
@@ -153,13 +120,13 @@ export default function SanityAllProperties({
                   <div className="flex items-center gap-4 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
                     <div className="flex items-center gap-1.5">
                       <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{p.beds}</span>
+                      <span className="font-medium">{p.bedrooms}</span>
                       <span className="text-muted-foreground">{t("labels.bed")}</span>
                     </div>
                     <div className="h-4 w-px bg-border" aria-hidden="true" />
                     <div className="flex items-center gap-1.5">
                       <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{p.baths}</span>
+                      <span className="font-medium">{p.bathrooms}</span>
                       <span className="text-muted-foreground">{t("labels.bath")}</span>
                     </div>
                     <div className="h-4 w-px bg-border" aria-hidden="true" />

@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import PropertyDetailsModal from "@/components/PropertyDetailsModal";
 import { PropertyQueryResult } from "@/lib/sanity/types";
+import { useAllProperties } from "@/lib/sanity/hooks";
+import { useT } from "@/lib/i18n";
 import SanityAllProperties from "./SanityAllProperties";
-import { Button } from "./ui/button";
 
 interface SearchEventDetail {
   filters: any;
@@ -13,107 +13,72 @@ interface SearchEventDetail {
 }
 
 export default function PropertyExplorer() {
-  const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<PropertyQueryResult | null>(null);
+  const t = useT();
   const [searchResults, setSearchResults] = useState<PropertyQueryResult[] | null>(null);
   const [searchTotal, setSearchTotal] = useState<number>(0);
   const [searchFilters, setSearchFilters] = useState<any>(null);
+
+  const { properties: allProperties, loading, error } = useAllProperties(undefined, 1, 30);
 
   useEffect(() => {
     const handleSearch = (event: Event) => {
       const customEvent = event as CustomEvent<SearchEventDetail>;
       const { results, total, filters } = customEvent.detail;
-      
+
+      if (!filters) {
+        setSearchResults(null);
+        setSearchTotal(0);
+        setSearchFilters(null);
+        return;
+      }
+
       setSearchResults(results || []);
       setSearchTotal(total || 0);
       setSearchFilters(filters || null);
-      
+
       // Scroll to results section
       setTimeout(() => {
-        document.getElementById('property-results')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        document.getElementById("property-results")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
       }, 100);
     };
 
-    window.addEventListener('app:search', handleSearch);
-    
+    window.addEventListener("app:search", handleSearch);
+
     return () => {
-      window.removeEventListener('app:search', handleSearch);
+      window.removeEventListener("app:search", handleSearch);
     };
   }, []);
 
   const isSearchActive = searchResults !== null;
 
-  const handleClearSearch = () => {
-    setSearchResults(null);
-    setSearchTotal(0);
-    setSearchFilters(null);
-  };
+  const propertyWord =
+    searchTotal === 1 ? t("explorer.property", "property") : t("explorer.properties", "properties");
 
   return (
     <div id="property-results" className="scroll-mt-20">
-      {isSearchActive && (
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-muted-foreground">
-              {searchFilters && Object.keys(searchFilters).length > 0 && (
-                <span>
-                  Filters: {' '}
-                  {searchFilters.location && `Location: ${searchFilters.location}`}
-                  {searchFilters.propertyType && `, Type: ${searchFilters.propertyType}`}
-                  {searchFilters.beds && `, Beds: ${searchFilters.beds}`}
-                  {searchFilters.minPrice && `, Min: €${searchFilters.minPrice.toLocaleString()}`}
-                  {searchFilters.maxPrice && `, Max: €${searchFilters.maxPrice.toLocaleString()}`}
-                </span>
-              )}
-            </p>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={handleClearSearch}
-            >
-              View All Properties
-            </Button>
-          </div>
-        </div>
-      )}
       <SanityAllProperties
-        title={isSearchActive ? "Search Results" : "All Properties"}
+        title={
+          isSearchActive
+            ? t("explorer.searchResults.title", "Search Results")
+            : t("featured.title", "Latest in your area")
+        }
         subtitle={
           isSearchActive
-          ? `Found ${searchTotal} ${searchTotal === 1 ? 'property' : 'properties'} matching your criteria`
-          : "Browse our complete collection of properties"
+            ? t(
+                "explorer.searchResults.subtitle",
+                `Found ${searchTotal} ${propertyWord} matching your criteria`
+              )
+                .replace("{count}", String(searchTotal))
+                .replace("{propertyWord}", propertyWord)
+            : t("featured.subtitle", "Curated homes across Greece — fresh listings picked for you")
         }
-        limit={isSearchActive ? searchResults.length : 12}
-        properties={isSearchActive ? searchResults : undefined}
+        properties={isSearchActive ? searchResults : allProperties}
+        loading={loading}
+        error={error}
       />
-        
-      
-      {isSearchActive && searchResults.length === 0 && (
-        <div className="container mx-auto px-4 py-12 text-center">
-          <div className="max-w-md mx-auto">
-            <h3 className="text-2xl font-semibold mb-2">No properties found</h3>
-            <p className="text-muted-foreground mb-4">
-              We couldn't find any properties matching your search criteria.
-            </p>
-            <p className="text-sm text-muted-foreground mb-6">
-              Try adjusting your filters or browse all available properties.
-            </p>
-            <Button onClick={handleClearSearch}>
-              View All Properties
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* <PropertyDetailsModal
-        open={open}
-        onOpenChange={setOpen}
-        property={selected as PropertyQueryResult}
-        gallery={selected?.images?.map((img) => img.asset._ref) || []}
-      /> */}
     </div>
   );
 }

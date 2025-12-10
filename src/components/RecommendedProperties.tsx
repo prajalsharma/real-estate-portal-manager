@@ -18,8 +18,8 @@ type Property = {
   title: string;
   price: string;
   priceInEur?: number; // Optional: numeric EUR value for conversion
-  beds: number;
-  baths: number;
+  bedrooms: number;
+  bathrooms: number;
   sqft: number;
   address: {
     street: string;
@@ -74,8 +74,8 @@ export default function RecommendedProperties({
       slug: p.slug,
       price: `€${p.price.toLocaleString()}`, // Keep as EUR string, will be converted in render
       priceInEur: p.price, // Store numeric value for conversion
-      beds: p.beds,
-      baths: p.baths,
+      bedrooms: p.bedrooms,
+      bathrooms: p.bathrooms,
       sqft: p.sqft,
       address: {
         street: p.address.street,
@@ -154,14 +154,6 @@ export default function RecommendedProperties({
               {t("recommended.title", title)}
             </h2>
           </div>
-          <div className="rounded-lg border bg-popover p-6 text-center text-muted-foreground">
-            <p>No featured properties yet. Mark some properties as featured in the Studio!</p>
-            <Link
-              href="/studio"
-              className="mt-4 inline-flex items-center justify-center rounded-md bg-gold text-white px-4 py-2 text-sm font-medium hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              Open Sanity Studio
-            </Link>
-          </div>
         </div>
       </section>
     );
@@ -238,13 +230,13 @@ export default function RecommendedProperties({
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground">
                       <div className="flex items-center gap-1.5">
                         <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="font-medium">{p.beds}</span>
+                        <span className="font-medium">{p.bedrooms}</span>
                         <span className="text-muted-foreground">{t("labels.bed")}</span>
                       </div>
                       <div className="h-4 w-px bg-border" aria-hidden="true" />
                       <div className="flex items-center gap-1.5">
                         <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
-                        <span className="font-medium">{p.baths}</span>
+                        <span className="font-medium">{p.bathrooms}</span>
                         <span className="text-muted-foreground">{t("labels.bath")}</span>
                       </div>
                       <div className="h-4 w-px bg-border" aria-hidden="true" />
