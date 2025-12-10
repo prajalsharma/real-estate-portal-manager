@@ -35,8 +35,10 @@ export interface SanityProperty {
   };
   price: number;
   currency: "EUR" | "USD" | "GBP";
-  beds: number;
-  baths: number;
+  bedrooms: number;
+  bathrooms: number;
+  livingRooms: number;
+  kitchens: number;
   sqft: number;
   propertyType: "House" | "Apartment" | "Condo" | "Commercial" | "Land";
   status: "For Sale" | "For Rent" | "Sold" | "Rented";
@@ -171,8 +173,10 @@ export const PROPERTY_QUERY_FIELDS = `
   "slug": slug.current,
   price,
   currency,
-  beds,
-  baths,
+  bedrooms,
+  bathrooms,
+  livingRooms,
+  kitchens,
   sqft,
   propertyType,
   status,

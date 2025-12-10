@@ -151,6 +151,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "featured.title": "Latest in your area",
     "featured.subtitle": "Curated homes across Greece - fresh listings picked for you",
 
+    // Property Explorer
+    "explorer.searchResults.title": "Search Results",
+    "explorer.searchResults.subtitle": "Found {count} {propertyWord} matching your criteria",
+    "explorer.property": "property",
+    "explorer.properties": "properties",
+
     // Recommended section
     "recommended.title": "You might be interested in",
     "recommended.subtitle": " Curated homes and apartments picked for you",
@@ -178,6 +184,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.propertyType": "Property Type",
     "property.bedrooms": "Bedrooms",
     "property.bathrooms": "Bathrooms",
+    "property.livingRooms": "Living Rooms",
+    "property.kitchens": "Kitchens",
     "property.yearBuilt": "Year of construction",
     "property.underConstruction": "Under construction",
     "property.status": "Status",
@@ -387,6 +395,13 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "featured.title": "Τα τελευταία στην περιοχή σας",
     "featured.subtitle": "Επιλεγμένα σπίτια σε όλη την Ελλάδα - φρέσκιες καταχωρήσεις για εσάς",
 
+    // Property Explorer
+    "explorer.searchResults.title": "Αποτελέσματα Αναζήτησης",
+    "explorer.searchResults.subtitle":
+      "Βρέθηκαν {count} {propertyWord} που ταιριάζουν στα κριτήριά σας",
+    "explorer.property": "ακίνητο",
+    "explorer.properties": "ακίνητα",
+
     // Recommended section
     "recommended.title": "Ίσως σας ενδιαφέρουν",
     "recommended.subtitle": "Επιλεγμένα σπίτια και διαμερίσματα για εσάς",
@@ -414,6 +429,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.propertyType": "Τύπος ακινήτου",
     "property.bedrooms": "Υπνοδωμάτια",
     "property.bathrooms": "Μπάνια",
+    "property.livingRooms": "Καθιστικά",
+    "property.kitchens": "Κουζίνες",
     "property.yearBuilt": "Έτος κατασκευής",
     "property.underConstruction": "Υπό κατασκευή",
     "property.status": "Κατάσταση",
@@ -624,6 +641,13 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "featured.title": "Најновије у вашем крају",
     "featured.subtitle": "Изабране куће широм Грчке - свеже понуде одабране за вас",
 
+    // Property Explorer
+    "explorer.searchResults.title": "Резултати претраге",
+    "explorer.searchResults.subtitle":
+      "Пронађено {count} {propertyWord} које одговарају вашим критеријумима",
+    "explorer.property": "некретнина",
+    "explorer.properties": "некретнине",
+
     // Recommended section
     "recommended.title": "Можда ће вас занимати",
     "recommended.subtitle": "Изабране куће и станови одабрани за вас",
@@ -651,6 +675,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.propertyType": "Тип некретнине",
     "property.bedrooms": "Спаваће собе",
     "property.bathrooms": "Купатила",
+    "property.livingRooms": "Дневне собе",
+    "property.kitchens": "Кухиње",
     "property.yearBuilt": "Година изградње",
     "property.underConstruction": "У изградњи",
     "property.status": "Статус",
@@ -860,6 +886,13 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "featured.title": "Последние предложения в вашем районе",
     "featured.subtitle": "Отобранные дома по всей Греции - свежие объявления для вас",
 
+    // Property Explorer
+    "explorer.searchResults.title": "Результаты поиска",
+    "explorer.searchResults.subtitle":
+      "Найдено {count} {propertyWord}, соответствующих вашим критериям",
+    "explorer.property": "объект",
+    "explorer.properties": "объектов",
+
     // Recommended section
     "recommended.title": "Возможно, вам будет интересно",
     "recommended.subtitle": "Отобранные дома и квартиры для вас",
@@ -887,6 +920,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.propertyType": "Тип недвижимости",
     "property.bedrooms": "Спальни",
     "property.bathrooms": "Ванные",
+    "property.livingRooms": "Гостиные",
+    "property.kitchens": "Кухни",
     "property.yearBuilt": "Год постройки",
     "property.underConstruction": "В стадии строительства",
     "property.status": "Статус",
@@ -1096,6 +1131,13 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "featured.title": "Последни в района ви",
     "featured.subtitle": "Подбрани домове в цяла Гърция - свежи обяви за вас",
 
+    // Property Explorer
+    "explorer.searchResults.title": "Резултати от търсенето",
+    "explorer.searchResults.subtitle":
+      "Намерени {count} {propertyWord}, отговарящи на вашите критерии",
+    "explorer.property": "имот",
+    "explorer.properties": "имота",
+
     // Recommended section
     "recommended.title": "Може да се интересувате от",
     "recommended.subtitle": "Подбрани домове и апартаменти за вас",
@@ -1123,6 +1165,8 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.propertyType": "Тип имот",
     "property.bedrooms": "Спални",
     "property.bathrooms": "Бани",
+    "property.livingRooms": "Дневни",
+    "property.kitchens": "Кухни",
     "property.yearBuilt": "Година на строителство",
     "property.underConstruction": "В процес на строителство",
     "property.status": "Статус",
