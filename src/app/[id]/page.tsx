@@ -79,7 +79,9 @@ export default function PropertyDetailsPage() {
       "Solar water heater": "features.solarWaterHeater",
       "Security door": "features.securityDoor",
       "Double glassboard": "features.doubleGlassboard",
-      Sites: "features.sites",
+      "Window screens": "features.sites",
+      Sites: "features.sites", // Legacy support
+      Site: "features.sites", // Legacy support (singular)
       Bright: "features.bright",
       Diaspora: "features.diaspora",
       Stained: "features.stained",

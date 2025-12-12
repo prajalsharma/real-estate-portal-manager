@@ -38,7 +38,7 @@ export default defineType({
           { title: "Solar water heater", value: "Solar water heater" },
           { title: "Security door", value: "Security door" },
           { title: "Double glassboard", value: "Double glassboard" },
-          { title: "Sites", value: "Sites" },
+          { title: "Window screens", value: "Window screens" },
           { title: "Bright", value: "Bright" },
           { title: "Diaspora", value: "Diaspora" },
           { title: "Stained", value: "Stained" },
