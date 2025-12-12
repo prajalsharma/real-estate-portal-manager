@@ -140,6 +140,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.professionalUse": "Professional use",
     "suitableFor.clinic": "Clinic",
 
+    // Floor Types
+    "floorType.wood": "Wood",
+    "floorType.mosaic": "Mosaic",
+    "floorType.granite": "Granite",
+    "floorType.tiles": "Tiles",
+
     // Hero & sections
     "hero.title": "Real estate for living and investments",
     "hero.subtitle":
@@ -188,6 +194,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Kitchens",
     "property.yearBuilt": "Year of construction",
     "property.underConstruction": "Under construction",
+    "property.floorType": "Floor Type",
     "property.status": "Status",
     "property.lastUpdated": "Last Updated",
     "property.interior": "Interior",
@@ -384,6 +391,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.professionalUse": "Επαγγελματική χρήση",
     "suitableFor.clinic": "Κλινική",
 
+    // Floor Types
+    "floorType.wood": "Ξύλο",
+    "floorType.mosaic": "Ψηφιδωτό",
+    "floorType.granite": "Γρανίτης",
+    "floorType.tiles": "Πλακίδια",
+
     // Hero & sections
     "hero.title": "Ακίνητα για κατοικία και επένδυση",
     "hero.subtitle":
@@ -433,6 +446,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Κουζίνες",
     "property.yearBuilt": "Έτος κατασκευής",
     "property.underConstruction": "Υπό κατασκευή",
+    "property.floorType": "Τύπος δαπέδου",
     "property.status": "Κατάσταση",
     "property.lastUpdated": "Τελευταία ενημέρωση",
     "property.interior": "Εσωτερικά",
@@ -630,6 +644,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.professionalUse": "Стручна употреба",
     "suitableFor.clinic": "Клиника",
 
+    // Floor Types
+    "floorType.wood": "Дрво",
+    "floorType.mosaic": "Мозаик",
+    "floorType.granite": "Гранит",
+    "floorType.tiles": "Плочице",
+
     // Hero & sections
     "hero.title": "Непокретности за живот и инвестиције",
     "hero.subtitle":
@@ -679,6 +699,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухиње",
     "property.yearBuilt": "Година изградње",
     "property.underConstruction": "У изградњи",
+    "property.floorType": "Тип пода",
     "property.status": "Статус",
     "property.lastUpdated": "Последње ажурирање",
     "property.interior": "Ентеријер",
@@ -875,6 +896,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.professionalUse": "Профессиональное использование",
     "suitableFor.clinic": "Клиника",
 
+    // Floor Types
+    "floorType.wood": "Дерево",
+    "floorType.mosaic": "Мозаика",
+    "floorType.granite": "Гранит",
+    "floorType.tiles": "Плитка",
+
     // Hero & sections
     "hero.title": "Недвижимость для жизни и инвестиций",
     "hero.subtitle":
@@ -924,6 +951,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухни",
     "property.yearBuilt": "Год постройки",
     "property.underConstruction": "В стадии строительства",
+    "property.floorType": "Тип пола",
     "property.status": "Статус",
     "property.lastUpdated": "Последнее обновление",
     "property.interior": "Интерьер",
@@ -1120,6 +1148,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.professionalUse": "Професионална употреба",
     "suitableFor.clinic": "Клиника",
 
+    // Floor Types
+    "floorType.wood": "Дърво",
+    "floorType.mosaic": "Мозайка",
+    "floorType.granite": "Гранит",
+    "floorType.tiles": "Плочки",
+
     // Hero & sections
     "hero.title": "Недвижими имоти за живот и инвестиции",
     "hero.subtitle":
@@ -1169,6 +1203,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухни",
     "property.yearBuilt": "Година на строителство",
     "property.underConstruction": "В процес на строителство",
+    "property.floorType": "Тип под",
     "property.status": "Статус",
     "property.lastUpdated": "Последна актуализация",
     "property.interior": "Интериор",

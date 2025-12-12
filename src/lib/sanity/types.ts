@@ -47,6 +47,7 @@ export interface SanityProperty {
   externalFeatures?: string[];
   construction?: string[];
   suitableFor?: string[];
+  floorType?: string;
   images: SanityImage[];
   mainImage: SanityImage;
 
@@ -190,6 +191,7 @@ export const PROPERTY_QUERY_FIELDS = `
   amenities,
   yearBuilt,
   lotSize,
+  floorType,
   agent->,
   publishedAt,
   _createdAt,

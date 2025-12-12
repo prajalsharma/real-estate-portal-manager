@@ -69,6 +69,7 @@ export default defineType({
           { title: "Wood", value: "Wood" },
           { title: "Mosaic", value: "Mosaic" },
           { title: "Granite", value: "Granite" },
+          { title: "Tiles", value: "Tiles" },
         ],
       },
     }),
