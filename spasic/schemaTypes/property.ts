@@ -4,13 +4,50 @@ export default defineType({
   name: "property",
   title: "Property",
   type: "document",
+  fieldsets: [
+    {
+      name: "translations",
+      title: "🌍 Title Translations",
+      description: "Add translations for the property title in different languages",
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     // Title and Slug
     defineField({
       name: "title",
-      title: "Title",
+      title: "🇬🇧 Title (English)",
       type: "string",
+      description: "Primary title in English (required)",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "title_el",
+      title: "🇬🇷 Title (Greek)",
+      type: "string",
+      fieldset: "translations",
+      description: "Τίτλος στα Ελληνικά",
+    }),
+    defineField({
+      name: "title_sr",
+      title: "🇷🇸 Title (Serbian)",
+      type: "string",
+      fieldset: "translations",
+      description: "Наслов на српском",
+    }),
+    defineField({
+      name: "title_ru",
+      title: "🇷🇺 Title (Russian)",
+      type: "string",
+      fieldset: "translations",
+      description: "Название на русском",
+    }),
+    defineField({
+      name: "title_bg",
+      title: "🇧🇬 Title (Bulgarian)",
+      type: "string",
+      fieldset: "translations",
+      description: "Заглавие на български",
     }),
     defineField({
       name: "slug",

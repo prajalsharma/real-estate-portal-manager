@@ -146,6 +146,21 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorType.granite": "Granite",
     "floorType.tiles": "Tiles",
 
+    // Floor Levels
+    "floorLevel.Underground": "Underground",
+    "floorLevel.Basement": "Basement",
+    "floorLevel.Ground Floor": "Ground Floor",
+    "floorLevel.1st Floor": "1st",
+    "floorLevel.2nd Floor": "2nd",
+    "floorLevel.3rd Floor": "3rd",
+    "floorLevel.4th Floor": "4th",
+    "floorLevel.5th Floor": "5th",
+    "floorLevel.6th Floor": "6th",
+    "floorLevel.7th Floor": "7th",
+    "floorLevel.8th Floor": "8th",
+    "floorLevel.9th Floor": "9th",
+    "floorLevel.10th Floor": "10th",
+
     // Hero & sections
     "hero.title": "Real estate for living and investments",
     "hero.subtitle":
@@ -194,6 +209,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Kitchens",
     "property.yearBuilt": "Year of construction",
     "property.underConstruction": "Under construction",
+    "property.floor": "Floor",
     "property.floorType": "Floor Type",
     "property.status": "Status",
     "property.lastUpdated": "Last Updated",
@@ -397,6 +413,21 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorType.granite": "Γρανίτης",
     "floorType.tiles": "Πλακίδια",
 
+    // Floor Levels
+    "floorLevel.Underground": "Υπόγειο",
+    "floorLevel.Basement": "Ημιυπόγειο",
+    "floorLevel.Ground Floor": "Ισόγειο",
+    "floorLevel.1st Floor": "1ος",
+    "floorLevel.2nd Floor": "2ος",
+    "floorLevel.3rd Floor": "3ος",
+    "floorLevel.4th Floor": "4ος",
+    "floorLevel.5th Floor": "5ος",
+    "floorLevel.6th Floor": "6ος",
+    "floorLevel.7th Floor": "7ος",
+    "floorLevel.8th Floor": "8ος",
+    "floorLevel.9th Floor": "9ος",
+    "floorLevel.10th Floor": "10ος",
+
     // Hero & sections
     "hero.title": "Ακίνητα για κατοικία και επένδυση",
     "hero.subtitle":
@@ -446,6 +477,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Κουζίνες",
     "property.yearBuilt": "Έτος κατασκευής",
     "property.underConstruction": "Υπό κατασκευή",
+    "property.floor": "Όροφος",
     "property.floorType": "Τύπος δαπέδου",
     "property.status": "Κατάσταση",
     "property.lastUpdated": "Τελευταία ενημέρωση",
@@ -650,6 +682,21 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorType.granite": "Гранит",
     "floorType.tiles": "Плочице",
 
+    // Floor Levels
+    "floorLevel.Underground": "Подрум",
+    "floorLevel.Basement": "Сутерен",
+    "floorLevel.Ground Floor": "Приземље",
+    "floorLevel.1st Floor": "1.",
+    "floorLevel.2nd Floor": "2.",
+    "floorLevel.3rd Floor": "3.",
+    "floorLevel.4th Floor": "4.",
+    "floorLevel.5th Floor": "5.",
+    "floorLevel.6th Floor": "6.",
+    "floorLevel.7th Floor": "7.",
+    "floorLevel.8th Floor": "8.",
+    "floorLevel.9th Floor": "9.",
+    "floorLevel.10th Floor": "10.",
+
     // Hero & sections
     "hero.title": "Непокретности за живот и инвестиције",
     "hero.subtitle":
@@ -699,6 +746,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухиње",
     "property.yearBuilt": "Година изградње",
     "property.underConstruction": "У изградњи",
+    "property.floor": "Спрат",
     "property.floorType": "Тип пода",
     "property.status": "Статус",
     "property.lastUpdated": "Последње ажурирање",
@@ -902,6 +950,21 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorType.granite": "Гранит",
     "floorType.tiles": "Плитка",
 
+    // Floor Levels
+    "floorLevel.Underground": "Подвал",
+    "floorLevel.Basement": "Цоколь",
+    "floorLevel.Ground Floor": "1 этаж",
+    "floorLevel.1st Floor": "2-й",
+    "floorLevel.2nd Floor": "3-й",
+    "floorLevel.3rd Floor": "4-й",
+    "floorLevel.4th Floor": "5-й",
+    "floorLevel.5th Floor": "6-й",
+    "floorLevel.6th Floor": "7-й",
+    "floorLevel.7th Floor": "8-й",
+    "floorLevel.8th Floor": "9-й",
+    "floorLevel.9th Floor": "10-й",
+    "floorLevel.10th Floor": "11-й",
+
     // Hero & sections
     "hero.title": "Недвижимость для жизни и инвестиций",
     "hero.subtitle":
@@ -951,6 +1014,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухни",
     "property.yearBuilt": "Год постройки",
     "property.underConstruction": "В стадии строительства",
+    "property.floor": "Этаж",
     "property.floorType": "Тип пола",
     "property.status": "Статус",
     "property.lastUpdated": "Последнее обновление",
@@ -1154,6 +1218,21 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorType.granite": "Гранит",
     "floorType.tiles": "Плочки",
 
+    // Floor Levels
+    "floorLevel.Underground": "Подземен",
+    "floorLevel.Basement": "Сутерен",
+    "floorLevel.Ground Floor": "Партер",
+    "floorLevel.1st Floor": "1-ви",
+    "floorLevel.2nd Floor": "2-ри",
+    "floorLevel.3rd Floor": "3-ти",
+    "floorLevel.4th Floor": "4-ти",
+    "floorLevel.5th Floor": "5-ти",
+    "floorLevel.6th Floor": "6-ти",
+    "floorLevel.7th Floor": "7-ми",
+    "floorLevel.8th Floor": "8-ми",
+    "floorLevel.9th Floor": "9-ти",
+    "floorLevel.10th Floor": "10-ти",
+
     // Hero & sections
     "hero.title": "Недвижими имоти за живот и инвестиции",
     "hero.subtitle":
@@ -1203,6 +1282,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухни",
     "property.yearBuilt": "Година на строителство",
     "property.underConstruction": "В процес на строителство",
+    "property.floor": "Етаж",
     "property.floorType": "Тип под",
     "property.status": "Статус",
     "property.lastUpdated": "Последна актуализация",

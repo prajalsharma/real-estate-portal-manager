@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Montserrat, Inter } from "next/font/google";
 import "./globals.css";
-import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 import { AppPreferencesProvider } from "@/lib/prefs-context";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import VisualEditsWrapper from "@/visual-edits/VisualEditsWrapper";
 import "leaflet/dist/leaflet.css";
 
 const montserrat = Montserrat({
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             data-debug="true"
             data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
           />
-          <VisualEditsMessenger />
+          <VisualEditsWrapper />
         </AppPreferencesProvider>
       </body>
     </html>

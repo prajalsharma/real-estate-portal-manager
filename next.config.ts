@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Allow cross-origin requests from local network during development
+  allowedDevOrigins: ["192.168.1.111", "localhost"],
   turbopack: {
     rules: {
       "*.{jsx,tsx}": {

@@ -20,9 +20,6 @@ import {
   Mail,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { MapContainer, TileLayer, Marker, Popup, AttributionControl } from "react-leaflet";
-import markerIconPng from "leaflet/dist/images/marker-icon.png";
-import { Icon } from "leaflet";
 import { useT } from "@/lib/i18n";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import ContactModal from "@/components/ContactModal";
@@ -34,6 +31,7 @@ import { formatter } from "@/lib/priceFormatter";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/lib/hooks/use-translation";
+import PropertyMap from "@/components/PropertyMap";
 
 export default function PropertyDetailsPage() {
   const pathname = usePathname();
@@ -740,39 +738,12 @@ export default function PropertyDetailsPage() {
 
                   {property.latitude && property.longitude && (
                     <div className="mt-2 relative h-[420px]">
-                      <MapContainer
-                        center={[property.latitude, property.longitude]}
-                        zoom={14}
-                        scrollWheelZoom={false}
-                        className="h-full w-full z-10"
-                        attributionControl={false}>
-                        <TileLayer
-                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <AttributionControl position="bottomright" prefix={false} />
-                        <Marker
-                          position={
-                            property.latitude && property.longitude
-                              ? [property.latitude, property.longitude]
-                              : [51.505, -0.09]
-                          }
-                          icon={
-                            new Icon({
-                              iconUrl:
-                                typeof markerIconPng === "string"
-                                  ? markerIconPng
-                                  : markerIconPng.src,
-                              iconSize: [25, 41],
-                              iconAnchor: [12, 41],
-                              popupAnchor: [0, -41],
-                            })
-                          }>
-                          <Popup>
-                            {property.title},{property.address?.city}
-                          </Popup>
-                        </Marker>
-                      </MapContainer>
+                      <PropertyMap
+                        latitude={property.latitude}
+                        longitude={property.longitude}
+                        title={property.title}
+                        city={property.address?.city}
+                      />
                     </div>
                   )}
                 </div>

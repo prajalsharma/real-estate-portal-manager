@@ -1,7 +1,5 @@
 // Sanity schema types for Real Estate Portal
 
-import { title } from "node:process";
-
 export interface SanityImage {
   _type: "image";
   asset: {
@@ -30,6 +28,10 @@ export interface SanityProperty {
   _id: string;
   _type: "property";
   title: string;
+  title_el?: string;
+  title_sr?: string;
+  title_ru?: string;
+  title_bg?: string;
   slug: {
     current: string;
   };
@@ -40,16 +42,28 @@ export interface SanityProperty {
   livingRooms: number;
   kitchens: number;
   sqft: number;
-  propertyType: "House" | "Apartment" | "Condo" | "Commercial" | "Land";
+  propertyType: "Apartment" | "Maisonette" | "Building" | "Hotel" | "Complex" | "Commercial" | "Land" | "Rental Service";
   status: "For Sale" | "For Rent" | "Sold" | "Rented";
   featured: boolean;
+  carousel: boolean;
   interiorFeatures?: string[];
   externalFeatures?: string[];
   construction?: string[];
   suitableFor?: string[];
   floorType?: string;
+  frames?: string;
+  floorLevel?: string;
+  orientation?: string;
+  distanceFromSea?: number;
   images: SanityImage[];
   mainImage: SanityImage;
+  videos?: Array<{
+    _type: "file";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  }>;
 
   address: {
     street?: string;
@@ -62,7 +76,6 @@ export interface SanityProperty {
   longitude?: number;
   description?: string;
   features?: string[];
-  videos?: string[];
   amenities?: string[];
   yearBuilt?: number;
   lotSize?: number;
@@ -171,6 +184,10 @@ export interface BlogFilters {
 export const PROPERTY_QUERY_FIELDS = `
   _id,
   title,
+  title_el,
+  title_sr,
+  title_ru,
+  title_bg,
   "slug": slug.current,
   price,
   currency,
@@ -182,16 +199,27 @@ export const PROPERTY_QUERY_FIELDS = `
   propertyType,
   status,
   featured,
+  carousel,
+  interiorFeatures,
+  externalFeatures,
+  construction,
+  suitableFor,
+  floorType,
+  frames,
+  floorLevel,
+  orientation,
+  distanceFromSea,
   images,
   mainImage,
+  videos,
   address,
-  location,
+  latitude,
+  longitude,
   description,
   features,
   amenities,
   yearBuilt,
   lotSize,
-  floorType,
   agent->,
   publishedAt,
   _createdAt,
