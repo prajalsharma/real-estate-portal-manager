@@ -62,8 +62,7 @@ export default defineType({
       options: {
         source: "title",
         maxLength: 96,
-        slugify: (input) =>
-          input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -320,6 +319,7 @@ export default defineType({
           { title: "Commercial", value: "Commercial" },
           { title: "Land", value: "Land" },
           { title: "Rental Service", value: "Rental Service" },
+          { title: "Detached House", value: "detachedHouse" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -522,8 +522,7 @@ export default defineType({
       name: "yearBuilt",
       title: "Year Built",
       type: "number",
-      validation: (Rule) =>
-        Rule.min(1800).max(new Date().getFullYear() + 2),
+      validation: (Rule) => Rule.min(1800).max(new Date().getFullYear() + 2),
     }),
 
     // Renovation year (new, after yearBuilt)
@@ -532,8 +531,7 @@ export default defineType({
       title: "Renovation Year",
       type: "number",
       description: "Year of last major renovation (if applicable)",
-      validation: (Rule) =>
-        Rule.min(1800).max(new Date().getFullYear() + 2),
+      validation: (Rule) => Rule.min(1800).max(new Date().getFullYear() + 2),
     }),
 
     defineField({
