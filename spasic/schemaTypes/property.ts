@@ -121,6 +121,8 @@ export default defineType({
           { title: "Underground", value: "Underground" },
           { title: "Basement", value: "Basement" },
           { title: "Ground Floor", value: "Ground Floor" },
+          { title: "Attic", value: "Attic" },
+          { title: "Middle Floor", value: "Middle Floor" },
           { title: "1st Floor", value: "1st Floor" },
           { title: "2nd Floor", value: "2nd Floor" },
           { title: "3rd Floor", value: "3rd Floor" },
