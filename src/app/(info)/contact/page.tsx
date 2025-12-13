@@ -257,7 +257,7 @@ export default function ContactPage() {
                         {t("contact.info.hours", "Business Hours")}
                       </h3>
                       <p className="text-foreground/70">
-                        Mon - Sat: 10:00 AM - 10:00 PM
+                        {t("footer.workingHours")}
                         <br />
                         Sun: Closed
                       </p>
