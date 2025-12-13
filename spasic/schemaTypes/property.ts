@@ -387,7 +387,7 @@ defineField({
   // ❌ REMOVE Rule.min(1) — it blocks multi uploads
   validation: (Rule) =>
     Rule.max(50).warning("Maximum 50 images recommended"),
-});
+}),
 
 
     // Main Image
