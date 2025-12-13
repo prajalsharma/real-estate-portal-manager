@@ -11,11 +11,10 @@ export default function AboutPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-2 hero-heading">
-                About Spasic Real Estate
+                Σχετικά με εμάς
               </h1>
               <p className="text-lg sm:text-xl text-foreground/80 leading-relaxed">
-                Your trusted partner in discovering exceptional properties across Halkidiki and
-                Greece
+                Καλωσορίσατε στο Spasić Real Estate, το αξιόπιστο σας μεσιτικό γραφείο στην
               </p>
             </div>
           </div>
@@ -24,37 +23,43 @@ export default function AboutPage() {
         {/* Story Section */}
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="relative aspect-4/3 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="grid gap-12 items-center">
+              {/* <div className="relative aspect-4/3 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop"
                   alt="Luxury Greek villa"
                   fill
                   className="object-cover"
                 />
-              </div>
+              </div> */}
               <div className="space-y-6">
                 <h2 className="hero-heading text-3xl sm:text-4xl font-bold text-foreground">
-                  Our Story
+                  Η Ιστορία μας
                 </h2>
                 <div className="space-y-4 text-foreground/80 leading-relaxed text-base sm:text-lg">
                   <p>
-                    Founded with a passion for connecting people with their dream homes, Spasic Real
-                    Estate has become a leading name in the Halkidiki property market. Our deep
-                    understanding of the region, combined with years of experience, allows us to
-                    offer unparalleled service to our clients.
+                    Το SPASIĆ REAL ESTATE είναι ένα σύγχρονο μεσιτικό γραφείο με έδρα τα Νέα
+                    Μουδανιά Χαλκιδικής, στην οδό Κανελοπούλου. Εξειδικευόμαστε στην αγοραπωλησία
+                    και ενοικίαση κατοικιών, επαγγελματικών χώρων και επενδυτικών ακινήτων, ενώ
+                    παράλληλα αναλαμβάνουμε ανακαινίσεις και κατασκευές με στόχο τη δημιουργία χώρων
+                    υψηλής αισθητικής και λειτουργικότητας.
                   </p>
                   <p>
-                    We specialize in luxury properties, from stunning seaside maisonettes to prime
-                    commercial spaces and investment opportunities. Whether you're looking for a
-                    permanent residence, a vacation home, or a strategic investment, we have the
-                    expertise to guide you every step of the way.
+                    Η φιλοσοφία μας βασίζεται στην εμπιστοσύνη, τη διαφάνεια και τον επαγγελματισμό.
+                    Αντιμετωπίζουμε κάθε συνεργασία με προσωπική φροντίδα, κατανοώντας τις ανάγκες
+                    των πελατών μας και προσφέροντας λύσεις προσαρμοσμένες στις επιθυμίες και το
+                    όραμά τους.
                   </p>
                   <p>
-                    Our multilingual team serves clients from around the world, offering
-                    personalized service in English, Greek, Serbian, Russian, and Bulgarian. This
-                    international approach, combined with local expertise, makes us uniquely
-                    positioned to serve diverse clientele.
+                    Με βαθιά γνώση της τοπικής αγοράς και σύγχρονη τεχνολογική προσέγγιση,
+                    εξασφαλίζουμε ότι κάθε συναλλαγή και κάθε έργο πραγματοποιείται με ακρίβεια,
+                    ασφάλεια και συνέπεια.
+                  </p>
+                  <p>
+                    Στο SPASIĆ REAL ESTATE, δεν περιοριζόμαστε μόνο στην εύρεση ακινήτων —
+                    δημιουργούμε χώρους ζωής και αξίας. Είτε αναζητάτε το νέο σας σπίτι, μια
+                    επενδυτική ευκαιρία ή έναν αξιόπιστο συνεργάτη για ανακαίνιση ή κατασκευή,
+                    είμαστε εδώ για να το κάνουμε πραγματικότητα.
                   </p>
                 </div>
               </div>
@@ -63,7 +68,7 @@ export default function AboutPage() {
         </section>
 
         {/* Values Grid */}
-        <section className="bg-muted/30 py-16 sm:py-20">
+        {/* <section className="bg-muted/30 py-16 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 className="hero-heading text-3xl sm:text-4xl font-bold text-foreground text-center mb-12">
@@ -103,10 +108,10 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Mission Section */}
-        <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        {/* <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h2 className="hero-heading text-3xl sm:text-4xl font-bold text-foreground">
               Our Mission
@@ -125,10 +130,10 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
-        <section className="bg-linear-to-br from-primary/90 to-primary py-16 sm:py-20">
+        {/* <section className="bg-linear-to-br from-primary/90 to-primary py-16 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
@@ -151,7 +156,7 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
     </div>
   );

@@ -49,7 +49,7 @@ function Logo() {
 
 export default function Footer({ className }: FooterProps) {
   const t = useT();
-  
+
   return (
     <footer className={cn("w-full bg-white text-foreground container", className)}>
       <div className="w-full py-6 sm:py-4">
@@ -131,7 +131,7 @@ export default function Footer({ className }: FooterProps) {
                         aria-hidden="true"
                       />
                       <div className="min-w-0">
-                        <p className="text-sm text-foreground">+30 21 0000 0000</p>
+                        <p className="text-sm text-foreground">+30 698 858 8118 </p>
                         <p className={mutedText}>{t("footer.workingHours")}</p>
                       </div>
                     </li>
@@ -139,7 +139,7 @@ export default function Footer({ className }: FooterProps) {
                       <Mail className="mt-0.5 h-4 w-4 text-[--color-red]" aria-hidden="true" />
                       <div className="min-w-0">
                         <p className="text-sm text-foreground wrap-break-word">
-                          hello@realestate.gr
+                          spasic-realestate@hotmail.com
                         </p>
                         <p className={mutedText}>{t("footer.emailUsAnytime")}</p>
                       </div>
@@ -147,8 +147,11 @@ export default function Footer({ className }: FooterProps) {
                     <li className="flex items-start gap-2">
                       <House className="mt-0.5 h-4 w-4 text-[--color-red]" aria-hidden="true" />
                       <div className="min-w-0">
-                        <p className="text-sm text-foreground">12 Ermou St, Athens 105 63</p>
-                        <p className={mutedText}>{t("footer.greece")}</p>
+                        <p className="text-sm text-foreground">
+                          Kanellopoulou St, Nea Moudania Halkidiki
+                          <br />
+                          Greece
+                        </p>
                       </div>
                     </li>
                   </ul>

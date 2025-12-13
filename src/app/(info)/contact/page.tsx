@@ -213,14 +213,11 @@ export default function ContactPage() {
                       <h3 className="font-bold text-foreground mb-1">
                         {t("contact.info.phone", "Phone")}
                       </h3>
-                      <a
-                        href="tel:+306912345678"
-                        className="text-foreground/70 hover:text-primary transition-colors">
-                        +30 691 234 5678
-                      </a>
+                      <p className="text-foreground/70 hover:text-primary transition-colors">
+                        +30 698 858 8118
+                      </p>
                     </div>
                   </div>
-
                   <div className="flex items-start gap-4">
                     <div className="shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <Mail className="h-5 w-5 text-primary" />
@@ -232,7 +229,7 @@ export default function ContactPage() {
                       <a
                         href="mailto:info@spasicrealestate.com"
                         className="text-foreground/70 hover:text-primary transition-colors break-all">
-                        info@spasicrealestate.com
+                        spasic-realestate@hotmail.com
                       </a>
                     </div>
                   </div>
@@ -246,9 +243,7 @@ export default function ContactPage() {
                         {t("contact.info.address", "Office Address")}
                       </h3>
                       <p className="text-foreground/70">
-                        Kassandra, Halkidiki
-                        <br />
-                        Greece, 63077
+                        Kanellopoulou St, Nea Moudania Halkidiki Greece
                       </p>
                     </div>
                   </div>
@@ -262,9 +257,7 @@ export default function ContactPage() {
                         {t("contact.info.hours", "Business Hours")}
                       </h3>
                       <p className="text-foreground/70">
-                        Mon - Fri: 9:00 AM - 6:00 PM
-                        <br />
-                        Sat: 10:00 AM - 4:00 PM
+                        Mon - Sat: 10:00 AM - 10:00 PM
                         <br />
                         Sun: Closed
                       </p>
@@ -298,7 +291,7 @@ export default function ContactPage() {
             <CardContent className="p-0">
               <div className="w-full h-[400px] sm:h-[500px] md:h-[600px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d195167.85698423616!2d23.37!3d40.07!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a76a2b60919965%3A0xd8d2a0b3e8a3e3b8!2sKassandra%2C%20Greece!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d417.3415798928667!2d23.2825278!3d40.2467563!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a87b26eb3a4b9b%3A0x4054699e8e4521a0!2sSPASI%C4%86%20REAL%20ESTATE!5e1!3m2!1sen!2sar!4v1765651130756!5m2!1sen!2sar%22"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
