@@ -32,7 +32,6 @@ export interface SanityProperty {
   title_sr?: string;
   title_ru?: string;
   title_bg?: string;
-  description?: string;
   description_el?: string;
   description_sr?: string;
   description_ru?: string;
@@ -47,7 +46,15 @@ export interface SanityProperty {
   livingRooms: number;
   kitchens: number;
   sqft: number;
-  propertyType: "Apartment" | "Maisonette" | "Building" | "Hotel" | "Complex" | "Commercial" | "Land" | "Rental Service";
+  propertyType:
+    | "Apartment"
+    | "Maisonette"
+    | "Building"
+    | "Hotel"
+    | "Complex"
+    | "Commercial"
+    | "Land"
+    | "Rental Service";
   status: "For Sale" | "For Rent" | "Sold" | "Rented";
   featured: boolean;
   carousel: boolean;
@@ -55,11 +62,12 @@ export interface SanityProperty {
   externalFeatures?: string[];
   construction?: string[];
   suitableFor?: string[];
-  floorType?: string;
-  frames?: string;
-  floorLevel?: string;
+  floorType: string;
+  frames: string;
+  floorLevel: string;
   orientation?: string;
-  distanceFromSea?: number;
+  distanceFromSea: number;
+  renovationYear?: number;
   images: SanityImage[];
   mainImage: SanityImage;
   videos?: Array<{

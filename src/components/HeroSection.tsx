@@ -513,11 +513,8 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Kassandra">Kassandra</SelectItem>
-                      <SelectItem value="Nea Moudania">Nea Moudania</SelectItem>
                       <SelectItem value="Sithonia">Sithonia</SelectItem>
-                      <SelectItem value="Pefkochori">Pefkochori</SelectItem>
-                      <SelectItem value="Polygyros">Polygyros</SelectItem>
-                      <SelectItem value="Nikiti">Nikiti</SelectItem>
+                      <SelectItem value="Thessaloniki">Thessaloniki</SelectItem>
                     </SelectContent>
                   </Select>
                 </FieldCard>
@@ -540,6 +537,15 @@ export default function HeroSection({ className, style, onSearch }: HeroSectionP
                       <SelectItem value="Maisonette">
                         {t("propertyTypes.maisonette", "Maisonette")}
                       </SelectItem>
+                      <SelectItem value="House">{t("propertyTypes.house", "House")}</SelectItem>
+                      <SelectItem value="Complex">
+                        {" "}
+                        {t("propertyTypes.complex", "Complex")}
+                      </SelectItem>
+                      <SelectItem value="Building">
+                        {t("propertyTypes.building", "Building")}
+                      </SelectItem>
+                      <SelectItem value="Hotel">{t("propertyTypes.hotel", "Hotel")}</SelectItem>
                       <SelectItem value="Commercial">
                         {t("propertyTypes.commercial", "Commercial")}
                       </SelectItem>

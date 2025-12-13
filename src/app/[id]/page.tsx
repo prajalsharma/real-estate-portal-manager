@@ -163,7 +163,10 @@ export default function PropertyDetailsPage() {
   };
 
   // Helper to get localized description based on language
-  const getLocalizedDescription = (prop: PropertyQueryResult | null, lang: string): string | null => {
+  const getLocalizedDescription = (
+    prop: PropertyQueryResult | null,
+    lang: string
+  ): string | null => {
     if (!prop) return null;
     const descMap: Record<string, string | undefined> = {
       en: prop.description,
@@ -360,6 +363,8 @@ export default function PropertyDetailsPage() {
           suitableFor,
           floorType,
           floorLevel,
+          frames,
+          distanceFromSea,
           features[] {
             _key,
             title
@@ -369,6 +374,7 @@ export default function PropertyDetailsPage() {
             title
           },
           yearBuilt,
+          renovationYear,
           lotSize,
           agent-> {
             _id,
@@ -543,7 +549,9 @@ export default function PropertyDetailsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_325px] gap-8 relative">
               <div>
                 <div className="flex justify-between items-center">
-                  <h1 className="text-5xl font-light mb-2 hero-heading">{getLocalizedTitle(property, language)}</h1>
+                  <h1 className="text-5xl font-light mb-2 hero-heading">
+                    {getLocalizedTitle(property, language)}
+                  </h1>
                   <Dialog>
                     <DialogTrigger asChild>
                       <button className="cursor-pointer p-2 rounded-md  hover:bg-white transition-colors ">
@@ -638,10 +646,12 @@ export default function PropertyDetailsPage() {
                 <div className="mb-4">
                   <address className="not-italic flex flex-col gap-2">
                     <span>
-                      {property.address.street ? `${property.address.street}, ` : ""}{t(`location.${property.address?.city?.trim()}`, property.address?.city)}
+                      {property.address.street ? `${property.address.street}, ` : ""}
+                      {t(`location.${property.address?.city?.trim()}`, property.address?.city)}
                     </span>
                     <span className="font-medium text-lg mt-1">
-                      {t(`location.${property.address?.region?.trim()}`, property.address?.region)}, {property.address?.postalCode}
+                      {t(`location.${property.address?.region?.trim()}`, property.address?.region)},{" "}
+                      {property.address?.postalCode}
                     </span>
                   </address>
                 </div>
@@ -654,7 +664,9 @@ export default function PropertyDetailsPage() {
                       <>
                         <div className="flex items-center gap-1.5" title={t("property.floor")}>
                           <Building2 className="size-6 text-gold" aria-hidden="true" />
-                          <span className="font-medium">{t(`floorLevel.${property.floorLevel}`, property.floorLevel)}</span>
+                          <span className="font-medium">
+                            {t(`floorLevel.${property.floorLevel}`, property.floorLevel)}
+                          </span>
                         </div>
                         <div className="h-5 w-px bg-border" aria-hidden="true" />
                       </>
@@ -671,7 +683,9 @@ export default function PropertyDetailsPage() {
                     <div className="h-5 w-px bg-border" aria-hidden="true" />
                     <div className="flex items-center gap-1.5" title={t("property.area")}>
                       <Proportions className="size-6 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{property.sqft} {t("labels.area")}</span>
+                      <span className="font-medium">
+                        {property.sqft} {t("labels.area")}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -684,9 +698,7 @@ export default function PropertyDetailsPage() {
                         <p className="text-gray-500 text-sm">{t("property.translating")}</p>
                       </div>
                     ) : (
-                      <p className="text-gray-700 leading-relaxed">
-                        {displayDescription}
-                      </p>
+                      <p className="text-gray-700 leading-relaxed">{displayDescription}</p>
                     )}
                   </div>
                 )}
@@ -704,7 +716,10 @@ export default function PropertyDetailsPage() {
                           value={pricePerSqftDisplay}
                         />
                       )}
-                      <FeatureDetail label={t("property.area")} value={`${property.sqft} ${t("labels.area")}`} />
+                      <FeatureDetail
+                        label={t("property.area")}
+                        value={`${property.sqft} ${t("labels.area")}`}
+                      />
                       {property.lotSize !== null &&
                         property.lotSize !== undefined &&
                         property.lotSize > 0 && (
@@ -724,6 +739,27 @@ export default function PropertyDetailsPage() {
                         value={property.livingRooms}
                       />
                       <FeatureDetail label={t("property.kitchens")} value={property.kitchens} />
+                      <FeatureDetail
+                        label={t("property.floorType")}
+                        value={property.floorType || t("property.notAvailable")}
+                      />
+                      <FeatureDetail label={t("property.floorLevel")} value={property.floorLevel} />
+                      <FeatureDetail label={t("property.frames")} value={property.frames} />
+                      <FeatureDetail
+                        label={t("property.distanceFromSea")}
+                        value={
+                          property.distanceFromSea
+                            ? `${property.distanceFromSea} meters`
+                            : t("property.notAvailable")
+                        }
+                      />
+                      {property.renovationYear && (
+                        <FeatureDetail
+                          label={t("property.renovationYear")}
+                          value={property.renovationYear}
+                        />
+                      )}
+
                       {property.yearBuilt ? (
                         <FeatureDetail label={t("property.yearBuilt")} value={property.yearBuilt} />
                       ) : (
@@ -777,10 +813,15 @@ export default function PropertyDetailsPage() {
                   <div className="mb-4">
                     <address className="not-italic flex flex-col text-base">
                       <span>
-                        {property.address.street ? `${property.address.street}, ` : ""}{t(`location.${property.address?.city?.trim()}`, property.address?.city)}
+                        {property.address.street ? `${property.address.street}, ` : ""}
+                        {t(`location.${property.address?.city?.trim()}`, property.address?.city)}
                       </span>
                       <span className="font-medium text-lg">
-                        {t(`location.${property.address?.region?.trim()}`, property.address?.region)}, {property.address?.postalCode}
+                        {t(
+                          `location.${property.address?.region?.trim()}`,
+                          property.address?.region
+                        )}
+                        , {property.address?.postalCode}
                       </span>
                     </address>
                   </div>
