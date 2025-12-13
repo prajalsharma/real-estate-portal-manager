@@ -32,6 +32,11 @@ export interface SanityProperty {
   title_sr?: string;
   title_ru?: string;
   title_bg?: string;
+  description?: string;
+  description_el?: string;
+  description_sr?: string;
+  description_ru?: string;
+  description_bg?: string;
   slug: {
     current: string;
   };

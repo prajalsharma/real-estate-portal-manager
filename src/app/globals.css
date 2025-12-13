@@ -189,7 +189,7 @@
 }
 
 .hero-heading {
-  font-family: var(--font-playfair-display);
+  font-family: var(--font-playfair-display), var(--font-montserrat), "Segoe UI", sans-serif;
 }
 /* Hide Next.js error overlay portal */
 nextjs-portal {

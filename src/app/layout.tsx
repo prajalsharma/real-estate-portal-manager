@@ -10,14 +10,14 @@ import VisualEditsWrapper from "@/visual-edits/VisualEditsWrapper";
 import "leaflet/dist/leaflet.css";
 
 const montserrat = Montserrat({
-  subsets: ["latin"],
+  subsets: ["latin", "greek", "cyrillic", "cyrillic-ext"],
   variable: "--font-montserrat",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
 
 const playfair_display = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
   weight: ["400", "700"],
   variable: "--font-playfair-display",
   display: "swap",

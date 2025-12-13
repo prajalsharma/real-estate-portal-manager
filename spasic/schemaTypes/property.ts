@@ -11,6 +11,12 @@ export default defineType({
       description: "Add translations for the property title in different languages",
       options: { collapsible: true, collapsed: true },
     },
+    {
+      name: "descriptionTranslations",
+      title: "🌍 Description Translations",
+      description: "Add translations for the property description in different languages",
+      options: { collapsible: true, collapsed: true },
+    },
   ],
   fields: [
     // Title and Slug
@@ -466,9 +472,42 @@ export default defineType({
     // Description
     defineField({
       name: "description",
-      title: "Description",
+      title: "🇬🇧 Description (English)",
       type: "text",
       rows: 4,
+      description: "Primary description in English",
+    }),
+    defineField({
+      name: "description_el",
+      title: "🇬🇷 Description (Greek)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Περιγραφή στα Ελληνικά",
+    }),
+    defineField({
+      name: "description_sr",
+      title: "🇷🇸 Description (Serbian)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Опис на српском",
+    }),
+    defineField({
+      name: "description_ru",
+      title: "🇷🇺 Description (Russian)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Описание на русском",
+    }),
+    defineField({
+      name: "description_bg",
+      title: "🇧🇬 Description (Bulgarian)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Описание на български",
     }),
     defineField({
       name: "features",

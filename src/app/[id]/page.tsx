@@ -18,6 +18,7 @@ import {
   Clipboard,
   Send,
   Mail,
+  Building2,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useT } from "@/lib/i18n";
@@ -148,11 +149,44 @@ export default function PropertyDetailsPage() {
     return featureName;
   };
 
-  // Translate property description based on selected language
+  // Helper to get localized title based on language
+  const getLocalizedTitle = (prop: PropertyQueryResult | null, lang: string): string => {
+    if (!prop) return "";
+    const titleMap: Record<string, string | undefined> = {
+      en: prop.title,
+      el: prop.title_el,
+      sr: prop.title_sr,
+      ru: prop.title_ru,
+      bg: prop.title_bg,
+    };
+    return titleMap[lang] || prop.title || "";
+  };
+
+  // Helper to get localized description based on language
+  const getLocalizedDescription = (prop: PropertyQueryResult | null, lang: string): string | null => {
+    if (!prop) return null;
+    const descMap: Record<string, string | undefined> = {
+      en: prop.description,
+      el: prop.description_el,
+      sr: prop.description_sr,
+      ru: prop.description_ru,
+      bg: prop.description_bg,
+    };
+    // Return the localized description, fallback to English
+    return descMap[lang] || prop.description || null;
+  };
+
+  // Get the localized description from Sanity (preferred)
+  const localizedDescription = getLocalizedDescription(property, language);
+
+  // Only use translation API if no localized description exists in Sanity
   const { translatedText: translatedDescription, loading: translationLoading } = useTranslation(
-    property?.description || null,
+    localizedDescription ? null : property?.description || null,
     language
   );
+
+  // Final description to display: localized from Sanity > API translation > original
+  const displayDescription = localizedDescription || translatedDescription || property?.description;
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -279,8 +313,16 @@ export default function PropertyDetailsPage() {
         const query = `*[_type == "property" && slug.current == $slug][0] {
           _id,
           title,
+          title_el,
+          title_sr,
+          title_ru,
+          title_bg,
           slug,
           description,
+          description_el,
+          description_sr,
+          description_ru,
+          description_bg,
           price,
           currency,
           bedrooms,
@@ -316,6 +358,8 @@ export default function PropertyDetailsPage() {
           externalFeatures,
           construction,
           suitableFor,
+          floorType,
+          floorLevel,
           features[] {
             _key,
             title
@@ -499,7 +543,7 @@ export default function PropertyDetailsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_325px] gap-8 relative">
               <div>
                 <div className="flex justify-between items-center">
-                  <h1 className="text-5xl font-light mb-2 hero-heading">{property.title}</h1>
+                  <h1 className="text-5xl font-light mb-2 hero-heading">{getLocalizedTitle(property, language)}</h1>
                   <Dialog>
                     <DialogTrigger asChild>
                       <button className="cursor-pointer p-2 rounded-md  hover:bg-white transition-colors ">
@@ -594,10 +638,10 @@ export default function PropertyDetailsPage() {
                 <div className="mb-4">
                   <address className="not-italic flex flex-col gap-2">
                     <span>
-                      {property.address.street}, {property.address?.city}
+                      {property.address.street ? `${property.address.street}, ` : ""}{t(`location.${property.address?.city?.trim()}`, property.address?.city)}
                     </span>
                     <span className="font-medium text-lg mt-1">
-                      {property.address?.region}, {property.address?.postalCode}
+                      {t(`location.${property.address?.region?.trim()}`, property.address?.region)}, {property.address?.postalCode}
                     </span>
                   </address>
                 </div>
@@ -605,35 +649,43 @@ export default function PropertyDetailsPage() {
                   {priceDisplay && (
                     <p className="text-3xl text-black font-semibold mb-1.5">{priceDisplay}</p>
                   )}
-                  <div className="flex flex-wrap items-center gap-5 text-lg text-black">
-                    <div className="flex items-center gap-1.5">
-                      <Bed className="size-8 text-gold" aria-hidden="true" />
+                  <div className="flex flex-wrap items-center gap-4 text-lg text-black">
+                    {property.floorLevel && (
+                      <>
+                        <div className="flex items-center gap-1.5" title={t("property.floor")}>
+                          <Building2 className="size-6 text-gold" aria-hidden="true" />
+                          <span className="font-medium">{t(`floorLevel.${property.floorLevel}`, property.floorLevel)}</span>
+                        </div>
+                        <div className="h-5 w-px bg-border" aria-hidden="true" />
+                      </>
+                    )}
+                    <div className="flex items-center gap-1.5" title={t("property.bedrooms")}>
+                      <Bed className="size-6 text-gold" aria-hidden="true" />
                       <span className="font-medium">{property.bedrooms}</span>
-                      <span className="text-black">{t("labels.bed")}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <ShowerHead className="size-8 text-gold" aria-hidden="true" />
+                    <div className="h-5 w-px bg-border" aria-hidden="true" />
+                    <div className="flex items-center gap-1.5" title={t("property.bathrooms")}>
+                      <ShowerHead className="size-6 text-gold" aria-hidden="true" />
                       <span className="font-medium">{property.bathrooms}</span>
-                      <span className="text-black">{t("labels.bath")}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <Proportions className="size-8 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{property.sqft}</span>
-                      <span className="text-black">{t("labels.area")}</span>
+                    <div className="h-5 w-px bg-border" aria-hidden="true" />
+                    <div className="flex items-center gap-1.5" title={t("property.area")}>
+                      <Proportions className="size-6 text-gold" aria-hidden="true" />
+                      <span className="font-medium">{property.sqft} {t("labels.area")}</span>
                     </div>
                   </div>
                 </div>
-                {(translatedDescription || property.description) && (
+                {displayDescription && (
                   <div className="mt-8">
                     <h2 className="text-xl font-semibold mb-3">{t("property.description")}</h2>
-                    {translationLoading ? (
+                    {translationLoading && !localizedDescription ? (
                       <div className="flex items-center gap-2">
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gold"></div>
                         <p className="text-gray-500 text-sm">{t("property.translating")}</p>
                       </div>
                     ) : (
                       <p className="text-gray-700 leading-relaxed">
-                        {translatedDescription || property.description}
+                        {displayDescription}
                       </p>
                     )}
                   </div>
@@ -680,12 +732,6 @@ export default function PropertyDetailsPage() {
                           value={t("property.underConstruction")}
                         />
                       )}
-                      {property.floorType && (
-                        <FeatureDetail
-                          label={t("property.floorType")}
-                          value={translateFeature(property.floorType)}
-                        />
-                      )}
                       <FeatureDetail
                         label={t("property.status")}
                         value={translateFeature(property.status)}
@@ -704,7 +750,10 @@ export default function PropertyDetailsPage() {
 
                 <FeatureBlock
                   title={t("property.interior")}
-                  items={property.interiorFeatures || []}
+                  items={[
+                    ...(property.floorType ? [property.floorType] : []),
+                    ...(property.interiorFeatures || []),
+                  ]}
                   translateFeature={translateFeature}
                 />
                 <FeatureBlock
