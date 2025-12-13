@@ -704,13 +704,13 @@ export default function PropertyDetailsPage() {
                           value={pricePerSqftDisplay}
                         />
                       )}
-                      <FeatureDetail label={t("property.area")} value={`${property.sqft} sq.m.`} />
+                      <FeatureDetail label={t("property.area")} value={`${property.sqft} ${t("labels.area")}`} />
                       {property.lotSize !== null &&
                         property.lotSize !== undefined &&
                         property.lotSize > 0 && (
                           <FeatureDetail
                             label={t("property.plotSize")}
-                            value={`${property.lotSize} sq.m.`}
+                            value={`${property.lotSize} ${t("labels.area")}`}
                           />
                         )}
                       <FeatureDetail
@@ -777,10 +777,10 @@ export default function PropertyDetailsPage() {
                   <div className="mb-4">
                     <address className="not-italic flex flex-col text-base">
                       <span>
-                        {property.address.street}, {property.address?.city}
+                        {property.address.street ? `${property.address.street}, ` : ""}{t(`location.${property.address?.city?.trim()}`, property.address?.city)}
                       </span>
                       <span className="font-medium text-lg">
-                        {property.address?.region}, {property.address?.postalCode}
+                        {t(`location.${property.address?.region?.trim()}`, property.address?.region)}, {property.address?.postalCode}
                       </span>
                     </address>
                   </div>
