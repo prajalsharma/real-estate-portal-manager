@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Bed, MapPin, Proportions, ShowerHead } from "lucide-react";
+import { Bed, MapPin, Proportions, ShowerHead, Building2 } from "lucide-react";
 import clsx from "clsx";
 import { useAppPrefs } from "@/lib/prefs-context";
 import { useT } from "@/lib/i18n";
@@ -20,6 +20,22 @@ export type SanityAllPropertiesProps = {
   properties: PropertyQueryResult[];
   loading?: boolean;
   error?: string | null;
+};
+
+// Helper to get localized title based on language
+const getLocalizedTitle = (
+  property: PropertyQueryResult,
+  lang: string
+): string => {
+  const titleMap: Record<string, string | undefined> = {
+    en: property.title,
+    el: property.title_el,
+    sr: property.title_sr,
+    ru: property.title_ru,
+    bg: property.title_bg,
+  };
+  // Return the localized title, fallback to English title
+  return titleMap[lang] || property.title;
 };
 
 export default function SanityAllProperties({
@@ -111,29 +127,35 @@ export default function SanityAllProperties({
                 </div>
 
                 <div className="p-4 sm:p-5">
-                  <h3 className="font-semibold text-lg truncate">{p.title}</h3>
+                  <h3 className="font-semibold text-lg truncate">{getLocalizedTitle(p, language)}</h3>
                   <p className="text-primary text-lg font-bold mb-1">{priceDisplay}</p>
                   <p className="text-gray-700 mb-1 flex gap-1 items-center text-sm">
                     <MapPin className="text-primary size-4" />
-                    {p.address?.city}, {p.address?.region}
+                    {t(`location.${p.address?.city?.trim()}`, p.address?.city)}, {t(`location.${p.address?.region?.trim()}`, p.address?.region)}
                   </p>
-                  <div className="flex items-center gap-4 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
-                    <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-3 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
+                    {p.floorLevel && (
+                      <>
+                        <div className="flex items-center gap-1" title={t("property.floor")}>
+                          <Building2 className="h-4 w-4 text-gold" aria-hidden="true" />
+                          <span className="font-medium">{t(`floorLevel.${p.floorLevel}`, p.floorLevel)}</span>
+                        </div>
+                        <div className="h-4 w-px bg-border" aria-hidden="true" />
+                      </>
+                    )}
+                    <div className="flex items-center gap-1" title={t("property.bedrooms")}>
                       <Bed className="h-4 w-4 text-gold" aria-hidden="true" />
                       <span className="font-medium">{p.bedrooms}</span>
-                      <span className="text-muted-foreground">{t("labels.bed")}</span>
                     </div>
                     <div className="h-4 w-px bg-border" aria-hidden="true" />
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1" title={t("property.bathrooms")}>
                       <ShowerHead className="h-4 w-4 text-gold" aria-hidden="true" />
                       <span className="font-medium">{p.bathrooms}</span>
-                      <span className="text-muted-foreground">{t("labels.bath")}</span>
                     </div>
                     <div className="h-4 w-px bg-border" aria-hidden="true" />
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1" title={t("property.area")}>
                       <Proportions className="h-4 w-4 text-gold" aria-hidden="true" />
-                      <span className="font-medium">{p.sqft}</span>
-                      <span className="text-muted-foreground">{t("labels.area")}</span>
+                      <span className="font-medium">{p.sqft} {t("labels.area")}</span>
                     </div>
                   </div>
                   <Link

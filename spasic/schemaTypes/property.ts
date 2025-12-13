@@ -4,13 +4,56 @@ export default defineType({
   name: "property",
   title: "Property",
   type: "document",
+  fieldsets: [
+    {
+      name: "translations",
+      title: "🌍 Title Translations",
+      description: "Add translations for the property title in different languages",
+      options: { collapsible: true, collapsed: true },
+    },
+    {
+      name: "descriptionTranslations",
+      title: "🌍 Description Translations",
+      description: "Add translations for the property description in different languages",
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     // Title and Slug
     defineField({
       name: "title",
-      title: "Title",
+      title: "🇬🇧 Title (English)",
       type: "string",
+      description: "Primary title in English (required)",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "title_el",
+      title: "🇬🇷 Title (Greek)",
+      type: "string",
+      fieldset: "translations",
+      description: "Τίτλος στα Ελληνικά",
+    }),
+    defineField({
+      name: "title_sr",
+      title: "🇷🇸 Title (Serbian)",
+      type: "string",
+      fieldset: "translations",
+      description: "Наслов на српском",
+    }),
+    defineField({
+      name: "title_ru",
+      title: "🇷🇺 Title (Russian)",
+      type: "string",
+      fieldset: "translations",
+      description: "Название на русском",
+    }),
+    defineField({
+      name: "title_bg",
+      title: "🇧🇬 Title (Bulgarian)",
+      type: "string",
+      fieldset: "translations",
+      description: "Заглавие на български",
     }),
     defineField({
       name: "slug",
@@ -422,9 +465,42 @@ export default defineType({
     // Description and tags
     defineField({
       name: "description",
-      title: "Description",
+      title: "🇬🇧 Description (English)",
       type: "text",
       rows: 4,
+      description: "Primary description in English",
+    }),
+    defineField({
+      name: "description_el",
+      title: "🇬🇷 Description (Greek)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Περιγραφή στα Ελληνικά",
+    }),
+    defineField({
+      name: "description_sr",
+      title: "🇷🇸 Description (Serbian)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Опис на српском",
+    }),
+    defineField({
+      name: "description_ru",
+      title: "🇷🇺 Description (Russian)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Описание на русском",
+    }),
+    defineField({
+      name: "description_bg",
+      title: "🇧🇬 Description (Bulgarian)",
+      type: "text",
+      rows: 4,
+      fieldset: "descriptionTranslations",
+      description: "Описание на български",
     }),
     defineField({
       name: "features",
