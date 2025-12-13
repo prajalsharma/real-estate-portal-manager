@@ -364,20 +364,18 @@ defineField({
       type: "image",
       options: {
         hotspot: true,
-        storeOriginalFilename: true, // optional but useful for reference
+        accept: "image/*",
       },
       fields: [
         {
           name: "alt",
           type: "string",
           title: "Alternative Text",
-          description: "Describe what is shown in the image",
         },
         {
           name: "caption",
           type: "string",
           title: "Caption",
-          description: "Optional caption for the image",
         },
       ],
     },
@@ -386,10 +384,11 @@ defineField({
     sortable: true,
     layout: "grid",
   },
-  validation: (Rule) => Rule.min(1).max(50),
-  description:
-    "Click 'Add' → 'Upload' → select multiple images at once (hold Ctrl/Cmd and click multiple files). Drag thumbnails to reorder.",
-}),
+  // ❌ REMOVE Rule.min(1) — it blocks multi uploads
+  validation: (Rule) =>
+    Rule.max(50).warning("Maximum 50 images recommended"),
+});
+
 
     // Main Image
     defineField({
