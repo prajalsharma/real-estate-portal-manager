@@ -131,7 +131,7 @@ export default function SanityAllProperties({
                   <p className="text-primary text-lg font-bold mb-1">{priceDisplay}</p>
                   <p className="text-gray-700 mb-1 flex gap-1 items-center text-sm">
                     <MapPin className="text-primary size-4" />
-                    {p.address?.city}, {p.address?.region}
+                    {t(`location.${p.address?.city?.trim()}`, p.address?.city)}, {t(`location.${p.address?.region?.trim()}`, p.address?.region)}
                   </p>
                   <div className="flex items-center gap-3 text-[13px] sm:text-sm text-muted-foreground mb-2 mt-1">
                     {p.floorLevel && (

@@ -162,6 +162,17 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorLevel.10th Floor": "10th",
 
     // Locations - Halkidiki (Latin keys for Sanity data)
+    // Alternate spellings
+    "location.Nea Potidea": "Nea Potidea",
+    "location.Portaria Beach": "Portaria Beach",
+    "location.Hanioti": "Hanioti",
+    "location.Pefkohori": "Pefkohori",
+    "location.Nea Flogita": "Nea Flogita",
+    "location.Agia Triada": "Agia Triada",
+    "location.Nea Plagia": "Nea Plagia",
+    "location.Mouries": "Mouries",
+    "location.Afitos": "Afitos",
+    
     "location.Kassandreia": "Kassandreia",
     "location.Afytos": "Afytos",
     "location.Kallithea": "Kallithea",
@@ -612,6 +623,17 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorLevel.10th Floor": "10ος",
 
     // Locations - Halkidiki (Latin keys → Greek names)
+    // Alternate spellings
+    "location.Nea Potidea": "Νέα Ποτίδαια",
+    "location.Portaria Beach": "Παραλία Πορταριάς",
+    "location.Hanioti": "Χανιώτη",
+    "location.Pefkohori": "Πευκοχώρι",
+    "location.Nea Flogita": "Νέα Φλογητά",
+    "location.Agia Triada": "Αγία Τριάδα",
+    "location.Nea Plagia": "Νέα Πλάγια",
+    "location.Mouries": "Μουριές",
+    "location.Afitos": "Άφυτος",
+    
     "location.Kassandreia": "Κασσάνδρεια",
     "location.Afytos": "Άφυτος",
     "location.Kallithea": "Καλλιθέα",
@@ -1054,6 +1076,17 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorLevel.10th Floor": "10.",
 
     // Locations - Halkidiki (Latin keys → Serbian)
+    // Alternate spellings
+    "location.Nea Potidea": "Неа Потидеа",
+    "location.Portaria Beach": "Плажа Портарија",
+    "location.Hanioti": "Ханиоти",
+    "location.Pefkohori": "Пефкохори",
+    "location.Nea Flogita": "Неа Флогита",
+    "location.Agia Triada": "Агија Тријада",
+    "location.Nea Plagia": "Неа Плагија",
+    "location.Mouries": "Муријес",
+    "location.Afitos": "Афитос",
+    
     "location.Kassandreia": "Касандреја",
     "location.Afytos": "Афитос",
     "location.Kallithea": "Калитеа",
@@ -1495,6 +1528,17 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorLevel.10th Floor": "11-й",
 
     // Locations - Halkidiki (Latin keys → Russian)
+    // Alternate spellings
+    "location.Nea Potidea": "Неа Потидея",
+    "location.Portaria Beach": "Пляж Портария",
+    "location.Hanioti": "Ханиоти",
+    "location.Pefkohori": "Певкохори",
+    "location.Nea Flogita": "Неа Флогита",
+    "location.Agia Triada": "Агия Триада",
+    "location.Nea Plagia": "Неа Плагия",
+    "location.Mouries": "Муриес",
+    "location.Afitos": "Афитос",
+    
     "location.Kassandreia": "Кассандрия",
     "location.Afytos": "Афитос",
     "location.Kallithea": "Каллифея",
@@ -1936,6 +1980,17 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "floorLevel.10th Floor": "10-ти",
 
     // Locations - Halkidiki (Latin keys → Bulgarian)
+    // Alternate spellings
+    "location.Nea Potidea": "Неа Потидея",
+    "location.Portaria Beach": "Плаж Портария",
+    "location.Hanioti": "Ханиоти",
+    "location.Pefkohori": "Пефкохори",
+    "location.Nea Flogita": "Неа Флогита",
+    "location.Agia Triada": "Агия Триада",
+    "location.Nea Plagia": "Неа Плагия",
+    "location.Mouries": "Муриес",
+    "location.Afitos": "Афитос",
+    
     "location.Kassandreia": "Касандрия",
     "location.Afytos": "Афитос",
     "location.Kallithea": "Калитея",
