@@ -19,7 +19,8 @@ export default defineType({
       options: {
         source: "title",
         maxLength: 96,
-        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
+        slugify: (input) =>
+          input.toLowerCase().replace(/\s+/g, "-").slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -53,7 +54,10 @@ export default defineType({
           { title: "Satellite antenna", value: "Satellite antenna" },
           { title: "Alarm", value: "Alarm" },
           { title: "Reception with a doorman", value: "Reception with a doorman" },
-          { title: "Electric car charging facilities", value: "Electric car charging facilities" },
+          {
+            title: "Electric car charging facilities",
+            value: "Electric car charging facilities",
+          },
           { title: "Luxurious", value: "Luxurious" },
         ],
       },
@@ -183,6 +187,7 @@ export default defineType({
           { title: "Subzafos", value: "Subzafos" },
           { title: "Need renovation", value: "Need renovation" },
           { title: "Under construction", value: "Under construction" },
+          { title: "Good Condition", value: "Good Condition" }, // new
         ],
       },
     }),
@@ -224,45 +229,31 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // Rooms Details
+    // Rooms Details (now optional, max 100)
     defineField({
       name: "bedrooms",
       title: "Bedrooms",
       type: "number",
-      validation: (Rule) => Rule.required().min(0).max(20),
+      validation: (Rule) => Rule.min(0).max(100),
     }),
     defineField({
       name: "bathrooms",
       title: "Bathrooms",
       type: "number",
-      validation: (Rule) => Rule.required().min(0).max(20),
+      validation: (Rule) => Rule.min(0).max(100),
     }),
     defineField({
       name: "livingRooms",
       title: "Living Rooms",
       type: "number",
-      validation: (Rule) => Rule.min(0).max(10),
+      validation: (Rule) => Rule.min(0).max(100),
     }),
     defineField({
       name: "kitchens",
       title: "Kitchens",
       type: "number",
-      validation: (Rule) => Rule.min(0).max(10),
+      validation: (Rule) => Rule.min(0).max(100),
     }),
-
-    // // Legacy (kept for compatibility)
-    // defineField({
-    //   name: "beds",
-    //   title: "Beds (Legacy - use Bedrooms)",
-    //   type: "number",
-    //   validation: (Rule) => Rule.min(0).max(20),
-    // }),
-    // defineField({
-    //   name: "baths",
-    //   title: "Baths (Legacy - use Bathrooms)",
-    //   type: "number",
-    //   validation: (Rule) => Rule.min(0).max(20),
-    // }),
 
     defineField({
       name: "sqft",
@@ -322,7 +313,7 @@ export default defineType({
       description: "Tick if property should be shown in homepage carousel.",
     }),
 
-    // Property Images — BULK UPLOAD with improved UX
+    // Property Images
     defineField({
       name: "images",
       title: "Property Images",
@@ -358,7 +349,7 @@ export default defineType({
         "📸 Click 'Add' → 'Upload' → select multiple image files at once (hold Ctrl/Cmd and click each file) → click 'Open' to upload all together. Drag thumbnails to reorder.",
     }),
 
-    // Main Image (legacy/preview only)
+    // Main Image
     defineField({
       name: "mainImage",
       title: "Main Image",
@@ -368,7 +359,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // Videos Section — direct file upload (not Mux)
+    // Videos
     defineField({
       name: "videos",
       title: "Property Videos",
@@ -381,7 +372,7 @@ export default defineType({
       ],
     }),
 
-    // Address object
+    // Address
     defineField({
       name: "address",
       title: "Address",
@@ -412,7 +403,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // Coordinates for maps
+    // Coordinates
     defineField({
       name: "latitude",
       title: "Latitude",
@@ -428,7 +419,7 @@ export default defineType({
       validation: (Rule) => Rule.min(-180).max(180),
     }),
 
-    // Description
+    // Description and tags
     defineField({
       name: "description",
       title: "Description",
@@ -449,12 +440,26 @@ export default defineType({
       of: [{ type: "string" }],
       options: { layout: "tags" },
     }),
+
+    // Year built
     defineField({
       name: "yearBuilt",
       title: "Year Built",
       type: "number",
-      validation: (Rule) => Rule.min(1800).max(new Date().getFullYear() + 2),
+      validation: (Rule) =>
+        Rule.min(1800).max(new Date().getFullYear() + 2),
     }),
+
+    // Renovation year (new, after yearBuilt)
+    defineField({
+      name: "renovationYear",
+      title: "Renovation Year",
+      type: "number",
+      description: "Year of last major renovation (if applicable)",
+      validation: (Rule) =>
+        Rule.min(1800).max(new Date().getFullYear() + 2),
+    }),
+
     defineField({
       name: "lotSize",
       title: "Lot Size (sq meters)",
