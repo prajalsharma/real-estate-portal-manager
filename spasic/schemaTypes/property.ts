@@ -364,18 +364,20 @@ defineField({
       type: "image",
       options: {
         hotspot: true,
-        storeOriginalFilename: true,
+        storeOriginalFilename: true, // optional but useful for reference
       },
       fields: [
         {
           name: "alt",
           type: "string",
           title: "Alternative Text",
+          description: "Describe what is shown in the image",
         },
         {
           name: "caption",
           type: "string",
           title: "Caption",
+          description: "Optional caption for the image",
         },
       ],
     },
@@ -386,10 +388,8 @@ defineField({
   },
   validation: (Rule) => Rule.min(1).max(50),
   description:
-    "Drag & drop multiple images here, or click Add → Upload (not Select asset) to upload many at once.",
+    "Click 'Add' → 'Upload' → select multiple images at once (hold Ctrl/Cmd and click multiple files). Drag thumbnails to reorder.",
 }),
-
-
 
     // Main Image
     defineField({
