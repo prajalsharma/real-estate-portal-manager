@@ -355,42 +355,42 @@ export default defineType({
       initialValue: false,
       description: "Tick if property should be shown in homepage carousel.",
     }),
-
-    // Property Images
-    defineField({
-      name: "images",
-      title: "Property Images",
-      type: "array",
-      of: [
+//Property Images
+   defineField({
+  name: "images",
+  title: "Property Images",
+  type: "array",
+  of: [
+    {
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      fields: [
         {
-          type: "image",
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alternative Text",
-              description: "Describe what is shown in the image",
-            },
-            {
-              name: "caption",
-              type: "string",
-              title: "Caption",
-              description: "Optional caption for the image",
-            },
-          ],
+          name: "alt",
+          type: "string",
+          title: "Alternative Text",
+          description: "Describe what is shown in the image",
+        },
+        {
+          name: "caption",
+          type: "string",
+          title: "Caption",
+          description: "Optional caption for the image",
         },
       ],
-      options: {
-        sortable: true,
-        layout: "grid",
-      },
-      validation: (Rule) => Rule.min(1).max(50),
-      description:
-        "📸 Click 'Add' → 'Upload' → select multiple image files at once (hold Ctrl/Cmd and click each file) → click 'Open' to upload all together. Drag thumbnails to reorder.",
-    }),
+    },
+  ],
+  options: {
+    sortable: true,
+    layout: "grid",
+  },
+  validation: (Rule) => Rule.min(1).max(50),
+  description:
+    "📸 Click 'Add' → 'Upload' → select multiple image files at once (hold Ctrl/Cmd and click each file) → click 'Open' to upload all together. Drag thumbnails to reorder.",
+}),
+
 
     // Main Image
     defineField({
