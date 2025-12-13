@@ -91,7 +91,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "features.solarWaterHeater": "Solar water heater",
     "features.securityDoor": "Security door",
     "features.doubleGlassboard": "Double glassboard",
-    "features.sites": "Sites",
+    "features.sites": "Window screens",
     "features.bright": "Bright",
     "features.diaspora": "Diaspora",
     "features.stained": "Stained",
@@ -139,6 +139,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.student": "Student",
     "suitableFor.professionalUse": "Professional use",
     "suitableFor.clinic": "Clinic",
+
+    // Floor Types
+    "floorType.wood": "Wood",
+    "floorType.mosaic": "Mosaic",
+    "floorType.granite": "Granite",
+    "floorType.tiles": "Tiles",
 
     // Hero & sections
     "hero.title": "Real estate for living and investments",
@@ -188,6 +194,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Kitchens",
     "property.yearBuilt": "Year of construction",
     "property.underConstruction": "Under construction",
+    "property.floorType": "Floor Type",
     "property.status": "Status",
     "property.lastUpdated": "Last Updated",
     "property.interior": "Interior",
@@ -335,7 +342,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "features.solarWaterHeater": "Ηλιακός θερμοσίφωνας",
     "features.securityDoor": "Ασφαλής πόρτα",
     "features.doubleGlassboard": "Διπλό τζάμι",
-    "features.sites": "Σάιτες",
+    "features.sites": "Σίτες παραθύρων",
     "features.bright": "Φωτεινό",
     "features.diaspora": "Διασπορά",
     "features.stained": "Βαμμένο",
@@ -383,6 +390,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.student": "Φοιτητής",
     "suitableFor.professionalUse": "Επαγγελματική χρήση",
     "suitableFor.clinic": "Κλινική",
+
+    // Floor Types
+    "floorType.wood": "Ξύλο",
+    "floorType.mosaic": "Ψηφιδωτό",
+    "floorType.granite": "Γρανίτης",
+    "floorType.tiles": "Πλακίδια",
 
     // Hero & sections
     "hero.title": "Ακίνητα για κατοικία και επένδυση",
@@ -433,6 +446,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Κουζίνες",
     "property.yearBuilt": "Έτος κατασκευής",
     "property.underConstruction": "Υπό κατασκευή",
+    "property.floorType": "Τύπος δαπέδου",
     "property.status": "Κατάσταση",
     "property.lastUpdated": "Τελευταία ενημέρωση",
     "property.interior": "Εσωτερικά",
@@ -581,7 +595,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "features.solarWaterHeater": "Соларни бојлер",
     "features.securityDoor": "Сигурносна врата",
     "features.doubleGlassboard": "Двоструки стаклени панели",
-    "features.sites": "Сајтови",
+    "features.sites": "Мреже за прозоре",
     "features.bright": "Светло",
     "features.diaspora": "Дијаспора",
     "features.stained": "Обојено",
@@ -629,6 +643,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.student": "Студент",
     "suitableFor.professionalUse": "Стручна употреба",
     "suitableFor.clinic": "Клиника",
+
+    // Floor Types
+    "floorType.wood": "Дрво",
+    "floorType.mosaic": "Мозаик",
+    "floorType.granite": "Гранит",
+    "floorType.tiles": "Плочице",
 
     // Hero & sections
     "hero.title": "Непокретности за живот и инвестиције",
@@ -679,6 +699,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухиње",
     "property.yearBuilt": "Година изградње",
     "property.underConstruction": "У изградњи",
+    "property.floorType": "Тип пода",
     "property.status": "Статус",
     "property.lastUpdated": "Последње ажурирање",
     "property.interior": "Ентеријер",
@@ -826,7 +847,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "features.solarWaterHeater": "Солнечный водонагреватель",
     "features.securityDoor": "Бронированная дверь",
     "features.doubleGlassboard": "Двойное остекление",
-    "features.sites": "Сайты",
+    "features.sites": "Москитные сетки",
     "features.bright": "Светлый",
     "features.diaspora": "Диаспора",
     "features.stained": "Окрашенный",
@@ -874,6 +895,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.student": "Студент",
     "suitableFor.professionalUse": "Профессиональное использование",
     "suitableFor.clinic": "Клиника",
+
+    // Floor Types
+    "floorType.wood": "Дерево",
+    "floorType.mosaic": "Мозаика",
+    "floorType.granite": "Гранит",
+    "floorType.tiles": "Плитка",
 
     // Hero & sections
     "hero.title": "Недвижимость для жизни и инвестиций",
@@ -924,6 +951,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухни",
     "property.yearBuilt": "Год постройки",
     "property.underConstruction": "В стадии строительства",
+    "property.floorType": "Тип пола",
     "property.status": "Статус",
     "property.lastUpdated": "Последнее обновление",
     "property.interior": "Интерьер",
@@ -1071,7 +1099,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "features.solarWaterHeater": "Слънчев бойлер",
     "features.securityDoor": "Сигурна врата",
     "features.doubleGlassboard": "Двоен стъклопакет",
-    "features.sites": "Сайтове",
+    "features.sites": "Мрежи за прозорци",
     "features.bright": "Светло",
     "features.diaspora": "Диаспора",
     "features.stained": "Боядисано",
@@ -1119,6 +1147,12 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "suitableFor.student": "Студент",
     "suitableFor.professionalUse": "Професионална употреба",
     "suitableFor.clinic": "Клиника",
+
+    // Floor Types
+    "floorType.wood": "Дърво",
+    "floorType.mosaic": "Мозайка",
+    "floorType.granite": "Гранит",
+    "floorType.tiles": "Плочки",
 
     // Hero & sections
     "hero.title": "Недвижими имоти за живот и инвестиции",
@@ -1169,6 +1203,7 @@ const dict: Record<SupportedLanguage, Record<string, string>> = {
     "property.kitchens": "Кухни",
     "property.yearBuilt": "Година на строителство",
     "property.underConstruction": "В процес на строителство",
+    "property.floorType": "Тип под",
     "property.status": "Статус",
     "property.lastUpdated": "Последна актуализация",
     "property.interior": "Интериор",

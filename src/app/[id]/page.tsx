@@ -79,7 +79,9 @@ export default function PropertyDetailsPage() {
       "Solar water heater": "features.solarWaterHeater",
       "Security door": "features.securityDoor",
       "Double glassboard": "features.doubleGlassboard",
-      Sites: "features.sites",
+      "Window screens": "features.sites",
+      Sites: "features.sites", // Legacy support
+      Site: "features.sites", // Legacy support (singular)
       Bright: "features.bright",
       Diaspora: "features.diaspora",
       Stained: "features.stained",
@@ -124,6 +126,11 @@ export default function PropertyDetailsPage() {
       Student: "suitableFor.student",
       "Professional use": "suitableFor.professionalUse",
       Clinic: "suitableFor.clinic",
+      // Floor Types
+      Wood: "floorType.wood",
+      Mosaic: "floorType.mosaic",
+      Granite: "floorType.granite",
+      Tiles: "floorType.tiles",
       // Property Types
       Apartment: "propertyTypes.apartment",
       Maisonette: "propertyTypes.maisonette",
@@ -673,6 +680,12 @@ export default function PropertyDetailsPage() {
                         <FeatureDetail
                           label={t("property.yearBuilt")}
                           value={t("property.underConstruction")}
+                        />
+                      )}
+                      {property.floorType && (
+                        <FeatureDetail
+                          label={t("property.floorType")}
+                          value={translateFeature(property.floorType)}
                         />
                       )}
                       <FeatureDetail
